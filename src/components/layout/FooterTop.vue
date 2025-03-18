@@ -22,7 +22,11 @@ const icons = ref(iconsData)
       <div class="container d-flex">
         <input type="text" class="form-control" placeholder="Digite para buscar..." />
 
-        <ButtonComponent class="position-btn" :text="'Subscribe'" :style="'orange'" />
+        <ButtonComponent 
+          class="position-btn" 
+          :text="'Subscribe'" 
+          :style="'orange'" 
+        />
       </div>
       <div class="icons-footer-top">
         <a v-for="icon in icons" :key="icon.id" :href=icon.link target="_blankw">
