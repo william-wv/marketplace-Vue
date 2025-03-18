@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "image": "/icons/header-top/Twitter.svg",
+    "desc": "Logo Twitter",
+    "link": "https://x.com/?lang=pt"
+  },
+  {
+    "id": 2,
+    "image": "/icons/header-top/Facebook.svg",
+    "desc": "Logo Facebook",
+    "link": "https://www.facebook.com/"
+  },
+  {
+    "id": 3,
+    "image": "/icons/header-top/Pinterest.svg",
+    "desc": "Logo Pinterest",
+    "link": "https://br.pinterest.com/"
+  },
+  {
+    "id": 4,
+    "image": "/icons/header-top/Reddit.svg",
+    "desc": "Logo Reddit",
+    "link": "https://www.reddit.com/?rdt=63634"
+  },
+  {
+    "id": 5,
+    "image": "/icons/header-top/Youtube.svg",
+    "desc": "Logo Youtube",
+    "link": "https://www.youtube.com/"
+  },
+  {
+    "id": 6,
+    "image": "/icons/header-top/Instagram.svg",
+    "desc": "Logo Instagram",
+    "link": "https://www.instagram.com/"
+  }
+]

@@ -1,26 +1,29 @@
 <script setup>
-import FooterComponent from './components/FooterComponent.vue';
-import HeaderComponent from './components/HeaderComponent.vue';
+import FooterBottom from './components/layout/FooterBottom.vue';
+import FooterTop from './components/layout/FooterTop.vue';
+import HeaderBottom from './components/layout/HeaderBottom.vue';
+import HeaderTop from './components/layout/HeaderTop.vue';
 
 
 </script>
 
 <template>
-<header>
-  <HeaderComponent/>
+  <header>
+    <HeaderTop />
+    <HeaderBottom/>
+  </header>
 
   <main>
-    <RouterView/>
+    <RouterView />
   </main>
 
   <footer>
-    <FooterComponent/>
+    <FooterTop />
+    <FooterBottom/>
   </footer>
-</header>
+
 
 
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

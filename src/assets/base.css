@@ -1,9 +1,12 @@
+
 :root {
   --White-000: #FFFFFF;  
   --White-050: #F2F4F5;
   --White-100: #E4E7E9;
   --White-200: #C9CFD2;
+
   --White-300: #A5ACB2;
+  --White-250: #929292;
   --Gray-600: #5F6C72;
   --Gray-800: #303639;
   --Gray-900: #191C1F;
@@ -20,4 +23,26 @@
   --Orange-100: #FFE7D6;
   --Orange-500: #FA8232;
 }
+
+
+
+.logo{
+  font-family: "PT Sans Caption",;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.h1-footer-600 {
+  font-family: "Public Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.h2-footer-400 {
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 

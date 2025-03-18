@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "image": "/icons/header-bottom/ShoppingCart.svg",
+    "desc": "icon shopping cart"
+  },
+  {
+    "id": 2,
+    "image": "/icons/header-bottom/Heart.svg",
+    "desc": "icon favorite"
+  },
+  {
+    "id": 3,
+    "image": "/icons/header-bottom/User.svg",
+    "desc": "icon user"
+  }
+]
