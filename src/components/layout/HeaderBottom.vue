@@ -41,18 +41,20 @@ input {
       <h1 class="logo">Compre +</h1>
     </div>
     <div class="busca__header">
-        <input v-model="searchQuery" type="text" class="form-control" placeholder="Digite para buscar..." />
+      <input type="text" class="form-control" placeholder="Digite para buscar..." />
 
-        <!-- <ul class="list-group mt-3">
+      <!-- <ul class="list-group mt-3">
           <li v-for="item in filteredItems" :key="item.id" class="list-group-item">
             {{ item.name }}
           </li>
         </ul> -->
 
-      </div>
+    </div>
     <div class="container-itens__header d-flex">
       <div v-for="icon in icons" :key="icon.id" class="icons">
-          <img :src=icon.image :alt=icon.desc>
+        <RouterLink :to="icon.route">
+          <img :src="icon.image" :alt="icon.desc">
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -72,19 +74,20 @@ h1 {
   font-size: 2rem;
 }
 
-.busca__header{
+.busca__header {
   display: flex;
   align-self: center;
   width: 30vw;
 }
-.container-itens__header{
+
+.container-itens__header {
   align-items: center;
   gap: 5px;
 }
 
 
 @media (max-width: 450px) {
-  .logo{
+  .logo {
     font-size: 1.5rem;
   }
 
@@ -92,10 +95,9 @@ h1 {
   input {
     height: 30px !important;
   }
-  .form-control::placeholder{
+
+  .form-control::placeholder {
     font-size: 0.7rem;
   }
 }
-
-
 </style>

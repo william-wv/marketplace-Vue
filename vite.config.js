@@ -10,9 +10,22 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  optimizeDeps: {
+    include: ['vue']
+  },
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => tag === 'button' 
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
 })
+
+
+

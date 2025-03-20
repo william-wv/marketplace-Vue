@@ -35,7 +35,6 @@ p, a, li, h1 {
 
 .phrase{
   align-items: center;
-  
 }
 
 .follow {
@@ -52,7 +51,7 @@ img {
   width: auto;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 668px) {
   .container-top{
     display: none !important;
   }

@@ -1,6 +1,8 @@
 @import './base.css';
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 *{
 margin: 0;
@@ -9,6 +11,7 @@ border: 0;
 font-size: 100%;
 font: inherit;
 vertical-align: baseline;
+overflow-x: hidden;
 }
 
 ol, ul {

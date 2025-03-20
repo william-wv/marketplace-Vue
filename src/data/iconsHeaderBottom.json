@@ -2,16 +2,19 @@
   {
     "id": 1,
     "image": "/icons/header-bottom/ShoppingCart.svg",
-    "desc": "icon shopping cart"
+    "desc": "icon shopping cart",
+    "route": "/carrinho"
   },
   {
     "id": 2,
     "image": "/icons/header-bottom/Heart.svg",
-    "desc": "icon favorite"
+    "desc": "icon favorite",
+    "route": "/favoritos"
   },
   {
     "id": 3,
     "image": "/icons/header-bottom/User.svg",
-    "desc": "icon user"
+    "desc": "icon user",
+    "route": "/perfil"
   }
 ]

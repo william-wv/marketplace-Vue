@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ButtonComponent from '../common/ButtonComponent.vue';
+import ButtonComponent from '@/components/common/ButtonArrow.vue';
 import iconsData from '@/data/iconsFooterTop.json'
 
 const icons = ref(iconsData)
@@ -10,7 +10,7 @@ const icons = ref(iconsData)
 <template>
 
   <div class="container__footer">
-    <div class="container">
+    <div class="contain">
       <div class="texts">
         <h1 class="h1-footer-600">Subscribe to our newslatter</h1>
         <h2 class="h2-footer-400">
@@ -19,14 +19,11 @@ const icons = ref(iconsData)
           vitae porta ipsum.
         </h2>
       </div>
-      <div class="container d-flex">
-        <input type="text" class="form-control" placeholder="Digite para buscar..." />
-
-        <ButtonComponent 
-          class="position-btn" 
-          :text="'Subscribe'" 
-          :style="'orange'" 
-        />
+      <div>
+        <div class="container-form d-flex">
+          <input type="text" class="form-control" placeholder="Digite para buscar..." />
+          <ButtonComponent class="position-btn" :text="'Subscribe'" :style="'orange'" />
+        </div>
       </div>
       <div class="icons-footer-top">
         <a v-for="icon in icons" :key="icon.id" :href=icon.link target="_blankw">
@@ -40,64 +37,78 @@ const icons = ref(iconsData)
 
 <style scoped>
 .container__footer {
-  display: flex;
-  background-color: var(--Blue-700);
-  justify-content: center;
-  padding: 100px 0;
+  background-color: var(--Blue-700) !important;
+  color: var(--White-050);
+  padding: 50px 0 !important;
 }
 
-.texts {
-  color: var(--White-000);
+.contain{
+  padding: 0 40px ;
+}
+
+.h1-footer-600 {
   text-align: center;
+  font-size: 2rem;
+  margin: 0 0 15px 0 !important;
 }
 
-h1 {
-  margin-bottom: 15px !important;
-}
-
-h2 {
-  padding: 0 250px;
-  opacity: 60%;
+.h2-footer-400 {
   text-align: center;
   font-size: 1.2rem;
-  letter-spacing: 0.5px !important;
-  margin-bottom: 50px !important;
+  margin: 0 0 15px 0 !important;
+}
+
+.container-form {
+  justify-content: center;
 }
 
 .form-control {
-  padding: 15px !important;
+  max-width: 200px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: var(--White-050);
 }
 
-.container {
-  gap: 10px !important;
-}
-
-.position-btn {
+.icons-footer-top{
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
-.icons-footer-top {
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr);
-  padding: 0 150px !important;
-  margin: 10px 0 0 0 !important;
-  align-items: center;
+.icons{
+  width: 60px;
+}
+
+@media (min-width:1024px) {
+  .contain{
+    padding: 0 200px;
+  }
+  
+  .form-control{
+    max-width: 300px;
+  }
+
+  .icons-footer-top{
+    gap: 40px;
+  }
+}
+
+@media (min-width:1044px){
+  .contain{
+    padding: 0 350px;
+  
+    & h1 {
+      font-size: 2.6rem;
+    }
+
+    & h2 {
+      font-size: 1.3rem;
+      line-height: 1.3;
+    }
+  }
 }
 
 
-
-@media (max-width: 450px) {
-  .texts {
-    width: 90%;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1rem;
-  }
-}
 </style>
