@@ -199,37 +199,49 @@ h2 {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (max-width: 1900px) {
   .contain{
-    padding: 35px 0 !important;
+    padding: 90px 0 !important;
+  }
+
+  .pb-5{
+    padding: 10px !important;
+  }
+  
+  h1, label{
+    font-size: 1.5rem;
   }
 }
 
 
 
 @media (min-width: 1920px) {
+  .pb-5{
+    height: 95vh;
+    padding: 0 25px !important;
+  }
 
   .contain{
-    padding: 100px 0;
+    padding: 0px 0;
   }
 
   .container_login-top {
-    padding: 50px;
+    padding: 40px;
   }
   .container_login-bottom {
-    padding: 50px;
+    padding: 30px;
   }
 
   .btn-signup {
-    margin-top: 40px;
+    margin-top: 30px;
   }
 
   .text-signup {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .container_login-top {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .forgot {
@@ -241,7 +253,7 @@ h2 {
 
   label {
     width: 30vw;
-    padding: 10px;
+    padding: 3px;
   }
 
   .space-acept{ 

@@ -1,6 +1,6 @@
 <template>
   <section class="container-footer-msg">
-    <p>Kinbo - eCommerce Template © 2021. Design by Templatecookie</p>
+    <p class="p">Kinbo - eCommerce Template © 2021. Design by Templatecookie</p>
   </section>
 </template>
 
@@ -13,9 +13,15 @@
   font-size: 0.8rem;
 }
 
+
+@media (min-width: 1440px) {
+
+}
+
 @media (min-width:1920px) {
-  .container-footer-msg{
-    font-size: 1.8rem !important;
+  .container-footer-msg {
+    padding: 10px !important;
+    font-size: 1.3rem !important;
   }
 }
 </style>
