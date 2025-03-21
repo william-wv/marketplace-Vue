@@ -37,9 +37,11 @@ input {
 </style>
 <template>
   <div class="container__header d-flex">
-    <div class="logo__header">
-      <h1 class="logo">Compre +</h1>
-    </div>
+    <RouterLink to="/">
+      <div class="logo__header">
+        <h1 class="logo">Compre +</h1>
+      </div>
+    </RouterLink>
     <div class="busca__header">
       <input type="text" class="form-control" placeholder="Digite para buscar..." />
 

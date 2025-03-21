@@ -9,10 +9,13 @@ defineEmits(['update:modelValue']);
 
 <template>
   <div class="mt-2 mb-3 ">
-    <label for="">{{ stepName }}</label>
+    <div class="d-flex">
+          <label for="name">{{ stepName }}</label>
+    </div>
+
     <div class="input-group">
       <span class="input-group-text"><i class="bi bi-person"></i></span>
-      <input 
+      <input  
         @input="$emit('update:modelValue', $event.target.value)" 
         placeholder="Digite seu nome aqui" 
         id="name" 
