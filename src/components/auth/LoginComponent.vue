@@ -1,272 +1,263 @@
 <script setup>
+// vue & js
+import { ref } from 'vue';
+import { login } from '@/services/http';
+import useAuthStore from '@/stores/auth.js';
 
-import ButtonArrow from '../common/ButtonArrow.vue';
+// componentes
 import ButtonComponent from '../common/ButtonComponent.vue';
 import InputEmail from '../common/InputEmail.vue';
 import InputPassword from '../common/InputPassword.vue';
 import FooterComponent from '../layout/FooterComponent.vue';
-import CardApps from '../pages/CardApps.vue';
+import ContinueWith from './ContinueWith.vue';
+import ButtonArrow from '../common/ButtonArrow.vue';
+import CardsLogin from '../layout/CardsLogin.vue';
 
+// refs
+const email = ref('');
+const senha = ref('');
+const errorMessage = ref('');
+
+// store
+const auth = useAuthStore();
+
+async function enviar() {
+  const result = await login({ email: email.value, password: senha.value })
+
+  if (result.status === 200) {
+    alert('Login sucesso')
+    auth.saveUser(result.data)
+  }
+  else {
+    alert('Login falhou')
+  }
+}
 </script>
 
 <template>
-  <main class="pb-5 ">
+  <main class="pt-5 pb-5">
     <RouterLink class="m-2" to="/">
-      <i class=" bi bi-arrow-left-short"></i>
+      <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
-    <div class="contain">
 
-
-      <section class="telas-maiores">
-
-        <div class="container_login-top d-block">
-          <div class="logo d-none">
-            <img src="/icons/login/login.svg" width="300" alt="img login">
+    <section class="main1" v-if="!auth.isAuthenticated">
+      <div class="contain">
+        <div class="spacecc">
+          <div class="texts mb-4 mt-5">
+            <h2>Compre +</h2>
+            <h1>Sign In</h1>
+            <p>Sign in to your account to continue</p>
           </div>
-          <div>
-            <h1 class="mb-2">Sign In</h1>
-            <h2 class="mb-5">Sign in to your account to continue</h2>
-            <form @submit.prevent="login">
-              <InputEmail />
 
-              <div>
-                <div class="password-space d-flex mb-1">
-                  <label for="password">Password</label>
-                  <p class="forgot">forgot your password?</p>
-                </div>
-                <InputPassword />
-              </div>
-              <div class="d-flex">
-                <input type="checkbox" required>
-                <p class="space-acept">Aceito os termos e condições</p>
-              </div>
-              <div>
-                <ButtonArrow class="w-100 mt-4 mb-2" :type="'submit'" :class="'btn btn-primary'" :text="'Sign in'" />
-              </div>
+          <form @submit.prevent="enviar">
+            <InputEmail  :stepName="'Email'" v-model="email" />
+            <InputPassword  :stepName="'Password'" v-model="senha" />
 
-              <div class="divider w-100 text-center mb-3 mt-3">
-                <span>
-                  <p>Or continue with</p>
-                </span>
-              </div>
 
-              <div class="container-cards-form d-flex">
-                <CardApps class="cardApps justify-content-center align-items-center text-center"
-                  :image="'/src/assets/img/google.png'" :app="'Google'" :desc="'logo google'" />
-                <CardApps class="cardApps justify-content-center align-items-center text-center"
-                  :image="'/src/assets/img/face.png'" :app="'Facebook'" :desc="'logo facebook'" />
-              </div>
+            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
 
-              <p class="text-center accont mt-3">Don't have an account?
-                <RouterLink to="/register">Register</RouterLink>
-              </p>
-            </form>
+            <ButtonComponent class="w-100" :title="'Login'" :style="'blue'" />
+          </form>
+          <ContinueWith />
 
-          </div>
+          <p class="text-center accont mt-3">Don't have an account?
+            <RouterLink to="/register">Sign Up</RouterLink>
+          </p>
         </div>
-
-        <div class="container_login-bottom d-none">
-
-          <div>
-            <img src="/icons/login/login.svg" width="500px" alt="img login">
-          </div>
-          <h1 class="text-signup">Sign up and discover a great amount <br> of new opportunities!</h1>
-          <div class="btn-signup">
-            <RouterLink to="/register">
-            <ButtonComponent class="btn-principal" :title="'Sign Up'" :style="'blue'" />
+        <div class="d-none section-img">
+          <img src="/icons/login/register-senha.svg" alt="">
+          <RouterLink class="d-flex btn-center" to="/register">
+            <ButtonComponent :title="'Sign Up'" :style="'blue'" />
           </RouterLink>
-          </div>
         </div>
+      </div>
+    </section>
 
-      </section>
-    </div>
+    <section v-else>
+      <div class="text-center space-title mb-5" style="color: var(--White-050);">
+        <h1 class="mb-3">Welcome back!</h1>
+        <h3>You're already signed in to your account</h3>
+      </div>
+
+      <div class="contain d-flex flex-column">
+        <div class="circle">
+          <h1>{{ auth.user.name.charAt() }}</h1>
+        </div>
+        <div>
+          <p>Welcome, {{ auth.user.name }}</p>
+          <h2>Email: {{ auth.user.email }}</h2>
+        </div>
+        <div>
+          <h3>{{ auth.user.role }}</h3>
+        </div>
+        <div class="btns d-flex flex-column">
+          <ButtonArrow :text="'Go To My Account'" :style="'blue'" @click="auth.logout()" />
+          <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
+        </div>
+      </div>
+
+      <div class="cards_login d-grid">
+        <CardsLogin 
+          :icon="'bi bi-bag'" 
+          :title="'Shopping Cart'"
+          :num="1" 
+          :text="'Items waiting for checkout'" 
+          :btn_txt="'View Cart'" 
+          />
+          <CardsLogin 
+          :icon="'bi bi-box-seam'" 
+          :title="'Recent orders'"
+          :num="3" 
+          :text="'orders in the last 30 days'" 
+          :btn_txt="'View Orders'" 
+          />
+          <CardsLogin 
+          :icon="'bi bi-heart'" 
+          :title="'Wishlist'"
+          :num="6" 
+          :text="'Saved items for later'" 
+          :btn_txt="'View Cart'" 
+          />
+      </div>
+
+
+    </section>
   </main>
-  <FooterComponent  />
+  <FooterComponent />
 </template>
-
 <style scoped>
-.contain {
-  padding: 20px;
+main {
+  background-color: var(--foreground);
+    overflow-y: hidden;
 }
 
 .bi-arrow-left-short {
   font-size: 50px;
+  padding: 10px;
 }
 
-main {
-  background-color: var(--foreground);
+.space-title {
+  gap: 30px;
 }
 
-h2 {
-  color: var(--text-h2);
-  font-size: 1rem;
-}
-
-.container_login-top {
+.contain {
   background-color: var(--Gray-900);
   color: white;
   padding: 30px;
+  margin: 20px !important;
   border-radius: 15px;
-}
-
-.password-space {
-  display: flex;
-  justify-content: space-between;
-}
-
-.forgot {
-  color: var(--text-h2);
-  cursor: pointer;
-  font-size: 0.8rem;
-}
-
-.input-group-text {
-  cursor: pointer;
-}
-
-.forgot:hover {
-  text-decoration: underline;
-}
-.space-acept{ 
-  position: relative;
-  left: 10px;
-}
-.divider {
-  display: flex;
-  align-items: center;
   text-align: center;
-  color: #aaa;
-  font-size: 12px;
-  text-transform: uppercase;
-  margin: 20px 0;
-}
+  align-items: center;
+  gap: 20px !important;
 
-.divider::before,
-.divider::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px solid #555;
-  margin: 0 10px;
-}
+  & h1 {
+    font-size: 2rem;
+  }
 
-.container-cards-form {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  & h2 {
+    font-size: 1rem;
+    color: var(--White-250);
+  }
 
-  & .cardApps:hover {
-    background-color: var(--shadow);
+  & h3 {
+    font-size: 0.8rem;
+  }
+
+  & p {
+    font-size: 1.3rem;
+    padding-bottom: 5px;
+
   }
 }
 
-@media (min-width: 1023px) {
+.circle {
+  width: 80px;
+  height: 80px;
+  background-color: var(--Blue-900);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns {
+  gap: 15px;
+}
+
+
+
+@media (min-width: 1024px) {
+  .main1 {
+    height: 50em;
+  }
+
   .contain {
     display: flex !important;
-    justify-content: center;
+    justify-content: space-around;
   }
 
-  .telas-maiores {
+  .spacecc {
+    width: 30vw;
+  }
+
+  .section-img {
     display: flex !important;
-
+    flex-direction: column;
+    padding: 10px;
   }
 
-  .container_login-bottom {
-    display: block !important;
-    justify-content: center !important;
-    /* Centraliza os itens */
-    align-items: center !important;
+  .section-img img {
+    width: 400px;
+    height: auto;
+    object-fit: cover;
   }
 
-  .pb-5 {
-    padding: 60px !important;
-  }
-
-  .btn-signup {
-    display: flex;
-    justify-content: center;
-  }
-
-  .text-signup {
-    color: var(--text-h2) !important;
-    font-size: 1rem;
-    text-align: center;
-    margin-bottom: 30px !important;
-
-  }
-
-  .accont{
+  .accont {
     display: none;
   }
-}
 
-@media (min-width: 1440px) and (max-width: 1900px) {
-  .contain{
-    padding: 90px 0 !important;
+  .btn-center {
+    justify-content: center;
   }
 
-  .pb-5{
-    padding: 10px !important;
+  .cards_login{
+    grid-template-columns: repeat(3, 1fr);
+}
+}
+
+@media (min-width:1920px) {
+  .main1 {
+    height: 47em;
+  }
+
+  .contain {
+    margin: 30px 350px !important;
   }
   
-  h1, label{
-    font-size: 1.5rem;
+  .cards_login {
+    margin: 30px 200px !important;
+  }
+
+.contain {
+
+  & h1 {
+    font-size: 3.5rem;
+  }
+
+  & h2 {
+    font-size: 1.6rem;
+    color: var(--White-250);
+  }
+
+  & h3 {
+    font-size: 0.8rem;
+  }
+
+  & p {
+    font-size: 1.3rem;
+    padding-bottom: 5px;
+
   }
 }
-
-
-
-@media (min-width: 1920px) {
-  .pb-5{
-    height: 95vh;
-    padding: 0 25px !important;
-  }
-
-  .contain{
-    padding: 0px 0;
-  }
-
-  .container_login-top {
-    padding: 40px;
-  }
-  .container_login-bottom {
-    padding: 30px;
-  }
-
-  .btn-signup {
-    margin-top: 30px;
-  }
-
-  .text-signup {
-    font-size: 1.3rem;
-  }
-
-  .container_login-top {
-    font-size: 1.5rem;
-  }
-
-  .forgot {
-    display: flex;
-    align-items: end;
-    margin-bottom: 5px !important;
-    font-size: 1rem;
-  }
-
-  label {
-    width: 30vw;
-    padding: 3px;
-  }
-
-  .space-acept{ 
-  font-size: 1.6rem;
-  }
-
-  .text-center {
-    font-size: 1.4rem;
-  }
-
-  .btn-principal{
-    font-size: 1.6rem;
-  }
-
 }
 </style>

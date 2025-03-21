@@ -14,9 +14,7 @@
 }
 
 
-@media (min-width: 1440px) {
 
-}
 
 @media (min-width:1920px) {
   .container-footer-msg {

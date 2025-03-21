@@ -15,7 +15,7 @@ pinia.use(piniaPluginPersistedstate)
 
 import App from './App.vue'
 import router from './router'
+
 app.use(pinia)
 app.use(router)
-
 app.mount('#app')

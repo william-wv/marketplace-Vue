@@ -9,13 +9,8 @@ const props = defineProps({
 
 <template>
   <Button :type=types :class=style  class="btnn" >
-    <span class="bb">
-       {{ text }}  
-    </span>
-    <span class="aa">
-      <i class="bi bi-arrow-right"></i>
-    </span>
- 
+    {{ text }}  
+    <i class="bi bi-arrow-right"></i>
   </Button>
 </template>
 
@@ -36,13 +31,11 @@ button {
 }
 
 .blue{
-  background-color: var(--Blue-700);
+  background-color: var(--Blue-900);
 }
 
 
 @media (min-width:1920px) {
-  .btnn{
-    font-size: 2rem !important;
-  }
+ 
 }
 </style>

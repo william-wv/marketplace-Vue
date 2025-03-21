@@ -15,6 +15,6 @@
     "id": 3,
     "image": "/icons/header-bottom/User.svg",
     "desc": "icon user",
-    "route": "/perfil"
+    "route": "/login"
   }
 ]

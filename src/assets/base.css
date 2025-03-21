@@ -13,8 +13,8 @@
   --Gray-800: #303639;
   --Gray-900: #191C1F;
 
-  --Blue-500: #2DA5F3;
-  --Blue-600: #2484C2;
+  --Blue-300: #2DA5F3;
+  --Blue-500: #2484C2;
   --Blue-700: #1B6392;
   --Blue-900: #0d6efd;
 
@@ -26,7 +26,11 @@
   --Orange-100: #FFE7D6;
   --Orange-500: #FA8232;
 
+  --Red-500: #ef4444;
+
   --shadow: inset 0px 2px 0px rgba(255, 255, 255, 0.1);
+  --shadow-W: inset 0px 2px 0px rgba(255, 255, 255, 0.502);
+  
 
   --foreground: #121013;
 }
