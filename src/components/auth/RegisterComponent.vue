@@ -9,7 +9,7 @@ import ContinueWith from './ContinueWith.vue';
 
 // Vue & js
 import { ref } from 'vue';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '@/stores/auth.js';
 import { register } from '@/services/http.js';
 
 // ref
@@ -34,7 +34,7 @@ async function enviar() {
   console.log("Resposta da API:", result);
 
 
-  if (result.status <= 200 || result.status > 300) {
+  if (result.status >= 200 || result.status < 300) {
     alert('Conta criada com sucesso')
     auth.saveUser(result.data)
   }
@@ -51,9 +51,8 @@ async function enviar() {
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
 
-    <section>
+    <section v-if="!auth.isAuthenticated">
       <div class="contain">
-
         <!-- img -->
         <div class="d-none section-img">
           <img src="/icons/login/register-senha.svg" alt="">
@@ -88,10 +87,46 @@ async function enviar() {
           <p class="text-center accont mt-3">Welcome back!
             <RouterLink to="/login">Login</RouterLink>
           </p>
-
-
         </div>
       </div>
+    </section>
+
+    <section v-else-if="auth.isAuthenticated">
+      <div class="text-center space-title mb-5" style="color: var(--White-050);">
+        <h1 class="mb-3">Welcome back!</h1>
+        <h3>You're already signed in to your account</h3>
+      </div>
+
+      <div class="contain d-flex flex-column">
+        <div class="circle">
+      
+        </div>
+        <div>
+          <p>Welcome, {{ auth.user.name }}</p>
+          <h2>Email: {{ auth.user.email }}</h2>
+        </div>
+        <div>
+          <h3>{{ auth.user.role }}</h3>
+        </div>
+        <div class="btns d-flex flex-column">
+          <ButtonArrow 
+            :text="'Go To My Account'" 
+            :style="'blue'"
+            @click="auth.logout()" 
+          />
+          <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
+        </div>
+      </div>
+
+      <div class="cards_login d-grid">
+        <CardsLogin :icon="'bi bi-bag'" :title="'Shopping Cart'" :num="1" :text="'Items waiting for checkout'"
+          :btn_txt="'View Cart'" />
+        <CardsLogin :icon="'bi bi-box-seam'" :title="'Recent orders'" :num="3" :text="'orders in the last 30 days'"
+          :btn_txt="'View Orders'" />
+        <CardsLogin :icon="'bi bi-heart'" :title="'Wishlist'" :num="6" :text="'Saved items for later'"
+          :btn_txt="'View Cart'" />
+      </div>
+
     </section>
   </main>
   <FooterComponent />

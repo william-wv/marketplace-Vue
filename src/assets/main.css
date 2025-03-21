@@ -17,7 +17,10 @@ overflow-x: hidden;
 ol, ul {
 list-style: none;
 }
-
+a,li{
+  text-decoration: none !important;
+  color: var(--White-050);
+}
 blockquote, q {
 quotes: none;
 }

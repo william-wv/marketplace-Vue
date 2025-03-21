@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: 'http://34.138.111.33:8000/',
 });
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQyNTMzMjc5fQ.uyKtTmt46afomxICJxZ68WyPVAwdD3vTjWWg32ONhwk';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQyNTg2MjU1fQ.XQU8c_70aoObZ7IxZ8YA_v5YZtJ_NnOphHnPknU7aGA';
 
 export async function getCategories(){
   try {
@@ -40,13 +40,13 @@ export async function register(payload) {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
-      }
+      } 
     });
 
     return response;
   } catch (error) {
-    console.error('Erro ao registrar usuário:', error.response?.data || error.message);
-    throw error; // Repassa o erro para ser tratado no componente
+    console.error(error.response.data);
+    throw error;
   }
 }
 

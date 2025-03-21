@@ -25,7 +25,7 @@ async function enviar() {
     email: email.value, 
     password: senha.value })
 
-  if (result.status === 200) {
+  if (result.status >= 200 && result.status < 300) {
     alert('Login sucesso')
     auth.saveUser(result.data)
   }
@@ -74,6 +74,7 @@ async function enviar() {
       </div>
     </section>
 
+
     <section v-else>
       <div class="text-center space-title mb-5" style="color: var(--White-050);">
         <h1 class="mb-3">Welcome back!</h1>
@@ -82,7 +83,7 @@ async function enviar() {
 
       <div class="contain d-flex flex-column">
         <div class="circle">
-          <h1>{{ auth.user.name.charAt() }}</h1>
+          <!-- {{ auth.user.name.charAt() }} -->
         </div>
         <div>
           <p>Welcome, {{ auth.user.name }}</p>
@@ -98,29 +99,13 @@ async function enviar() {
       </div>
 
       <div class="cards_login d-grid">
-        <CardsLogin 
-          :icon="'bi bi-bag'" 
-          :title="'Shopping Cart'"
-          :num="1" 
-          :text="'Items waiting for checkout'" 
-          :btn_txt="'View Cart'" 
-          />
-          <CardsLogin 
-          :icon="'bi bi-box-seam'" 
-          :title="'Recent orders'"
-          :num="3" 
-          :text="'orders in the last 30 days'" 
-          :btn_txt="'View Orders'" 
-          />
-          <CardsLogin 
-          :icon="'bi bi-heart'" 
-          :title="'Wishlist'"
-          :num="6" 
-          :text="'Saved items for later'" 
-          :btn_txt="'View Cart'" 
-          />
+        <CardsLogin :icon="'bi bi-bag'" :title="'Shopping Cart'" :num="1" :text="'Items waiting for checkout'"
+          :btn_txt="'View Cart'" />
+        <CardsLogin :icon="'bi bi-box-seam'" :title="'Recent orders'" :num="3" :text="'orders in the last 30 days'"
+          :btn_txt="'View Orders'" />
+        <CardsLogin :icon="'bi bi-heart'" :title="'Wishlist'" :num="6" :text="'Saved items for later'"
+          :btn_txt="'View Cart'" />
       </div>
-
 
     </section>
   </main>

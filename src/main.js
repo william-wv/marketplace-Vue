@@ -2,19 +2,21 @@ import './assets/main.css'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 
+import App from './App.vue'
+import router from './router'
+
 
 const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
-
-import App from './App.vue'
-import router from './router'
 
 app.use(pinia)
 app.use(router)

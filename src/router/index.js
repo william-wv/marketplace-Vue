@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import Perfil from '../views/LoginRegisterView.vue'
 import Register from '@/components/auth/RegisterComponent.vue'
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -21,13 +20,20 @@ const router = createRouter({
         hideFooter: true
       }
     },
-    { path: '/register', 
+    { 
+      path: '/register', 
       component: Register ,
       meta: { 
         hideHeader: true,
         hideFooter: true
       }
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: () => import('../views/CategoriesView.vue')
     }
+    
   ],
 })
 

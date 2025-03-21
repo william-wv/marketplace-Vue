@@ -18,6 +18,8 @@ export const useAuthStore = defineStore('auth', () => {
       token.value = result.token
   }
 
+
+
   return { 
     token, 
     user, 
@@ -25,7 +27,7 @@ export const useAuthStore = defineStore('auth', () => {
     logout, 
     saveUser 
   }
-}, 
+},
 {persist: true})
 
 export default useAuthStore

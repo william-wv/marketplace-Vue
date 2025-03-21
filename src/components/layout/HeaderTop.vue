@@ -1,12 +1,28 @@
 <script setup>
-import { ref } from 'vue';
+import { ref , onMounted, onUnmounted} from 'vue';
 import iconsData from '@/data/iconsHeaderTop.json'
 
 const icons = ref(iconsData)
+
+
+const isMobile = ref(window.innerWidth <= 768);
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+  window.addEventListener("resize", checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", checkMobile);
+});
+
 </script>
 
 <template>
-  <div class="container-top d-flex">
+  <div v-if="!isMobile" class="container-top d-flex">
     <div class="phrase">
       <p>Welcome to Compre+ online eCommerce store.</p>
     </div>
