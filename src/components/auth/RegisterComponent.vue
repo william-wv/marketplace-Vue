@@ -9,27 +9,37 @@ import ContinueWith from './ContinueWith.vue';
 
 // Vue & js
 import { ref } from 'vue';
-import { register } from '@/services/http';
 import { useAuthStore } from '@/stores/auth';
+import { register } from '@/services/http.js';
 
 // ref
 const email = ref('');
 const senha = ref('');
+const name = ref('');
 
 const auth = useAuthStore();
 
 async function enviar() {
-  const result = await register({  
+  console.log("Enviando:", {
     name: name.value,
-    email: email.value, 
-    password: senha.value })
+    email: email.value,
+    password: senha.value
+  });
+  const result = await register({
+    name: name.value,
+    email: email.value,
+    password: senha.value
+  })
 
-  if (result.status === 200) {
-    alert('Login sucesso')
+  console.log("Resposta da API:", result);
+
+
+  if (result.status <= 200 || result.status > 300) {
+    alert('Conta criada com sucesso')
     auth.saveUser(result.data)
   }
   else {
-    alert('Login falhou')
+    alert('Falha na criação do usuario')
   }
 }
 
@@ -49,6 +59,7 @@ async function enviar() {
           <img src="/icons/login/register-senha.svg" alt="">
           <RouterLink class="d-flex btn-center" to="/login">
             <ButtonComponent :title="'Sign In'" :style="'blue'" />
+
           </RouterLink>
         </div>
 
@@ -61,27 +72,29 @@ async function enviar() {
             <h1>Create Your Account</h1>
             <p>Join our marketplace to discover amazing products</p>
           </div>
-    <form @submit.prevent="enviar">
-          <InnputName :step-name="'Name'"/>
+          <form @submit.prevent="enviar">
+            <InnputName v-model="name" :step-name="'Name'" />
 
-          <InputEmail  :step-name="'Email'"/>
+            <InputEmail v-model="email" :step-name="'Email'" />
 
-          <InputPassword :step-name="'Password'" />
+            <InputPassword v-model="senha" :step-name="'Password'" />
 
-          <InputPassword :step-name="'Confirm Password'" />
-      </form>
+            <!-- <InputPassword :step-name="'Confirm Password'" /> -->
+
+            <ButtonComponent class="w-100" :title="'Submit'" :style="'blue'" />
+          </form>
           <ContinueWith />
 
           <p class="text-center accont mt-3">Welcome back!
             <RouterLink to="/login">Login</RouterLink>
           </p>
 
-          
+
         </div>
       </div>
     </section>
   </main>
-<FooterComponent />
+  <FooterComponent />
 </template>
 
 <style scoped>
@@ -91,7 +104,7 @@ main {
 }
 
 .bi-arrow-left-short {
-  font-size: 50px;  
+  font-size: 50px;
   padding: 10px;
 }
 
@@ -126,32 +139,33 @@ main {
   .accont {
     display: none;
   }
-  .btn-center{
+
+  .btn-center {
     justify-content: center;
   }
 }
 
 @media (min-width: 1920px) {
-  img{
+  img {
     width: 500px !important;
   }
-  .contain{
-  margin: 32px 350px !important;
+
+  .contain {
+    margin: 32px 350px !important;
   }
-  
+
   .texts {
     font-size: 24px;
   }
-  
+
   .section-img img {
     width: 500px;
     height: auto;
     object-fit: cover;
   }
 
-  main{
+  main {
     height: 57em;
   }
 }
-
 </style>

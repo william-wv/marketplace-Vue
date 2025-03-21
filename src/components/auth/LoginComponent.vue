@@ -16,13 +16,14 @@ import CardsLogin from '../layout/CardsLogin.vue';
 // refs
 const email = ref('');
 const senha = ref('');
-const errorMessage = ref('');
 
 // store
 const auth = useAuthStore();
 
 async function enviar() {
-  const result = await login({ email: email.value, password: senha.value })
+  const result = await login({ 
+    email: email.value, 
+    password: senha.value })
 
   if (result.status === 200) {
     alert('Login sucesso')
@@ -54,7 +55,7 @@ async function enviar() {
             <InputPassword  :stepName="'Password'" v-model="senha" />
 
 
-            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+            <!-- <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p> -->
 
             <ButtonComponent class="w-100" :title="'Login'" :style="'blue'" />
           </form>

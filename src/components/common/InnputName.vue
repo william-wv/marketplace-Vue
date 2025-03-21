@@ -1,11 +1,10 @@
 <script setup>
-import { ref } from 'vue';
-
 const props = defineProps({
   stepName: String
 })
+defineEmits(['update:modelValue']);
 
-const nome = ref(''); // Variável reativa para armazenar o nome
+// Variável reativa para armazenar o nome
 </script>
 
 <template>
@@ -13,7 +12,14 @@ const nome = ref(''); // Variável reativa para armazenar o nome
     <label for="">{{ stepName }}</label>
     <div class="input-group">
       <span class="input-group-text"><i class="bi bi-person"></i></span>
-      <input placeholder="Digite seu nome aqui" id="name" v-model="nome" type="text" class="form-control" required>
+      <input 
+        @input="$emit('update:modelValue', $event.target.value)" 
+        placeholder="Digite seu nome aqui" 
+        id="name" 
+        type="text" 
+        class="form-control" 
+        required
+      >
     </div>
   </div>
 </template>
