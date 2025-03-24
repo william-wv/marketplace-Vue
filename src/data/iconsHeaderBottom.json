@@ -1,20 +1,30 @@
 [
   {
     "id": 1,
-    "image": "/icons/header-bottom/ShoppingCart.svg",
-    "desc": "icon shopping cart",
+    "class": "bi bi-bag",
+    "name": "shop",
     "route": "/shop"
   },
   {
     "id": 2,
-    "image": "/icons/header-bottom/Heart.svg",
-    "desc": "icon favorite",
+    "class": "bi bi-heart",
+    "name": "favorites",
     "route": "/favorites"
   },
   {
     "id": 3,
-    "image": "/icons/header-bottom/User.svg",
-    "desc": "icon user",
+    "class": "bi bi-tags",
+    "name": "categories",
+    "route": "/categories"
+  },{
+    "id": 4,
+    "class": "bi bi-cash-coin",
+    "name": "discounts",
+    "route": "/discounts"
+  },{
+    "id": 5,
+    "class": "bi bi-person-circle",
+    "name": "login",
     "route": "/login"
   }
 ]

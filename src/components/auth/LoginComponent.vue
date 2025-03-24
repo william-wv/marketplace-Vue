@@ -106,6 +106,13 @@ async function enviarLogin() {
           :btn_txt="'View Orders'" />
         <CardsLogin :icon="'bi bi-heart'" :title="'Wishlist'" :num="6" :text="'Saved items for later'"
           :btn_txt="'View Cart'" />
+
+          <!-- cards adimin and moderator -->
+          <CardsLogin  
+          v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-cart'" :title="'Stock'" :num="6" :text="'Saved items for later'" :btn_txt="'View Stock'" />
+          <CardsLogin 
+          v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-tags-fill'" :title="'My Categories'"
+          :text="'Saved items for later'" :num="6" :btn_txt="'View Categories'" />
       </div>
 
     </section>

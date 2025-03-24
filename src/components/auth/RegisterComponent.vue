@@ -25,12 +25,14 @@ async function enviarRegister() {
     email: mail.value, 
     password: senha.value })  
 
-  if (result.status >= 200 && result.status < 300) {
+  if (result.status >= 200 && result.status < 300 || result.status === undefined) {
     alert('Login sucesso')
+    console.log("Sucesso:", result.status);
     auth.saveUser(result.data)
   }
   else {
     alert('Login falhou')
+    console.log("Erro ou outro status:", result.status);
   }
 }
 

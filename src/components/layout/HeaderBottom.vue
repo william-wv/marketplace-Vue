@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 
-import iconsData from "@/data/iconsHeaderBottom.json"
 
 import useAuthStore from "@/stores/auth";
 
@@ -12,10 +11,9 @@ import useAuthStore from "@/stores/auth";
 //   { id: 3, name: "Orange" },
 //   { id: 4, name: "Grapes" },
 // ]);
-const icons = ref(iconsData)
 
 
-const isMobile = ref(window.innerWidth <= 768);
+const isMobile = ref(window.innerWidth <= 700);
 
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
@@ -59,7 +57,7 @@ input {
 <template>
   <div class="container__header d-flex">
 
-    <div v-if="isMobile" class="">
+    <section v-if="isMobile" class="">
       <nav class="navbar">
         <div class="container-fluid">
           <!-- Logo (canto esquerdo) -->
@@ -80,7 +78,6 @@ input {
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav">
-
             <RouterLink to="/">
               <li class="nav-item">
                 Home
@@ -114,37 +111,36 @@ input {
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div v-else class="container-itens__header d-flex">
-      <div class="logo__header">
-        <RouterLink to="/">
-          <h1 class="logo">Compre +</h1>
-        </RouterLink>
-      </div>
+    <section v-else>
+      <div class="container-itens__header d-flex w-100">
+        <div class="logo__header">
+          <RouterLink to="/">
+            <h1 class="logo">Compre +</h1>
+          </RouterLink>
+        </div>
 
-      <div class="busca__header">
-        <input type="text" class="form-control" placeholder="Digite para buscar..." />
+        <div class="busca__header">
+          <input type="text" class="form-control" placeholder="Digite para buscar..." />
 
-        <!-- <ul class="list-group mt-3">
+          <!-- <ul class="list-group mt-3">
           <li v-for="item in filteredItems" :key="item.id" class="list-group-item">
             {{ item.name }}
           </li>
         </ul> -->
 
-      </div>
-      <div v-for="icon in icons" :key="icon.id" class="icons">
-        <RouterLink :to="icon.route">
-          <img :src="icon.image" :alt="icon.desc">
-        </RouterLink>
+        </div>
 
+       
+
+        <div class="p-2">
+          <p class="welcome" v-if="auth.isAuthenticated" style="color: var(--White-050);">
+            Welcome <br>
+            {{ auth.user.name }}</p>
+        </div>
       </div>
-      <div class="p-2">
-        <p class="welcome" v-if="auth.isAuthenticated" style="color: var(--White-050);">
-          Welcome <br>
-          {{ auth.user.name }}</p>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -159,7 +155,9 @@ input {
   display: flex !important;
   justify-content: space-between !important;
 }
-
+i{
+  font-size: 1.5rem;
+}
 a {
   color: var(--White-050) !important;
 }
@@ -195,7 +193,8 @@ h1 {
 
 .container-itens__header {
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 30px;
 }
 
 

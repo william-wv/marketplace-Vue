@@ -1,5 +1,7 @@
 <script setup>
 
+
+
 const props = defineProps({
   id: Number,
   name: String,
@@ -7,7 +9,9 @@ const props = defineProps({
 })
 
 </script>
+
 <template>
+ 
   <p>aaaaaaa</p>
 </template>
 

@@ -4,6 +4,7 @@ import FooterBottom from './components/layout/FooterBottom.vue';
 import FooterTop from './components/layout/FooterTop.vue';
 import HeaderBottom from './components/layout/HeaderBottom.vue';
 import HeaderTop from './components/layout/HeaderTop.vue';
+import HeaderHome from './components/layout/HeaderHome.vue';
 // import ListPages from './components/layout/ListPages.vue';
 
 
@@ -16,6 +17,7 @@ const route = useRoute()
   <header v-if="!route.meta.hideHeader">
     <HeaderTop />
     <HeaderBottom />
+    <HeaderHome/>
   </header>
 
   <main>

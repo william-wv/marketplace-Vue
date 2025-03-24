@@ -26,6 +26,12 @@ const auth = useAuthStore()
     
 
   </section>
+
+  <section v-if="!auth.isShoppNull">
+    <div class="d-flex flex-column">
+      <i class="bi bi-ban"></i> <h2>Nenhum item adicionado aqui</h2>
+    </div>
+  </section>
 </template>
 
 <style scoped>

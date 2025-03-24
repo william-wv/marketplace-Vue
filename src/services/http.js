@@ -6,11 +6,13 @@ const api = axios.create({
   baseURL: 'http://34.138.111.33:8000/',
 });
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQyOTExMjUyfQ.HtK6-hdppyUH-n8Ngz4yXhe1LpYha5J13FA7w28IyRA';
+const user = 6
+
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQyODY2NjkxfQ.fYnidZkKq76sE4Sd1VvFgpWl4NKHya7kQ5G8hD3WlOU';
 
 export async function getCategories(){
   try {
-    const response = await api.get('categories/', {
+    const response = await api.get(`categories/user/${user}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
@@ -21,6 +23,11 @@ export async function getCategories(){
   } catch (error) {
     console.error('Erro ao buscar dados ', error);
   }
+}
+
+export async function getProductsByCategory(id) {
+  const response = await fetch(`categories/user/${user}/${id}`);
+  return response;
 }
 
 export async function login(payload) {
@@ -43,9 +50,11 @@ export async function register(payload) {
       } 
     })
     login(payload)
+    return response.data;
   } catch (error) {
     console.error(error)
     throw error;
   }
 }
+
 
