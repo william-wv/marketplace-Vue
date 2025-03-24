@@ -3,13 +3,13 @@
     "id": 1,
     "image": "/icons/header-bottom/ShoppingCart.svg",
     "desc": "icon shopping cart",
-    "route": "/carrinho"
+    "route": "/shop"
   },
   {
     "id": 2,
     "image": "/icons/header-bottom/Heart.svg",
     "desc": "icon favorite",
-    "route": "/favoritos"
+    "route": "/favorites"
   },
   {
     "id": 3,

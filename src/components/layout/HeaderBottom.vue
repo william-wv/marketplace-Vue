@@ -86,7 +86,11 @@ input {
                 Home
               </li>
             </RouterLink>
-
+            <RouterLink to="/login">
+              <li class="nav-item">
+                login
+              </li>
+            </RouterLink>
             <RouterLink to="/categories">
               <li class="nav-item">
                 Categories
@@ -102,9 +106,9 @@ input {
                 Coupons
               </li>
             </RouterLink>
-            <RouterLink to="/login">
+            <RouterLink to="/shop">
               <li class="nav-item">
-                About
+                Shop
               </li>
             </RouterLink>
           </ul>

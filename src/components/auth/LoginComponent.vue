@@ -20,7 +20,7 @@ const senha = ref('');
 // store
 const auth = useAuthStore();
 
-async function enviar() {
+async function enviarLogin() {
   const result = await login({ 
     email: email.value, 
     password: senha.value })
@@ -33,6 +33,7 @@ async function enviar() {
     alert('Login falhou')
   }
 }
+
 </script>
 
 <template>
@@ -50,7 +51,7 @@ async function enviar() {
             <p>Sign in to your account to continue</p>
           </div>
 
-          <form @submit.prevent="enviar">
+          <form @submit.prevent="enviarLogin">
             <InputEmail  :stepName="'Email'" v-model="email" />
             <InputPassword  :stepName="'Password'" v-model="senha" />
 
@@ -83,7 +84,7 @@ async function enviar() {
 
       <div class="contain d-flex flex-column">
         <div class="circle">
-          <!-- {{ auth.user.name.charAt() }} -->
+          <h1>{{ auth.user.name.charAt() }}</h1>
         </div>
         <div>
           <p>Welcome, {{ auth.user.name }}</p>
@@ -227,7 +228,7 @@ main {
 .contain {
 
   & h1 {
-    font-size: 3.5rem;
+    font-size: 2.4rem;
   }
 
   & h2 {

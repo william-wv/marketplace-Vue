@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Perfil from '../views/LoginRegisterView.vue'
-import Register from '@/components/auth/RegisterComponent.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,12 +6,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => import('../views/HomeView.vue'),
     }, 
     // { path: '/carrinho', component: Carrinho },
     // { path: '/favoritos', component: Favoritos },
     { path: '/login', 
-      component: Perfil ,
+      component: () => import('../views/LoginRegisterView.vue'),
       meta: { 
         hideHeader: true,
         hideFooter: true
@@ -22,7 +19,7 @@ const router = createRouter({
     },
     { 
       path: '/register', 
-      component: Register ,
+      component: () => import('../components/auth/RegisterComponent.vue') ,
       meta: { 
         hideHeader: true,
         hideFooter: true
@@ -32,8 +29,12 @@ const router = createRouter({
       path: '/categories',
       name: 'categories',
       component: () => import('../views/CategoriesView.vue')
-    }
-    
+    },
+    {
+      path: '/shop',
+      name: 'shop',
+      component: () => import('../views/ShopView.vue')
+    },
   ],
 })
 

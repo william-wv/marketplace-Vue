@@ -35,7 +35,5 @@ button {
 }
 
 
-@media (min-width:1920px) {
- 
-}
+
 </style>

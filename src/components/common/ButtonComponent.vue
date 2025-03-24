@@ -26,4 +26,10 @@
   padding: 10px 15px;
   background-color: var(--Red-500);
 }
+
+.orange{
+  color: var(--White-000) !important;
+  padding: 10px 15px;
+  background-color: var(--Orange-500);
+}
 </style>

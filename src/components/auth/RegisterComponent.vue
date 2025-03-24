@@ -13,33 +13,24 @@ import { useAuthStore } from '@/stores/auth.js';
 import { register } from '@/services/http.js';
 
 // ref
-const email = ref('');
+const mail = ref('');
 const senha = ref('');
-const name = ref('');
+const nome = ref('');
 
 const auth = useAuthStore();
 
-async function enviar() {
-  console.log("Enviando:", {
-    name: name.value,
-    email: email.value,
-    password: senha.value
-  });
-  const result = await register({
-    name: name.value,
-    email: email.value,
-    password: senha.value
-  })
+async function enviarRegister() {
+  const result = await register({ 
+    name: nome.value,
+    email: mail.value, 
+    password: senha.value })  
 
-  console.log("Resposta da API:", result);
-
-
-  if (result.status >= 200 || result.status < 300) {
-    alert('Conta criada com sucesso')
+  if (result.status >= 200 && result.status < 300) {
+    alert('Login sucesso')
     auth.saveUser(result.data)
   }
   else {
-    alert('Falha na criação do usuario')
+    alert('Login falhou')
   }
 }
 
@@ -58,39 +49,29 @@ async function enviar() {
           <img src="/icons/login/register-senha.svg" alt="">
           <RouterLink class="d-flex btn-center" to="/login">
             <ButtonComponent :title="'Sign In'" :style="'blue'" />
-
           </RouterLink>
         </div>
-
         <!-- register -->
         <div>
-
-
           <div class="texts">
             <h2>Compre +</h2>
             <h1>Create Your Account</h1>
             <p>Join our marketplace to discover amazing products</p>
           </div>
-          <form @submit.prevent="enviar">
-            <InnputName v-model="name" :step-name="'Name'" />
-
-            <InputEmail v-model="email" :step-name="'Email'" />
-
+          <form @submit.prevent="enviarRegister">
+            <InnputName v-model="nome" :step-name="'Name'" />
+            <InputEmail v-model="mail" :step-name="'Email'" />
             <InputPassword v-model="senha" :step-name="'Password'" />
-
             <!-- <InputPassword :step-name="'Confirm Password'" /> -->
-
             <ButtonComponent class="w-100" :title="'Submit'" :style="'blue'" />
           </form>
           <ContinueWith />
-
           <p class="text-center accont mt-3">Welcome back!
             <RouterLink to="/login">Login</RouterLink>
           </p>
         </div>
       </div>
     </section>
-
     <section v-else-if="auth.isAuthenticated">
       <div class="text-center space-title mb-5" style="color: var(--White-050);">
         <h1 class="mb-3">Welcome back!</h1>
@@ -99,7 +80,7 @@ async function enviar() {
 
       <div class="contain d-flex flex-column">
         <div class="circle">
-      
+          <h1>{{ auth.user.name.charAt() }}</h1>
         </div>
         <div>
           <p>Welcome, {{ auth.user.name }}</p>
@@ -109,11 +90,7 @@ async function enviar() {
           <h3>{{ auth.user.role }}</h3>
         </div>
         <div class="btns d-flex flex-column">
-          <ButtonArrow 
-            :text="'Go To My Account'" 
-            :style="'blue'"
-            @click="auth.logout()" 
-          />
+          <ButtonArrow :text="'Go To My Account'" :style="'blue'" @click="auth.logout()" />
           <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
         </div>
       </div>
@@ -128,6 +105,7 @@ async function enviar() {
       </div>
 
     </section>
+
   </main>
   <FooterComponent />
 </template>
