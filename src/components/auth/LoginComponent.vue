@@ -21,9 +21,10 @@ const senha = ref('');
 const auth = useAuthStore();
 
 async function enviarLogin() {
-  const result = await login({ 
-    email: email.value, 
-    password: senha.value })
+  const result = await login({
+    email: email.value,
+    password: senha.value
+  })
 
   if (result.status >= 200 && result.status < 300) {
     alert('Login sucesso')
@@ -52,8 +53,8 @@ async function enviarLogin() {
           </div>
 
           <form @submit.prevent="enviarLogin">
-            <InputEmail  :stepName="'Email'" v-model="email" />
-            <InputPassword  :stepName="'Password'" v-model="senha" />
+            <InputEmail :stepName="'Email'" v-model="email" />
+            <InputPassword :stepName="'Password'" v-model="senha" />
 
 
             <!-- <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p> -->
@@ -107,12 +108,13 @@ async function enviarLogin() {
         <CardsLogin :icon="'bi bi-heart'" :title="'Wishlist'" :num="6" :text="'Saved items for later'"
           :btn_txt="'View Cart'" />
 
-          <!-- cards adimin and moderator -->
-          <CardsLogin  
-          v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-cart'" :title="'Stock'" :num="6" :text="'Saved items for later'" :btn_txt="'View Stock'" />
-          <CardsLogin 
-          v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-tags-fill'" :title="'My Categories'"
-          :text="'Saved items for later'" :num="6" :btn_txt="'View Categories'" />
+        <!-- cards adimin and moderator -->
+        <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-cart'"
+          :title="'Stock'" :num="6" :text="'Saved items for later'" :btn_txt="'View Stock'" />
+        <RouterLink to="/createCategories">
+          <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-tags-fill'"
+            :title="'Categories'" :text="'Saved items for later'" :num="6" :btn_txt="'View Categories'" />
+        </RouterLink>
       </div>
 
     </section>
@@ -122,7 +124,7 @@ async function enviarLogin() {
 <style scoped>
 main {
   background-color: var(--foreground);
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .bi-arrow-left-short {
@@ -214,9 +216,9 @@ main {
     justify-content: center;
   }
 
-  .cards_login{
+  .cards_login {
     grid-template-columns: repeat(3, 1fr);
-}
+  }
 }
 
 @media (min-width:1920px) {
@@ -227,31 +229,31 @@ main {
   .contain {
     margin: 30px 350px !important;
   }
-  
+
   .cards_login {
     margin: 30px 200px !important;
   }
 
-.contain {
+  .contain {
 
-  & h1 {
-    font-size: 2.4rem;
+    & h1 {
+      font-size: 2.4rem;
+    }
+
+    & h2 {
+      font-size: 1.6rem;
+      color: var(--White-250);
+    }
+
+    & h3 {
+      font-size: 0.8rem;
+    }
+
+    & p {
+      font-size: 1.3rem;
+      padding-bottom: 5px;
+
+    }
   }
-
-  & h2 {
-    font-size: 1.6rem;
-    color: var(--White-250);
-  }
-
-  & h3 {
-    font-size: 0.8rem;
-  }
-
-  & p {
-    font-size: 1.3rem;
-    padding-bottom: 5px;
-
-  }
-}
 }
 </style>

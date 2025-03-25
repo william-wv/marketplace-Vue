@@ -17,7 +17,7 @@ const route = useRoute()
   <header v-if="!route.meta.hideHeader">
     <HeaderTop />
     <HeaderBottom />
-    <HeaderHome/>
+    <HeaderHome v-if="!route.meta.hideNav"/>
   </header>
 
   <main>

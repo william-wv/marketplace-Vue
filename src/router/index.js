@@ -33,8 +33,21 @@ const router = createRouter({
     {
       path: '/shop',
       name: 'shop',
-      component: () => import('../views/ShopView.vue')
+      component: () => import('../views/ShopView.vue') , 
+      meta: {
+        hideNav:true
+      }
     },
+    {
+      path: '/createCategories',
+      name: 'create categories',
+      component: () => import('../components/pages/CategoriesCreate.vue') , 
+        meta: {
+            hideHeader: true,
+            hideFooter: true    
+      }
+    },
+
   ],
 })
 

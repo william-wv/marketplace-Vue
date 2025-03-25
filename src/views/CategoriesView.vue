@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue';
-import { getCategories, getProductsByCategory } from '@/services/http.js';
+import { getCategories, getImgProd , getProductsByCategory } from '@/services/http.js';
 
 const categorias = ref([]);
 const produtos = ref([]);
@@ -14,15 +14,28 @@ async function getCategoria() {
 
 // Busca produtos conforme a categoria selecionada
 async function getProdutosPorCategoria(idCateg) {
-  if (!idCateg) return;
-  const response = await getProductsByCategory(idCateg);
-  produtos.value = response;
+  console.log('Buscando produtos para a categoria:', idCateg);
+  if (idCateg) {
+    const response = await getProductsByCategory(idCateg)
+    produtos.value = response
+    return produtos
+    // console.log(produtos.value)
+  }
+  else {
+    console.log(error)
+    return;
+  }
 }
+
 
 // Monitora mudanças na categoria selecionada
 watch(categoriaSelecionada, (novaCategoria) => {
-  getProdutosPorCategoria(novaCategoria);
+  console.log('Categoria alterada:', novaCategoria);
+  if (novaCategoria) {
+    getProdutosPorCategoria(novaCategoria);
+  }
 });
+
 
 onMounted(() => {
   getCategoria();
@@ -34,17 +47,23 @@ onMounted(() => {
     <label for="categoria">Selecione uma categoria:</label>
     <select v-model="categoriaSelecionada" id="categoria">
       <option value="">Escolha uma categoria</option>
-      <option v-for="ctg in categorias" :key="ctg.id" :value="ctg.name">
-        {{ ctg.name }} {{ ctg.id }}
+      <option v-for="ctg in categorias" :key="ctg.id" :value="ctg.id">
+        {{ ctg.name }}
+        
       </option>
     </select>
+    <ul v-for="prod in produtos" :key="prod.id">
+      <img :src=prod.image_path >
+      <li style="color: black;">{{ prod.name }}</li>
 
-    <h2>Produtos</h2>
-    <ul v-if="produtos.length">
-      <li v-for="produto in produtos" :key="produto.id">
-        <strong>{{ produto.name }}</strong> - R$ {{ produto.price }}
-      </li>
     </ul>
-    <p v-else>Nenhum produto encontrado.</p>
   </div>
 </template>
+
+
+<style scoped>
+img {
+  width: 500px;
+  height: auto;
+}
+</style>

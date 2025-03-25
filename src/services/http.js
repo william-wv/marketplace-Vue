@@ -24,10 +24,37 @@ export async function getCategories(){
     console.error('Erro ao buscar dados ', error);
   }
 }
-
 export async function getProductsByCategory(id) {
-  const response = await fetch(`categories/user/${user}/${id}`);
-  return response;
+  try {
+    const response = await api.get(`products/category/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar produtos da categoria:', error);
+    return [];
+  }
+}
+
+
+export async function getImgProd(img) {
+  try {
+    const response = await api.get(`upload/products/${img}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar imagem do produto:', error);
+    return null;
+  }
 }
 
 export async function login(payload) {
@@ -56,5 +83,6 @@ export async function register(payload) {
     throw error;
   }
 }
+
 
 
