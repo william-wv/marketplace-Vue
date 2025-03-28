@@ -1,5 +1,5 @@
 <script setup>
-import CardApps from '../pages/CardApps.vue';
+import CardApps from '../layout/CardApps.vue';
 
 </script>
 

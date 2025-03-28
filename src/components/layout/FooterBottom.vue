@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import FooterList from "./FooterList.vue";
-import FooterApps from "../pages/CardApps.vue";
+import FooterApps from "./CardApps.vue";
 import FooterComponent from "./FooterComponent.vue";
 
 const categoryItens = ['Computers', 'SmartPhone', 'Headfone', 'Camera & Photo', 'TV & Homes']

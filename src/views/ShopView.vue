@@ -7,10 +7,19 @@ import CarrinhoComponente from '@/components/pages/CarrinhoComponente.vue';
 </script>
 
 <template>
-  <HeaderShop/>
-  <CarrinhoComponente/>
+<header>
+    <HeaderShop/>
+</header>
+
+<main>
+    <CarrinhoComponente/>
+</main>
+
+  
 </template>
 
 <style scoped>
-
+main,header {
+  margin: 10px !important ;
+}
 </style>

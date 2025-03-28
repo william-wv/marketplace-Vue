@@ -11,14 +11,17 @@ import HeaderHome from './components/layout/HeaderHome.vue';
 const route = useRoute()
 
 
+
 </script>
 
 <template>
   <header v-if="!route.meta.hideHeader">
     <HeaderTop />
     <HeaderBottom />
-    <HeaderHome v-if="!route.meta.hideNav"/>
+    <HeaderHome />
   </header>
+
+  
 
   <main>
     <RouterView />
@@ -26,7 +29,7 @@ const route = useRoute()
 
   <footer v-if="!route.meta.hideFooter">
     <FooterTop />
-    <FooterBottom/>
+    <FooterBottom />
   </footer>
 
 
@@ -34,5 +37,8 @@ const route = useRoute()
 </template>
 
 <style scoped>
-
+/* .header {
+  position: fixed;
+  margin-bottom: 30px !important;
+} */
 </style>

@@ -4,6 +4,10 @@ import { ref } from 'vue';
 import { login } from '@/services/http';
 import useAuthStore from '@/stores/auth.js';
 
+// notificações
+import { Notivue, Notification, push } from 'notivue'
+
+
 // componentes
 import ButtonComponent from '../common/ButtonComponent.vue';
 import InputEmail from '../common/InputEmail.vue';
@@ -26,12 +30,16 @@ async function enviarLogin() {
     password: senha.value
   })
 
-  if (result.status >= 200 && result.status < 300) {
-    alert('Login sucesso')
+  if (result.status == 200) {
+    push.success('Welcome, login successful!')
     auth.saveUser(result.data)
   }
+  else if(result.status == 401 || result.status == undefined) {
+    push.error('Invalid email or password')
+    console.log('aaa')
+  }
   else {
-    alert('Login falhou')
+    push.error('An error occurred, please try again later')
   }
 }
 
@@ -42,6 +50,10 @@ async function enviarLogin() {
     <RouterLink class="m-2" to="/">
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
+
+    <Notivue v-slot="item">
+      <Notification :item="item" position="top-right" />
+    </Notivue>
 
     <section class="main1" v-if="!auth.isAuthenticated">
       <div class="contain">
@@ -55,7 +67,6 @@ async function enviarLogin() {
           <form @submit.prevent="enviarLogin">
             <InputEmail :stepName="'Email'" v-model="email" />
             <InputPassword :stepName="'Password'" v-model="senha" />
-
 
             <!-- <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p> -->
 

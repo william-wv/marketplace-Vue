@@ -26,8 +26,9 @@ onUnmounted(() => {
 <template>
 
   <section v-if="!isMobile" class="icons w-100">
-    <div class="col-6"></div>
-    <div class="div-icons col-6 d-flex justify-content-end " style="background-color: var(--Blue-700);">
+  
+    
+    <div class="div-icons w-100 d-flex justify-content-end " style="background-color: var(--Blue-700);">
       <div v-for="icon in icons" :key="icon.id" class="cardhover">
         <RouterLink :to="icon.route" class="d-flex cards">
           <h3 style="font-size: 1rem; color: var(--White-000);">{{ icon.name }}</h3>
@@ -49,8 +50,6 @@ onUnmounted(() => {
 .div-icons{
   padding: 10px;
   gap: 20px; 
-  border-radius: 0 0 0 100px;
-  margin-left: -20px !important;
   padding-right: 10px !important;
 }
 

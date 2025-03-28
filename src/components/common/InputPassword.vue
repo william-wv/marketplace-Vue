@@ -28,7 +28,7 @@ defineEmits(['update:modelValue']);
       <input 
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        placeholder="• • • • • • • •" 
+        placeholder="senha" 
         :type="mostrarSenha ? 'text' : 'password'" class="form-control" 
         required>
 

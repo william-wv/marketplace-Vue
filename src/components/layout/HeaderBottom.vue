@@ -1,20 +1,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-
-
+import { Offcanvas } from "bootstrap";
 import useAuthStore from "@/stores/auth";
 
-// Lista de itens (exemplo)
-// const items = ref([
-//   { id: 1, name: "Apple" },
-//   { id: 2, name: "Banana" },
-//   { id: 3, name: "Orange" },
-//   { id: 4, name: "Grapes" },
-// ]);
-
-
+// Detecta se está em um dispositivo móvel
 const isMobile = ref(window.innerWidth <= 700);
-
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
 };
@@ -23,47 +13,39 @@ onMounted(() => {
   window.addEventListener("resize", checkMobile);
 });
 
+// Remove o event listener quando o componente for desmontado
 onUnmounted(() => {
   window.removeEventListener("resize", checkMobile);
 });
 
-// const searchQuery = ref("");
+// Referência para o menu lateral
+const offcanvasElement = ref(null);
+let offcanvasInstance = null;
 
-// Filtra os itens com base no campo de busca
-// const filteredItems = computed(() => {
-//   return items.value.filter(item => 
-//     item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-//   );
-// });
+// Inicializa o Bootstrap Offcanvas
+onMounted(() => {
+  if (offcanvasElement.value) {
+    offcanvasInstance = new Offcanvas(offcanvasElement.value);
+  }
+});
+
+// Função para fechar o menu ao clicar em um link
+const closeOffcanvas = () => {
+  if (offcanvasInstance) {
+    offcanvasInstance.hide();
+  }
+};
 
 // store
 const auth = useAuthStore();
-
 </script>
 
-<style scoped>
-.container {
-  max-width: 400px;
-  margin: 20px auto;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-</style>
 <template>
   <div class="container__header d-flex">
-
-    <section v-if="isMobile" class="">
+    <section v-if="isMobile">
       <nav class="navbar">
         <div class="container-fluid">
-          <!-- Logo (canto esquerdo) -->
           <RouterLink class="logo navbar-brand" to="/">Compre +</RouterLink>
-
-          <!-- Botão de Toggle para abrir o menu lateral (canto direito) -->
           <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -71,48 +53,41 @@ input {
         </div>
       </nav>
 
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div ref="offcanvasElement" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
-          <h5 style="color:  var(--White-050);" class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: var(--White-050);">Menu</h5>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav">
-            <RouterLink to="/">
-              <li class="nav-item">
-                Home
-              </li>
+            <RouterLink class="d-flex" to="/" @click="closeOffcanvas">
+              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Home</li>
             </RouterLink>
-            <RouterLink to="/login">
-              <li class="nav-item">
-                login
-              </li>
+            <RouterLink class="d-flex" to="/login" @click="closeOffcanvas">
+              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+              <li class="nav-item">Login</li>
             </RouterLink>
-            <RouterLink to="/categories">
-              <li class="nav-item">
-                Categories
-              </li>
+            <RouterLink class="d-flex" to="/categories" @click="closeOffcanvas">
+              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Categories</li>
             </RouterLink>
-            <RouterLink to="/discounts">
-              <li class="nav-item">
-                Discounts
-              </li>
+            <RouterLink class="d-flex" to="/discounts" @click="closeOffcanvas">
+              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Discounts</li>
             </RouterLink>
-            <RouterLink to="/coupons">
-              <li class="nav-item">
-                Coupons
-              </li>
+            <RouterLink class="d-flex" to="/coupons" @click="closeOffcanvas">
+              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Coupons</li>
             </RouterLink>
-            <RouterLink to="/shop">
-              <li class="nav-item">
-                Shop
-              </li>
+            <RouterLink class="d-flex" to="/shop" @click="closeOffcanvas">
+              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Shop</li>
             </RouterLink>
           </ul>
         </div>
       </div>
     </section>
-
     <section v-else>
       <div class="container-itens__header d-flex w-100">
         <div class="logo__header">
@@ -131,8 +106,6 @@ input {
         </ul> -->
 
         </div>
-
-       
 
         <div class="p-2">
           <p class="welcome" v-if="auth.isAuthenticated" style="color: var(--White-050);">
@@ -155,21 +128,28 @@ input {
   display: flex !important;
   justify-content: space-between !important;
 }
-i{
+
+i {
   font-size: 1.5rem;
 }
+
 a {
   color: var(--White-050) !important;
 }
 
+
 li {
   margin: 10px 0 !important;
-  border: 1px solid var(--White-050);
+  font-weight: 600;
+}
 
+li:hover {
+  color: var(--Yellow-500) !important;
 }
 
 .offcanvas {
   background-color: var(--Blue-700);
+  width: 40vw;
 }
 
 .container__header {
@@ -189,6 +169,11 @@ h1 {
   display: flex;
   align-self: center;
   width: 30vw;
+}
+
+.icon-flex{
+  display: flex;
+  align-items: center;
 }
 
 .container-itens__header {
