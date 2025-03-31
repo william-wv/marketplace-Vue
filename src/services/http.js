@@ -1,15 +1,23 @@
 import axios from 'axios';
 
-
-axios.defaults.withCredentials = true;
-
 const api = axios.create({
-  baseURL: 'http://34.138.111.33:8000/',
+  baseURL: 'http://35.196.79.227:8000/',
 });
 
 const user = 6
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQzMTM2NTI4fQ.kdLWUxaS_Bj3ypU6V7aCsbRaOqersEGWe5TeWw51RGE';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQzNDkxMDgwfQ.13DPDZ6xe89dfzEPAvszibnS5ZyixMbd90-NGU1nbaI';
+
+export async function getImageUrl(imagePath) {
+  try {
+    const response = await api.get(`images/${imagePath}`)
+    return response.data.url;
+  } catch (error) {
+    console.error('Erro ao buscar imagem ', error);
+  }
+
+}
+
 
 export async function getProd(){
   try {
@@ -128,14 +136,21 @@ export const cartService = {
     });
   },
 
-  async addItemToCart(payload) {
-    return api.post('cart/items', payload, {
-      headers: {
+  async  addItemToCart(item) {
+    try {
+      const response = await api.post('cart/items', item, { 
+        headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-  },
+        Accept: 'application/json',
+        'Content-Type': 'application/json', 
+        }
+      });
+      console.log('Item adicionado ao carrinho:', response.data);
+    } catch (error) {
+      console.error('Erro ao adicionar item ao carrinho:', error.response?.status, error.response?.data);
+    }
+  }
+  ,
 
   // async updateCartItem(item) {
   //   return api.put('cart/items', item, {

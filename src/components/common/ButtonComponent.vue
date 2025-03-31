@@ -2,15 +2,14 @@
   const props = defineProps({
     title: String,
     style: String,
-    icon: String,
-
+    icon: String
   })
 </script>
 
 <template>
-  
-  <Button type="submit" :class=style class="btn"
-  > <i :class=icon></i> {{ title }}</Button>
+  <Button type="submit" :class=style 
+  > <i :class=icon></i> {{ title }}
+  </Button>
 </template>
 
 <style scoped>

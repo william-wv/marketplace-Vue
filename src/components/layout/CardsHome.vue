@@ -18,16 +18,15 @@ const number = props.num.toString()
   <section >
     <RouterLink :to=route>
     <div class="contain d-flex">
-      <div class="div-icon">
-        <i class="icon" :class=icon></i>
+      <div class="p-1 div-icon">
+        <i style="color: var(--Orange-500); opacity: 70%;"  class="icon" :class=icon></i>
       </div>
       <div class="texts">
-        <h2 class="mt-2">{{ title }}</h2>
+        <h2 style="color: var(--White-050);" class="mt-2">{{ title }}</h2>
         <h2 style="color: var(--White-050);">{{ number }}</h2>
-        <p class="mb-2">{{ text }}</p>
       </div>
       <div class="m-2">
-        <i class="bi bi-arrow-right-short"></i>
+        <i style="color: var(--White-050);" class="bi bi-arrow-right-short"></i>
       </div>
     </div>
   </RouterLink>

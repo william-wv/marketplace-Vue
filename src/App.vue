@@ -7,10 +7,9 @@ import HeaderTop from './components/layout/HeaderTop.vue';
 import HeaderHome from './components/layout/HeaderHome.vue';
 // import ListPages from './components/layout/ListPages.vue';
 
+import { Notivue, Notification } from 'notivue'
 
 const route = useRoute()
-
-
 
 </script>
 
@@ -21,7 +20,9 @@ const route = useRoute()
     <HeaderHome />
   </header>
 
-  
+  <Notivue v-slot="item">
+    <Notification :item="item" />
+  </Notivue>
 
   <main>
     <RouterView />
@@ -37,8 +38,9 @@ const route = useRoute()
 </template>
 
 <style scoped>
-/* .header {
-  position: fixed;
-  margin-bottom: 30px !important;
-} */
+@media (min-width: 768px) {
+  :root {
+    --nv-root-x-align: right;
+  }
+}
 </style>

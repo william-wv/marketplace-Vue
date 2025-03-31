@@ -5,8 +5,7 @@ import { login } from '@/services/http';
 import useAuthStore from '@/stores/auth.js';
 
 // notificações
-import { Notivue, Notification, push } from 'notivue'
-
+import { push } from 'notivue'
 
 // componentes
 import ButtonComponent from '../common/ButtonComponent.vue';
@@ -20,6 +19,7 @@ import CardsLogin from '../layout/CardsLogin.vue';
 // refs
 const email = ref('');
 const senha = ref('');
+const errorMessage = ref('');
 
 // store
 const auth = useAuthStore();
@@ -31,15 +31,15 @@ async function enviarLogin() {
   })
 
   if (result.status == 200) {
-    push.success('Welcome, login successful!')
+    push.success({
+      title: 'Login successful',
+      message: 'Welcome back!',
+    });
     auth.saveUser(result.data)
   }
-  else if(result.status == 401 || result.status == undefined) {
-    push.error('Invalid email or password')
-    console.log('aaa')
-  }
   else {
-    push.error('An error occurred, please try again later')
+    errorMessage.value = 'Invalid email or password';
+    push.error('Invalid email or password');
   }
 }
 
@@ -51,9 +51,6 @@ async function enviarLogin() {
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
 
-    <Notivue v-slot="item">
-      <Notification :item="item" position="top-right" />
-    </Notivue>
 
     <section class="main1" v-if="!auth.isAuthenticated">
       <div class="contain">
@@ -78,6 +75,9 @@ async function enviarLogin() {
             <RouterLink to="/register">Sign Up</RouterLink>
           </p>
         </div>
+
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p> 
+
         <div class="d-none section-img">
           <img src="/icons/login/register-senha.svg" alt="">
           <RouterLink class="d-flex btn-center" to="/register">
@@ -133,6 +133,14 @@ async function enviarLogin() {
   <FooterComponent />
 </template>
 <style scoped>
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+
 main {
   background-color: var(--foreground);
   overflow-y: hidden;

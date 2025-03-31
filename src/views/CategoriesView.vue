@@ -2,7 +2,7 @@ o
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { getCategories, getProductsByCategory } from '@/services/http.js'
-// import { useCartStore } from '@/stores/carrinho.js';
+// import { useCartStore } from '@/stores/produtos.js';
 import { cartService } from '@/services/http.js';
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 
@@ -15,7 +15,7 @@ const error = ref('');
 
 const favoritos = ref({});
 
-// const carrinho = useCartStore()
+// const produtos = useCartStore()
 
 async function getCategoria() {
   loading.value = true;
@@ -50,9 +50,9 @@ function getImageUrl(imagePath) {
     return '/placeholder.jpg';
   }
   if (imagePath.startsWith('/uploads/products/')) {
-    return `http://34.138.111.33:8000${imagePath}`;
+    return `http://35.196.79.227:8000${imagePath}`;
   }
-  return `http://34.138.111.33:8000/uploads/products/${imagePath}`;
+  return `http://35.196.79.227:8000/uploads/products/${imagePath}`;
 }
 
 const taxaDeCambio = ref(0.17);
@@ -66,25 +66,31 @@ function converterParaDolar(precoBRL) {
 
 async function adcShop(prod) {
   try {
-    // Usando cartService para adicionar o item à API
-    await cartService.addItemToCart({
+    // Se o carrinho ainda não foi carregado, busca os itens
+    if (!produtos.value || produtos == []) {
+      console.log('Carregando carrinho...');
+      const criar = await cartService.getCart();
+      produtos.value = criar.data.items || [];
+      console.log('Carrinho carregado:', produtos.value);
+    }
+
+    console.log(`Adicionando produto ${prod.name} ao carrinho...`);
+    
+    // Adiciona o item ao carrinho
+    const response = await cartService.addItemToCart({
       product_id: prod.id,
       quantity: 1,
       unit_price: prod.price
     });
 
-    // // Atualizando o estado do carrinho local com Pinia
-    // carrinho.addItem({
-    //   product_id: prod.id,
-    //   quantity: 1,
-    //   unit_price: prod.price
-    // });
+    console.log('Resposta da API:', response);
 
-    console.log('Item adicionado ao carrinho:', prod.name);
+
   } catch (error) {
-    console.error('Erro ao adicionar item ao carrinho:', error);
+    console.error('Erro ao adicionar produto ao carrinho:', error);
   }
 }
+
 
 
 function ativeFav(produtoId) {
