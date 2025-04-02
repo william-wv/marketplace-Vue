@@ -39,16 +39,23 @@ const router = createRouter({
       }
     },
     {
-      path: '/createCategories',
-      name: 'create categories',
-      component: () => import('../components/pages/CategoriesCreate.vue') , 
+      path: '/editModerator',
+      name: 'categoriesModPage',
+      component: () => import('../components/pages/ModEditComponent.vue') , 
         meta: {
             hideHeader: true,
             hideFooter: true    
       }
     },
-
+    {
+      path: '/categoriesModerator/categorias/criar',
+      name: 'create categories',
+      component: () => import('../components/pages/CreateCategory.vue') ,
+        meta: {
+            hideHeader: true,
+            hideFooter: true    
+      }
+    },
   ],
 })
-
 export default router

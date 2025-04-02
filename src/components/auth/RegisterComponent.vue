@@ -9,7 +9,6 @@ import ContinueWith from './ContinueWith.vue';
 
 // Vue & js
 import { ref } from 'vue';
-import { useAuthStore } from '@/stores/auth.js';
 import { register } from '@/services/http.js';
 
 // ref
@@ -17,7 +16,6 @@ const mail = ref('');
 const senha = ref('');
 const nome = ref('');
 
-const auth = useAuthStore();
 
 async function enviarRegister() {
   const result = await register({ 
@@ -26,7 +24,10 @@ async function enviarRegister() {
     password: senha.value })  
 
   if (result.status == 201) {
-    alert('registrado sucesso')
+    push.success({
+      title: 'Register Sucessful',
+      message: '',
+    });
     console.log("Sucesso:", result.status);
   }
   else {
@@ -60,10 +61,13 @@ async function enviarRegister() {
             <p>Join our marketplace to discover amazing products</p>
           </div>
           <form @submit.prevent="enviarRegister">
+            
             <InnputName v-model="nome" :step-name="'Name'" />
             <InputEmail v-model="mail" :step-name="'Email'" />
             <InputPassword v-model="senha" :step-name="'Password'" />
-            <!-- <InputPassword :step-name="'Confirm Password'" /> -->
+            <!-- 
+            <InputPassword :step-name="'Confirm Password'" /> 
+            -->
             <ButtonComponent class="w-100" :title="'Submit'" :style="'blue'" />
           </form>
           <ContinueWith />

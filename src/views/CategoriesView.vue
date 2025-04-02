@@ -1,13 +1,13 @@
-o
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import { getCategories, getProductsByCategory } from '@/services/http.js'
-// import { useCartStore } from '@/stores/produtos.js';
+
+import { getCategories, getProductsByCategory , getImageUrl} from '@/services/http.js'
 import { cartService } from '@/services/http.js';
+const produtos = ref([]);
+
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 
 const categorias = ref([]);
-const produtos = ref([]);
 const categoriaSelecionada = ref('');
 
 const loading = ref(false);
@@ -15,10 +15,9 @@ const error = ref('');
 
 const favoritos = ref({});
 
-// const produtos = useCartStore()
 
 async function getCategoria() {
-  loading.value = true;
+  loading.value = true
   try {
     const response = await getCategories();
     categorias.value = response;
@@ -45,15 +44,6 @@ async function getProdutosPorCategoria(idCateg) {
   }
 }
 
-function getImageUrl(imagePath) {
-  if (!imagePath) {
-    return '/placeholder.jpg';
-  }
-  if (imagePath.startsWith('/uploads/products/')) {
-    return `http://35.196.79.227:8000${imagePath}`;
-  }
-  return `http://35.196.79.227:8000/uploads/products/${imagePath}`;
-}
 
 const taxaDeCambio = ref(0.17);
 function converterParaDolar(precoBRL) {
@@ -65,31 +55,21 @@ function converterParaDolar(precoBRL) {
 }
 
 async function adcShop(prod) {
-  try {
-    // Se o carrinho ainda não foi carregado, busca os itens
-    if (!produtos.value || produtos == []) {
-      console.log('Carregando carrinho...');
-      const criar = await cartService.getCart();
-      produtos.value = criar.data.items || [];
-      console.log('Carrinho carregado:', produtos.value);
-    }
 
-    console.log(`Adicionando produto ${prod.name} ao carrinho...`);
-    
-    // Adiciona o item ao carrinho
-    const response = await cartService.addItemToCart({
-      product_id: prod.id,
-      quantity: 1,
-      unit_price: prod.price
-    });
-
-    console.log('Resposta da API:', response);
-
-
-  } catch (error) {
-    console.error('Erro ao adicionar produto ao carrinho:', error);
+  // Adiciona o item ao carrinho
+  const response = await cartService.addItemToCart({
+    product_id: prod.id,
+    quantity: 1,
+    unit_price: prod.price
+  });
+  
+  if (response.status === 204) {
+    console.log('Item adicionado ao carrinho com sucesso!');
+  } else {
+    console.error('Erro ao adicionar item ao carrinho:', response);
   }
 }
+
 
 
 
@@ -169,28 +149,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Estilos para o spinner de loading */
-.loading-spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 2s linear infinite;
-}
-
-.loading-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--Blue-700);
-  z-index: 1;
-}
 
 /* Animação de rotação do spinner */
 @keyframes spin {

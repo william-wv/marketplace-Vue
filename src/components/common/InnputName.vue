@@ -4,7 +4,6 @@ const props = defineProps({
 })
 defineEmits(['update:modelValue']);
 
-// Variável reativa para armazenar o nome
 </script>
 
 <template>
@@ -17,7 +16,7 @@ defineEmits(['update:modelValue']);
       <span class="input-group-text"><i class="bi bi-person"></i></span>
       <input  
         @input="$emit('update:modelValue', $event.target.value)" 
-        placeholder="Digite seu nome aqui" 
+        placeholder="Digite o nome aqui" 
         id="name" 
         type="text" 
         class="form-control" 

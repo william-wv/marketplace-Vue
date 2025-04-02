@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import { cartService, getProd, getImageUrl } from '@/services/http';
+import { cartService, getProd , getImageUrl } from '@/services/http';
 
 const carrinho = ref([]);
 const produtos = ref([]);
@@ -14,6 +14,16 @@ async function getProducts() {
     console.error('Erro ao carregar os produtos:', e);
   }
 }
+
+// function getImageUrl(imagePath) {
+//   if (!imagePath) {
+//     return '/placeholder.jpg';
+//   }
+//   if (imagePath.startsWith('/uploads/products/')) {
+//     return `http://35.196.79.227:8000${imagePath}`;
+//   }
+//   return `http://35.196.79.227:8000/uploads/products/${imagePath}`;
+// }
 
 async function carregarCarrinho() {
   try {

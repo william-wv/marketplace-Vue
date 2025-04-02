@@ -37,10 +37,34 @@ const route = useRoute()
 
 </template>
 
-<style scoped>
-@media (min-width: 768px) {
-  :root {
-    --nv-root-x-align: right;
-  }
+<style >
+
+/* Estilos para o spinner de loading */
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
 }
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Blue-700);
+  z-index: 1;
+}
+
+.bi-arrow-left-short {
+  font-size: 50px;
+  padding: 10px;
+}
+
 </style>

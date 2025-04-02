@@ -3,6 +3,7 @@
 import { ref } from 'vue';
 import { login } from '@/services/http';
 import useAuthStore from '@/stores/auth.js';
+import { cartService } from '@/services/http';
 
 // notificações
 import { push } from 'notivue'
@@ -30,6 +31,15 @@ async function enviarLogin() {
     password: senha.value
   })
 
+  
+  const carrinho = await cartService.createCart();
+  if (carrinho.error) {
+    console.error(carrinho.message);
+  } else {
+    console.log('Carrinho criado com sucesso:', carrinho);
+  }
+
+
   if (result.status == 200) {
     push.success({
       title: 'Login successful',
@@ -50,8 +60,7 @@ async function enviarLogin() {
     <RouterLink class="m-2" to="/">
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
-
-
+    
     <section class="main1" v-if="!auth.isAuthenticated">
       <div class="contain">
         <div class="spacecc">
@@ -89,14 +98,14 @@ async function enviarLogin() {
 
 
     <section v-else>
-      <div class="text-center space-title mb-5" style="color: var(--White-050);">
+      <div class="text-center space-title mb-5" style="color: var(--Blue-700);">
         <h1 class="mb-3">Welcome back!</h1>
         <h3>You're already signed in to your account</h3>
       </div>
 
       <div class="contain d-flex flex-column">
         <div class="circle">
-          <h1>{{ auth.user.name.charAt() }}</h1>
+          <h1 style="color: var(--Blue-700);">{{ auth.user.name.charAt() }}</h1>
         </div>
         <div>
           <p>Welcome, {{ auth.user.name }}</p>
@@ -122,10 +131,11 @@ async function enviarLogin() {
         <!-- cards adimin and moderator -->
         <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-cart'"
           :title="'Stock'" :num="6" :text="'Saved items for later'" :btn_txt="'View Stock'" />
-        <RouterLink to="/createCategories">
-          <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-tags-fill'"
-            :title="'Categories'" :text="'Saved items for later'" :num="6" :btn_txt="'View Categories'" />
+        <RouterLink to="/editModerator">
+          <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-tags'"
+            :title="'Categories and Products'" :text="'Saved items for later'" :num="6" :btn_txt="'View Categories'" />
         </RouterLink>
+
       </div>
 
     </section>
@@ -140,10 +150,8 @@ async function enviarLogin() {
   margin-top: 5px;
 }
 
-
 main {
-  background-color: var(--foreground);
-  overflow-y: hidden;
+  background-color: var(--White-000) !important;
 }
 
 .bi-arrow-left-short {
@@ -156,7 +164,7 @@ main {
 }
 
 .contain {
-  background-color: var(--Gray-900);
+  background-color: var(--Blue-700);
   color: white;
   padding: 30px;
   margin: 20px !important;
@@ -171,7 +179,7 @@ main {
 
   & h2 {
     font-size: 1rem;
-    color: var(--White-250);
+    color: var(--White-000);
   }
 
   & h3 {
@@ -188,7 +196,7 @@ main {
 .circle {
   width: 80px;
   height: 80px;
-  background-color: var(--Blue-900);
+  background-color: var(--White-000);
   border-radius: 50%;
   display: flex;
   justify-content: center;
