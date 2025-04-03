@@ -12,7 +12,7 @@ import CarrinhoComponente from '@/components/pages/CarrinhoComponente.vue';
 </header>
 
 <main>
-    <CarrinhoComponente/>
+  <CarrinhoComponente/>
 </main>
 
   

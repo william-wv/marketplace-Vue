@@ -9,7 +9,7 @@ const categoriaSelecionada = ref('');
 const loading = ref(false);
 const error = ref('');
 const favoritos = ref({});
-const carrinho = ref({}); // Estado para armazenar produtos no carrinho
+const carrinho = ref({}); 
 
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 
@@ -97,10 +97,10 @@ onMounted(() => {
 <template>
   <div class="mt-4 mb-4 d-flex justify-content-evenly">
     <div>
-      <label for="categoria">Select a category:</label>
+      <label class="select-cat" for="categoria">Select a category:</label>
     </div>
     <div>
-      <select v-model="categoriaSelecionada" id="categoria" :disabled="loading">
+      <select class="selet-cat" v-model="categoriaSelecionada" id="categoria" :disabled="loading">
         <option value="">Choose a category</option>
         <option v-for="ctg in categorias" :key="ctg.id" :value="ctg.id">
           {{ ctg.name }}
@@ -118,7 +118,8 @@ onMounted(() => {
 
     <section v-else-if="produtos.length > 0" class="card card-categ mb-5">
       <div v-for="prod in produtos" :key="prod.id" class="div-categ">
-        <div class="container">
+        
+        <div class="contain-card ">
           <div class="div-img d-flex justify-content-center">
             <img :src="getImageUrl(prod.image_path)" alt="Imagem do produto" />
           </div>
@@ -179,11 +180,21 @@ onMounted(() => {
 p,
 h1 {
   color: black;
+  font-size: 1.5rem;
 }
 
 h2 {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--text-h2);
+}
+
+.select-cat{
+  font-size: 1.5rem;
+}
+
+.selet-cat{
+  padding: 10px !important;
+  border-radius: 10px !important;
 }
 
 .card-categ {
@@ -222,8 +233,7 @@ img {
 }
 
 .i-favorite {
-  display: flex;
-  align-items: center;
+
 }
 
 .i-fav {

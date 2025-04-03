@@ -15,16 +15,6 @@ async function getProducts() {
   }
 }
 
-// function getImageUrl(imagePath) {
-//   if (!imagePath) {
-//     return '/placeholder.jpg';
-//   }
-//   if (imagePath.startsWith('/uploads/products/')) {
-//     return `http://35.196.79.227:8000${imagePath}`;
-//   }
-//   return `http://35.196.79.227:8000/uploads/products/${imagePath}`;
-// }
-
 async function carregarCarrinho() {
   try {
       const response = await cartService.getCartItems();
@@ -36,13 +26,11 @@ async function carregarCarrinho() {
   }
 }
 
-
 function getNomeProduto(produtoId) {
   if (!produtos.value.length) return 'Carregando...';
   const produto = produtos.value.find(p => p.id === produtoId);
   return produto ? produto.name : 'Produto não encontrado';
 }
-
 
 async function excluirItem(produto) {
   try {
@@ -66,6 +54,17 @@ async function limparCarrinho() {
   }
 }
 
+
+const taxaDeCambio = ref(0.17);
+function converterParaDolar(precoBRL) {
+  if (!precoBRL) return '$ 0.00';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(precoBRL * taxaDeCambio.value);
+}
+
+
 watch(produtos, () => {
   carregarCarrinho();
 }, { once: true });
@@ -80,18 +79,15 @@ onMounted(() => {
     <h1>Meu Carrinho</h1>
 
 
-    <div v-if="carrinho.length && produtos.length">
-      <div v-for="prodCarrinho in carrinho" :key="prodCarrinho.id">
-
-
-        <div>
+    <div class="d-grid" v-if="carrinho.length && produtos.length">
+      <div class="contain-card.contain-card d-flex" v-for="prodCarrinho in carrinho" :key="prodCarrinho.id">
+        <div class="img-produto">
           <img :src="getImageUrl(prodCarrinho.image_path)" alt="Imagem do produto" />
         </div>
         <ul>
-          <li>{{ prodCarrinho.id }}</li>
-          <li>Nome: {{ getNomeProduto(prodCarrinho.product_id) }}</li>
+          <li>Nome: <br> {{ getNomeProduto(prodCarrinho.product_id) }}</li>
           <li>Quantidade:{{ prodCarrinho.quantity }}</li>
-          <li>Valor: {{ prodCarrinho.unit_price }}</li>
+          <li>Valor: {{ converterParaDolar(prodCarrinho.unit_price) }}</li>
 
           <button @click="excluirItem(prodCarrinho)">Delete item</button>
         </ul>
@@ -107,6 +103,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
+img {
+  width: 200px;
+  height: 200px;
+}
+
 li {
   color: var(--Gray-600);
 }
@@ -127,4 +128,12 @@ button {
 button:hover {
   background-color: darkred;
 }
+
+.d-grid {
+  display: grid;
+  grid-template-columns: repeat(1fr, 1fr);
+  gap: 30px;
+}
+
+
 </style>
