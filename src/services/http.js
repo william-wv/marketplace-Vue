@@ -6,7 +6,7 @@ const api = axios.create({
 
 const user = 6
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQzNTY3NzIwfQ.Fak8BxQdNh7BNsPFEuZ4QiN7j1k0hm-Pg5LZ_xImgZk';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQzNzQwMjQzfQ.c2C5R_iewrdC1ZxDnAWdvsVeF6KZ1CqhAVTn0N5BXKA';
 
 
   export async function login(payload) {
@@ -54,6 +54,21 @@ export async function getProd(){
     return response;
   } catch (error) {
     console.error('Erro ao buscar dados ', error);
+  }
+}
+
+export async function postProd(payload){
+  try {
+    const response = await api.post('products/', payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return response;
+  } catch (error) {
+    console.error('Erro ao cadastrar produto ', error);
   }
 }
 

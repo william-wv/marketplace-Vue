@@ -1,26 +1,22 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-
-import { getCategories, getProductsByCategory , getImageUrl} from '@/services/http.js'
+import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js'
 import { cartService } from '@/services/http.js';
+
 const produtos = ref([]);
+const categorias = ref([]);
+const categoriaSelecionada = ref('');
+const loading = ref(false);
+const error = ref('');
+const favoritos = ref({});
+const carrinho = ref({}); // Estado para armazenar produtos no carrinho
 
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 
-const categorias = ref([]);
-const categoriaSelecionada = ref('');
-
-const loading = ref(false);
-const error = ref('');
-
-const favoritos = ref({});
-
-
 async function getCategoria() {
-  loading.value = true
+  loading.value = true;
   try {
-    const response = await getCategories();
-    categorias.value = response;
+    categorias.value = await getCategories();
   } catch (err) {
     console.error('Erro ao carregar categorias:', err);
     error.value = 'Erro ao carregar as categorias. Tente novamente mais tarde.';
@@ -34,8 +30,7 @@ async function getProdutosPorCategoria(idCateg) {
   error.value = '';
   produtos.value = [];
   try {
-    const response = await getProductsByCategory(idCateg);
-    produtos.value = response;
+    produtos.value = await getProductsByCategory(idCateg);
   } catch (err) {
     console.error('Erro ao carregar produtos:', err);
     error.value = 'Erro ao carregar os produtos. Tente novamente mais tarde.';
@@ -43,7 +38,6 @@ async function getProdutosPorCategoria(idCateg) {
     loading.value = false;
   }
 }
-
 
 const taxaDeCambio = ref(0.17);
 function converterParaDolar(precoBRL) {
@@ -54,24 +48,32 @@ function converterParaDolar(precoBRL) {
   }).format(precoBRL * taxaDeCambio.value);
 }
 
-async function adcShop(prod) {
-
-  // Adiciona o item ao carrinho
-  const response = await cartService.addItemToCart({
-    product_id: prod.id,
-    quantity: 1,
-    unit_price: prod.price
-  });
-  
-  if (response.status === 204) {
-    console.log('Item adicionado ao carrinho com sucesso!');
+async function toggleCarrinho(prod) {
+  if (carrinho.value[prod.id]) {
+    // Remover do carrinho
+    const response = await cartService.removeItemFromCart(prod.id);
+    if (response.status === 204) {
+      delete carrinho.value[prod.id];
+      console.log('Item removido do carrinho com sucesso!');
+    } else {
+      console.error('Erro ao remover item do carrinho:', response);
+    }
   } else {
-    console.error('Erro ao adicionar item ao carrinho:', response);
+    // Adicionar ao carrinho
+    const response = await cartService.addItemToCart({
+      product_id: prod.id,
+      quantity: 1,
+      unit_price: prod.price
+    });
+
+    if (response.status === 204) {
+      carrinho.value[prod.id] = true;
+      console.log('Item adicionado ao carrinho com sucesso!');
+    } else {
+      console.error('Erro ao adicionar item ao carrinho:', response);
+    }
   }
 }
-
-
-
 
 function ativeFav(produtoId) {
   favoritos.value[produtoId] = !favoritos.value[produtoId];
@@ -86,6 +88,7 @@ watch(
   },
   { immediate: true }
 );
+
 onMounted(() => {
   getCategoria();
 });
@@ -115,21 +118,19 @@ onMounted(() => {
 
     <section v-else-if="produtos.length > 0" class="card card-categ mb-5">
       <div v-for="prod in produtos" :key="prod.id" class="div-categ">
-        <div class="img-txts">
+        <div class="container">
           <div class="div-img d-flex justify-content-center">
             <img :src="getImageUrl(prod.image_path)" alt="Imagem do produto" />
           </div>
 
           <div class="texts">
             <div>
-              <p>
-                <b>{{ prod.name }}</b>
-              </p>
-              <h2>{{ prod.description }}</h2>
+              <p class="p-name"><b>{{ prod.name }}</b></p>
+              <h2 class="p-desc">{{ prod.description }}</h2>
             </div>
             <div class="price d-flex">
               <div>
-                <p>{{ converterParaDolar(prod.price) }}</p>
+                <p class="p-price">{{ converterParaDolar(prod.price) }}</p>
               </div>
               <div @click="ativeFav(prod.id)" class="i-fav">
                 <i class="i-favorite" :class="favoritos[prod.id] ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
@@ -138,8 +139,13 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="div-btn d-flex justify-content-between">
-          <ButtonComponent @click="adcShop(prod)" :title="'Add to Cart'" :style="'blue'" :icon="'bi bi-cart'" />
+        <div class="div-btn">
+          <ButtonComponent
+            @click="toggleCarrinho(prod)"
+            :title="carrinho[prod.id] ? 'Remove from Cart' : 'Add to Cart'"
+            :style="carrinho[prod.id] ? 'red' : 'blue'"
+            :icon="carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'"
+          />
         </div>
       </div>
     </section>

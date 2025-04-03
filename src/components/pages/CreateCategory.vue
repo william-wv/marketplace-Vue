@@ -17,9 +17,6 @@ async function enviarCat() {
     description: catDesc.value,
   })
 
-
-  console.log();
-
   if (categoriaCriada.status === 422) {
     push.error({
       title: 'error category',
@@ -32,6 +29,8 @@ async function enviarCat() {
       message: '',
     });
   }
+
+  window.location.reload()
 }
 </script>
 

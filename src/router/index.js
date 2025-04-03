@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: '/editModerator',
       name: 'categoriesModPage',
-      component: () => import('../components/pages/ModEditComponent.vue') , 
+      component: () => import('../components/pages/ModCreate.vue') , 
         meta: {
             hideHeader: true,
             hideFooter: true    

@@ -1,15 +1,21 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { getCategories, deleteCategory } from '@/services/http';
+import { ref, onMounted, watch } from 'vue';
+import { getCategories, deleteCategory, getProductsByCategory, postProd } from '@/services/http';
+
+import CreateProducts from './CreateProducts.vue';
 
 const loading = ref(false);
 const categorias = ref([]);
+const categoriaSelecionada = ref(null);
+const produtos = ref([]);
+
 
 async function getCategoria() {
   loading.value = true;
   try {
     const response = await getCategories();
     categorias.value = response;
+    console.log('Categorias carregadas:', categorias.value);
   } catch (err) {
     console.error('Erro ao carregar categorias:', err);
   } finally {
@@ -17,13 +23,20 @@ async function getCategoria() {
   }
 }
 
+
+
 async function deleteCategoria(id) {
-  if (!id) return; // Evita chamadas sem ID
+  if (!id) return;
 
   loading.value = true;
   try {
     await deleteCategory(id);
-    categorias.value = categorias.value.filter(cat => cat.id !== id); // Remove a categoria localmente
+    categorias.value = categorias.value.filter(cat => cat.id !== id);
+
+    if (categoriaSelecionada.value === id) {
+      categoriaSelecionada.value = null;
+      produtos.value = [];
+    }
   } catch (err) {
     console.error('Erro ao excluir categoria:', err);
   } finally {
@@ -31,9 +44,12 @@ async function deleteCategoria(id) {
   }
 }
 
+
 onMounted(() => {
   getCategoria();
 });
+
+
 </script>
 
 <template>
@@ -66,16 +82,14 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="">
+        <div>
           <RouterLink to="/categoriesModerator/categorias/criar">
             <button class="btn btn-primary">Adicionar Categoria</button>
           </RouterLink>
         </div>
       </div>
 
-      <div class="myproducts">
-        <h1>Meus Produtos</h1>
-      </div>
+      <CreateProducts/>
     </section>
   </main>
 </template>
@@ -83,5 +97,10 @@ onMounted(() => {
 <style scoped>
 main {
   background-color: var(--White-000) !important;
+}
+
+img {
+  margin-top: 10px;
+  border-radius: 10px;
 }
 </style>
