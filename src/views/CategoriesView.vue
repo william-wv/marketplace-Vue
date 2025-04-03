@@ -232,9 +232,7 @@ img {
   height: auto;
 }
 
-.i-favorite {
 
-}
 
 .i-fav {
   padding: 5px;
