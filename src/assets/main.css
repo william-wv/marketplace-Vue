@@ -45,7 +45,6 @@ margin: 0 !important;
 .contain-card {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 16px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;

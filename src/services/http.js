@@ -6,7 +6,7 @@ const api = axios.create({
 
 const user = 6
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQzNzU3Nzc1fQ.FXtC8swpeRSlmSlINAsuXMP6gr3Mv6CzxL5L9Tos9bY';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQzODEyNjc5fQ.ZNFmZ8286Q-J8VNEwh09zYpG0Vl8K193qSFP--Lqizc';
 
 
   export async function login(payload) {
