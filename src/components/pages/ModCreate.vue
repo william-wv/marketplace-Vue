@@ -80,14 +80,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-
-        <div>
-          <RouterLink to="/categoriesModerator/categorias/criar">
-            <button class="btn btn-primary">Adicionar Categoria</button>
-          </RouterLink>
-        </div>
       </div>
-
     </section>
   </main>
 </template>
