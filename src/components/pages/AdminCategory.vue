@@ -10,7 +10,7 @@ import AdminMyCategories from './AdminMyCategories.vue';
   <RouterLink class="m-2" to="/editModerator">
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
-    <h1 class="text-center">MODERATOR SETUP</h1>
+ 
 
   <main class="contain">
     <div class="card">
@@ -24,11 +24,6 @@ import AdminMyCategories from './AdminMyCategories.vue';
 
 <style scoped>
 
-h1{
-  padding: 10px 0;
-  border-top: 1px solid var(--White-200);
-  border-bottom: 1px solid var(--White-200);
-}
 
 .contain{
   display: flex;

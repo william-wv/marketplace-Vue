@@ -67,9 +67,27 @@ i{
   top: 1px;
 }
 
-@media (min-width: 1024px) {
-  main{
-    height: 1px;
+@media (min-width:1000px) {
+  .card{
+    width: 300px;
+    height: 350px;
   }
 }
+
+@media (min-width:1440px) {
+  .card{
+    width: 450px;
+    height: 500px;
+  }
+
+  h2{
+    font-size: 3rem;
+  }
+
+  p{
+    font-size: 1.5rem;
+  }
+}
+
+
 </style>

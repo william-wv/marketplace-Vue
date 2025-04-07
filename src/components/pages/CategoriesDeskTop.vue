@@ -13,28 +13,28 @@ const favoritos = ref({});
 const carrinho = ref({});
 
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
-import CategoriesDeskTop from '@/components/pages/CategoriesDeskTop.vue';
 
+async function carregarTodosProdutos() {
+  loading.value = true;
+  error.value = '';
+  try {
+    const promessas = categorias.value.map(c => getProductsByCategory(c.id));
+    const resultados = await Promise.all(promessas);
+    produtos.value = resultados.flat();
+  } catch (err) {
+    console.error('Erro ao carregar todos os produtos:', err);
+    error.value = 'Erro ao carregar os produtos.';
+  } finally {
+    loading.value = false;
+  }
+}
 
-
-const isMobile = ref(window.innerWidth <= 700);
-
-const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 768;
-};
-
-onMounted(() => {
-  window.addEventListener("resize", checkMobile);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", checkMobile);
-});
 
 async function getCategoria() {
   loading.value = true;
   try {
     categorias.value = await getCategories();
+    console.log(categorias.value)
   } catch (err) {
     console.error('Erro ao carregar categorias:', err);
     error.value = 'Erro ao carregar as categorias. Tente novamente mais tarde.';
@@ -49,9 +49,9 @@ async function getProdutosPorCategoria(idCateg) {
   produtos.value = [];
   try {
     produtos.value = await getProductsByCategory(idCateg);
+    console.log(produtos.value)
   } catch (err) {
     console.error('Erro ao carregar produtos:', err);
-    error.value = 'Erro ao carregar os produtos. Tente novamente mais tarde.';
   } finally {
     loading.value = false;
   }
@@ -77,7 +77,6 @@ async function toggleCarrinho(prod) {
       console.error('Erro ao remover item do carrinho:', response);
     }
   } else {
-    // Adicionar ao carrinho
     const response = await cartService.addItemToCart({
       product_id: prod.id,
       quantity: 1,
@@ -107,48 +106,48 @@ watch(
   { immediate: true }
 );
 
-onMounted(() => {
-  getCategoria();
+
+onMounted(async () => {
+  await getCategoria();
+  if (categorias.value.length > 0) {
+    await carregarTodosProdutos();
+  }
 });
+
 </script>
-
 <template>
+  <div v-if="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+  </div>
+  <div v-if="error" class="erro">{{ error }}</div>
 
-  <section v-if="isMobile">
-    <div class="mt-4 mb-4 d-flex justify-content-evenly">
-      <div>
-        <label class="select-cat" for="categoria">Select a category:</label>
-      </div>
-      <div>
-        <select class="selet-cat" v-model="categoriaSelecionada" id="categoria" :disabled="loading">
-          <option value="">Choose a category</option>
-          <option v-for="ctg in categorias" :key="ctg.id" :value="ctg.id">
-            {{ ctg.name }}
-          </option>
-        </select>
-      </div>
+  <div v-else>
+    <div class="lista-categorias">
+      <button v-for="cat in categorias" :key="cat.id" @click="categoriaSelecionada = cat.id"
+        :class="['btn-cat', { active: categoriaSelecionada === cat.id }]" class="btn">
+        {{ cat.name }}
+      </button>
     </div>
-    <div>
-      <div v-if="loading" class="loading-container">
-        <div class="loading-spinner"></div>
-      </div>
 
-      <section v-if="error" class="error-message">{{ error }}</section>
 
-      <section v-else-if="produtos.length > 0" class="card card-categ mb-5">
+    <div v-if="categoriaSelecionada">
+      <h2 class="categoria-nome">
+        {{categorias.find(c => c.id === categoriaSelecionada)?.name}}
+      </h2>
+
+      <div v-if="produtos.length > 0" class="card card-categ mb-5">
         <div v-for="prod in produtos" :key="prod.id" class="div-categ">
 
-          <div class="contain-card ">
+          <div class="contain-card">
             <div class="div-img d-flex justify-content-center">
               <img :src="getImageUrl(prod.image_path)" alt="Imagem do produto" />
             </div>
-
             <div class="texts">
               <div>
                 <p class="p-name"><b>{{ prod.name }}</b></p>
                 <h2 class="p-desc">{{ prod.description }}</h2>
               </div>
-              <div class="price d-flex">
+              <div class="price">
                 <div>
                   <p class="p-price">{{ converterParaDolar(prod.price) }}</p>
                 </div>
@@ -156,9 +155,9 @@ onMounted(() => {
                   <i class="i-favorite" :class="favoritos[prod.id] ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
                 </div>
               </div>
+
             </div>
           </div>
-
           <div class="div-btn">
             <ButtonComponent @click="toggleCarrinho(prod)"
               :title="carrinho[prod.id] ? 'Remove from Cart' : 'Add to Cart'"
@@ -166,42 +165,28 @@ onMounted(() => {
               :icon="carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'" />
           </div>
         </div>
-      </section>
+      </div>
 
-      <p v-else>Não há produtos para esta categoria.</p>
+      <div v-else>
+        <p>Sem produtos disponíveis nesta categoria.</p>
+      </div>
+
     </div>
-  </section>
-
-  <section v-else-if="!isMobile">
-    <CategoriesDeskTop/>
-  </section>
+  </div>
 </template>
 
 <style scoped>
-/* Animação de rotação do spinner */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.error-message {
-  color: red;
-  font-size: 16px;
-}
-
-.div-img {
-  width: 100%;
+.lista-categorias {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px !important;
+  gap: 10px;
 }
 
 p,
 h1 {
   color: black;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 h2 {
@@ -228,7 +213,6 @@ h2 {
 .div-categ {
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid var(--Gray-600);
 }
 
 .img-txts {
@@ -257,7 +241,6 @@ img {
 
 .i-fav {
   padding: 5px;
-  background-color: var(--White-100);
   border-radius: 50%;
   cursor: pointer;
 }
