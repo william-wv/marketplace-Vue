@@ -57,8 +57,26 @@ const router = createRouter({
       }
     },{
       path: '/editmoderator/products',
+      name: 'options products',
+      component: () => import('../components/pages/AdminProducts.vue') ,
+        meta: {
+            hideHeader: true,
+            hideFooter: true    
+      }
+    },
+    {
+      path: '/editmoderator/viewProducts',
+      name: 'view products',
+      component: () => import('../components/pages/AdminProductsView.vue') ,
+        meta: {
+            hideHeader: true,
+            hideFooter: true    
+      }
+    },
+    {
+      path: '/editmoderator/createProducts',
       name: 'create products',
-      component: () => import('../components/pages/CreateProducts.vue') ,
+      component: () => import('@/components/pages/CreateProducts.vue') ,
         meta: {
             hideHeader: true,
             hideFooter: true    

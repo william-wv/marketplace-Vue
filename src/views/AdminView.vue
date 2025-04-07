@@ -18,7 +18,7 @@ import CardsLogin from '@/components/layout/CardsLogin.vue';
     <div>
       <RouterLink to="/editmoderator/products">
         <CardsLogin :icon="'bi bi-tags'" :title="'Products'" :text="'See and Create Itens'" :num="6"
-          :btn_txt="'View Products'" />
+        :btn_txt="'View Products'" />
       </RouterLink>
 
     </div>

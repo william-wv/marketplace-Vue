@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js'
 import { cartService } from '@/services/http.js';
+import { push } from 'notivue';
 
 const produtos = ref([]);
 const categorias = ref([]);
@@ -50,11 +51,11 @@ function converterParaDolar(precoBRL) {
 
 async function toggleCarrinho(prod) {
   if (carrinho.value[prod.id]) {
-    // Remover do carrinho
-    const response = await cartService.removeItemFromCart(prod.id);
+    const response = await cartService.removeCartItem(prod.id);
+    
     if (response.status === 204) {
       delete carrinho.value[prod.id];
-      console.log('Item removido do carrinho com sucesso!');
+      push.success('Item removido ao carrinho com sucesso!')
     } else {
       console.error('Erro ao remover item do carrinho:', response);
     }
@@ -68,7 +69,7 @@ async function toggleCarrinho(prod) {
 
     if (response.status === 204) {
       carrinho.value[prod.id] = true;
-      console.log('Item adicionado ao carrinho com sucesso!');
+      push.success('Item adicionado ao carrinho com sucesso!')
     } else {
       console.error('Erro ao adicionar item ao carrinho:', response);
     }

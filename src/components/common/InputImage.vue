@@ -13,7 +13,6 @@ defineEmits(['update:modelValue']);
     </div>
 
     <div class="input-group">
-      <span class="input-"><i class="bi bi-card-image"></i></span>
       <input @input="$emit('update:modelValue', $event.target.value)" type="file" id="imagem"
         @change="handleImageUpload" accept="image/*" required class="form-control" />
     </div>
@@ -27,14 +26,11 @@ defineEmits(['update:modelValue']);
   }
 
   input::placeholder {
-    font-size: 1.6rem !important;
+    font-size: 3rem !important;
     position: relative;
     top: 10%;
   }
 
-  i {
-    font-size: 1.6rem !important;
-  }
 
 }
 </style>

@@ -4,6 +4,7 @@ import { useProductStore } from "@/stores/postProducts";
 import InputName from "../common/InnputName.vue";
 import InputPrice from "../common/InputNumber.vue";
 import InputImage from "../common/InputImage.vue";
+import ButtonComponent from "../common/ButtonComponent.vue";
 
 const productStore = useProductStore();
 
@@ -50,41 +51,56 @@ onMounted(() => {
 
 <template>
 
-<RouterLink class="m-2" to="/editModerator">
-      <i class="bi bi-arrow-left-short"></i>
-    </RouterLink> 
+  <RouterLink class="m-2" to="/editmoderator/products">
+    <i class="bi bi-arrow-left-short"></i>
+  </RouterLink>
 
-  <div class="myproducts">
-    <h1>Meus Produtos</h1>
-  </div>
-
-  <select v-model="categoriaSelecionada" id="categoria" :disabled="productStore.loading">
-    <option value="">Escolha uma categoria</option>
-    <option v-for="ctg in productStore.categorias" :key="ctg.id" :value="ctg.id">
-      {{ ctg.name }}
-    </option>
-  </select>
-
-  <section>
-    <form @submit.prevent="enviarProd">
-      <InputName v-model="nome" :step-name="'Nome do Produto'" />
-      <InputName v-model="desc" :step-name="'Descrição do Produto'" />
-      <InputPrice v-model="preco" :step-name="'Preço do Produto'" />
-      <InputPrice v-model="stock" :step-name="'Stock do produto'" />
-
-      <div>
-        <label for="imagem">Escolha uma imagem:</label>
-        <InputImage
-          :step-name="'Product Image'"
-          v-model="imagemSelecionada"
-          @change="handleImageUpload"
-        />
-        <div v-if="imagemPreview">
-          <h4>Pré-visualização:</h4>
-          <img :src="imagemPreview" alt="Pré-visualização da imagem" width="200" />
-        </div>
-        <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+  <main>
+    <div class="myproducts">
+      <h1 class="text-center">Create Product</h1>
+    </div>
+    <div class="card">
+      <div style="color: var( --White-100);" class="d-flex justify-content-between">
+        <label for="categoria" class="form-label">Escolha uma categoria:</label>
+        <select v-model="categoriaSelecionada" id="categoria" :disabled="productStore.loading">
+          <option v-for="ctg in productStore.categorias" :key="ctg.id" :value="ctg.id" class="text-center">
+            {{ ctg.name }}
+          </option>
+        </select>
       </div>
-    </form>
-  </section>
+      <section>
+        <form @submit.prevent="enviarProd" class="pt-4">
+          <InputName style="color: var( --White-100);" v-model="nome" :step-name="'Nome do Produto'" />
+          <InputName style="color: var( --White-100);" v-model="desc" :step-name="'Descrição do Produto'" />
+          <InputPrice style="color: var( --White-100);" v-model="preco" :step-name="'Preço do Produto'" />
+          <InputPrice style="color: var( --White-100);" v-model="stock" :step-name="'Stock do produto'" />
+
+          <div>
+            <InputImage style="color: var( --White-100);" :step-name="'Product Image'" v-model="imagemSelecionada"
+              @change="handleImageUpload" />
+            <div style="color: var( --White-100);" v-if="imagemPreview">
+              <h4>Image preview:</h4>
+              <img :src="imagemPreview" alt="Pré-visualização da imagem" width="200" />
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Add item</button> -->
+            <ButtonComponent :title="'Add item'" :style="'orange'" />
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
 </template>
+
+
+<style scoped>
+.card {
+  max-width: 600px;
+  margin: 20px !important;
+  padding: 10px !important;
+  background-color: var(--Blue-100) !important;
+}
+
+select{
+  width: 170px;
+}
+</style>

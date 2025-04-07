@@ -9,7 +9,7 @@ defineEmits(['update:modelValue']);
 <template>
   <div class="mt-2 mb-3 ">
     <div class="d-flex">
-          <label for="name">{{ stepName }}</label>
+      <label for="name">{{ stepName }}</label>
     </div>
 
     <div class="input-group">
