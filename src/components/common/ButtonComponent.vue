@@ -2,7 +2,7 @@
   const props = defineProps({
     title: String,
     style: String,
-    icon: String
+    icon: String,
   })
 </script>
 

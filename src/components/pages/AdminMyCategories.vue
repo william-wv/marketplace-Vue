@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getCategories, deleteCategory } from '@/services/http';
+import ButtonComponent from '../common/ButtonComponent.vue';
 
 
 const loading = ref(false);
@@ -52,32 +53,32 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
-    <RouterLink class="m-2" to="/editModerator">
-      <i class="bi bi-arrow-left-short"></i>
-    </RouterLink>
 
+  <main>
     <section v-if="loading" class="loading-container">
       <div class="loading-spinner"></div>
     </section>
 
     <section v-else>
-      <div class="my-categories pb-5">
-        <h1>Minhas Categorias</h1>
+      <div class="my-categories">
+        <h1 class="text-center mb-3">Minhas <br> Categorias</h1>
 
         <div v-if="categorias.length === 0">
           <p>Nenhuma categoria encontrada.</p>
         </div>
 
         <div v-else>
-          <div v-for="cat in categorias" :key="cat.id" class="d-flex justify-content-between">
-            <div>
-              <p style="color: black;">Nome: {{ cat.name }}</p>
-              <p style="color: black;">Identificador: {{ cat.id }}</p>
-            </div>
-            <div>
-              <button @click="deleteCategoria(cat.id)">Remover categoria</button>
-            </div>
+          <div v-for="cat in categorias" :key="cat.id" class=" card d-flex col-12">
+      
+              <p class="text-center p-1" style="color: black;">Nome: {{ cat.name }}</p>
+              
+              <ButtonComponent
+              @click="deleteCategoria(cat.id)"
+              :title="'Remover'"
+              :style="'blue'"
+              :icon="''"
+              />
+    
           </div>
         </div>
       </div>
@@ -88,10 +89,15 @@ onMounted(() => {
 <style scoped>
 main {
   background-color: var(--White-000) !important;
+  padding: 0!important;
 }
 
-img {
-  margin-top: 10px;
-  border-radius: 10px;
+button {
+  padding: 0 !important;
+}
+.card {
+  margin-bottom: 1rem !important;
+  background-color: var(--White-FFF);
+  border-radius: 4px;
 }
 </style>

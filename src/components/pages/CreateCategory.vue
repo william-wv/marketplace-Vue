@@ -35,9 +35,7 @@ async function enviarCat() {
 </script>
 
 <template>
-  <!-- <RouterLink class="m-2" to="/editModerator">
-    <i class="bi bi-arrow-left-short"></i>
-  </RouterLink> -->
+<h1 class="text-center mb-3">Create <br> Category</h1>
 
   <form @submit.prevent="enviarCat">
 
