@@ -1,33 +1,33 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import { Offcanvas } from "bootstrap";
+import { Offcanvas } from 'bootstrap'
 import useAuthStore from "@/stores/auth";
 
-// Detecta se está em um dispositivo móvel
 const isMobile = ref(window.innerWidth <= 700);
 const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 768;
+isMobile.value = window.innerWidth <= 768;
 };
 
 onMounted(() => {
   window.addEventListener("resize", checkMobile);
 });
 
-// Remove o event listener quando o componente for desmontado
 onUnmounted(() => {
   window.removeEventListener("resize", checkMobile);
 });
 
-// Referência para o menu lateral
 const offcanvasElement = ref(null);
 let offcanvasInstance = null;
 
-// Inicializa o Bootstrap Offcanvas
 onMounted(() => {
+  window.addEventListener("resize", checkMobile);
+  checkMobile(); // Garante que seja atualizado ao montar
+
   if (offcanvasElement.value) {
     offcanvasInstance = new Offcanvas(offcanvasElement.value);
   }
 });
+
 
 // Função para fechar o menu ao clicar em um link
 const closeOffcanvas = () => {

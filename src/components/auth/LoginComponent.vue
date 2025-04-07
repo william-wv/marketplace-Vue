@@ -31,7 +31,7 @@ async function enviarLogin() {
     password: senha.value
   })
 
-  
+
   const carrinho = await cartService.createCart();
   if (carrinho.error) {
     console.error(carrinho.message);
@@ -60,7 +60,7 @@ async function enviarLogin() {
     <RouterLink class="m-2" to="/">
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
-    
+
     <section class="main1" v-if="!auth.isAuthenticated">
       <div class="contain">
         <div class="spacecc">
@@ -85,7 +85,7 @@ async function enviarLogin() {
           </p>
         </div>
 
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p> 
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
 
         <div class="d-none section-img">
           <img src="/icons/login/register-senha.svg" alt="">
@@ -143,7 +143,6 @@ async function enviarLogin() {
   <FooterComponent />
 </template>
 <style scoped>
-
 .error-message {
   color: red;
   font-size: 0.9rem;

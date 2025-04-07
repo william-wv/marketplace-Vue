@@ -1,13 +1,7 @@
 import axios from 'axios';
-
-const api = axios.create({
-  baseURL: 'http://35.196.79.227:8000/',
-});
-
+const api=axios.create({ baseURL: 'http://35.196.79.227:8000/', });
 const user = 6
-
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQzODEyNjc5fQ.ZNFmZ8286Q-J8VNEwh09zYpG0Vl8K193qSFP--Lqizc';
-
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0MDM5MDQ2fQ.Fv5LCh7pzeD41oq5yn_DHJxJzoDn0Ngfzuy4FdyNRiE';
 
   export async function login(payload) {
     try {
@@ -33,7 +27,6 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFE
       throw error;
     }
   }
-  // }
   export function getImageUrl(imagePath) {
     if (!imagePath) {
       return '/placeholder.jpg';
@@ -43,20 +36,18 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFE
   }
   return `http://35.196.79.227:8000/uploads/products/${imagePath}`;
 }
-
 export async function getProd(){
   try {
     const response = await api.get(`products/user/${user}`, {
       headers: {
         Authorization: `Bearer ${token}`,
-      },
+      }
     })
     return response;
   } catch (error) {
     console.error('Erro ao buscar dados ', error);
   }
 }
-
 export async function postProd(payload){
   try {
     const response = await api.post('products/', payload, {
@@ -71,7 +62,6 @@ export async function postProd(payload){
     console.error('Erro ao cadastrar produto ', error);
   }
 }
-
 export async function getCategories(){
   try {
     const response = await api.get(`categories/user/${user}`, {
@@ -86,10 +76,8 @@ export async function getCategories(){
     console.error('Erro ao buscar dados ', error);
   }
 }
-
 export async function getProductsByCategory(id) {
   try {
-
     const response = await api.get(`products/category/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -103,7 +91,6 @@ export async function getProductsByCategory(id) {
     return [];
   } 
 }
-
 export async function createCategory(payload){
   try {
     const response = await api.post('categories/', payload ,{
@@ -119,11 +106,6 @@ export async function createCategory(payload){
     return null;
   }
 }
-
-export async function updateCategory(id, payload){
-
-}
-
 export async function deleteCategory(id){
   try {
     const response =  await api.delete(`categories/${id}`, {
@@ -135,7 +117,6 @@ export async function deleteCategory(id){
     console.error('Erro ao deletar categoria:', error);
   }
 }
-
 export async function getImgProd(img) {
   try {
     const response = await api.get(`upload/products/${img}`, {
@@ -151,7 +132,6 @@ export async function getImgProd(img) {
     return null;
   }
 }
-
 export const cartService = {
   async getCart() {
     return api.get('cart/', {

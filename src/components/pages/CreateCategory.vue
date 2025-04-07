@@ -35,9 +35,9 @@ async function enviarCat() {
 </script>
 
 <template>
-  <RouterLink class="m-2" to="/editModerator">
+  <!-- <RouterLink class="m-2" to="/editModerator">
     <i class="bi bi-arrow-left-short"></i>
-  </RouterLink>
+  </RouterLink> -->
 
   <form @submit.prevent="enviarCat">
 

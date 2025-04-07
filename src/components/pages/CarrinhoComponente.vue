@@ -1,25 +1,16 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { cartService, getProd, getImageUrl } from '@/services/http';
+import { onMounted ,ref} from 'vue';
+import { storeToRefs } from 'pinia';
+import { getProd, getImageUrl } from '@/services/http';
+import { useCartStore } from '@/stores/carrinho'; 
 
-const carrinho = ref([]);
+const cartStore = useCartStore();
+
+const { items: carrinho, total_amount, carregandoCarrinho } = storeToRefs(cartStore);
+
+const { carregarCarrinho, totalCart, excluirItem, limparCarrinho } = cartStore;
+
 const produtos = ref([]);
-const total_amount = ref(0)
-const carregandoCarrinho = ref(false);
-
-async function carregarCarrinho() {
-  carregandoCarrinho.value = true;
-  try {
-    const response = await cartService.getCartItems();
-    carrinho.value = response.data.items;
-    console.log('Carrinho carregado:', carrinho.value);
-
-  } catch (error) {
-    console.error('Erro ao carregar o carrinho:', error);
-  } finally {
-    carregandoCarrinho.value = false; 
-  }
-}
 
 async function getProducts() {
   try {
@@ -35,36 +26,6 @@ function getNomeProduto(produtoId) {
   if (!produtos.value.length) return 'Carregando...';
   const produto = produtos.value.find(p => p.id === produtoId);
   return produto ? produto.name : 'Produto não encontrado';
-}
-
-async function totalCart() {
-  try {
-    const response = await cartService.getCartItems();
-    total_amount.value = response.data.total_amount;
-    console.log('total do carrinho carregado:', total_amount.value);
-  } catch (error) {
-    console.error('Erro ao carregar o total do carrinho:', error);
-  }
-}
-
-async function excluirItem(produto) {
-  try {
-    await cartService.removeCartItem(produto.product_id, produto.quantity, produto.unit_price);
-    carrinho.value = carrinho.value.filter(item => item.product_id !== produto.product_id);
-    console.log(`Item ${produto.product_id} removido com sucesso!`);
-  } catch (error) {
-    console.error('Erro ao excluir o item:', error);
-  }
-}
-
-async function limparCarrinho() {
-  try {
-    await cartService.clearCart();
-    carrinho.value = [];
-    console.log('Carrinho limpo com sucesso!');
-  } catch (error) {
-    console.error('Erro ao limpar o carrinho:', error);
-  }
 }
 
 function alterarQuantidade(produtoId, operacao) {
@@ -99,16 +60,11 @@ function converterParaDolar(precoBRL) {
   }).format(precoBRL * taxaDeCambio.value);
 }
 
-watch(produtos, () => {
-  carregarCarrinho();
-}, { once: true });
-
 onMounted(async () => {
   await Promise.all([getProducts(), carregarCarrinho(), totalCart()]);
 });
-
-
 </script>
+
 
 <template>
   <div class="">

@@ -12,9 +12,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "axios": "^1.8.3",
-    "bootstrap": "^5.3.3",
+    "bootstrap": "^5.3.5",
     "bootstrap-icons": "^1.11.3",
-    "bootstrap-vue": "^2.23.1",
     "notivue": "^2.4.5",
     "pinia": "^3.0.1",
     "pinia-plugin-persistedstate": "^4.2.0",

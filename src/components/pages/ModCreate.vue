@@ -1,8 +1,7 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { getCategories, deleteCategory, getProductsByCategory, postProd } from '@/services/http';
+import { ref, onMounted } from 'vue';
+import { getCategories, deleteCategory } from '@/services/http';
 
-import CreateProducts from './CreateProducts.vue';
 
 const loading = ref(false);
 const categorias = ref([]);
@@ -54,7 +53,7 @@ onMounted(() => {
 
 <template>
   <main>
-    <RouterLink class="m-2" to="/login">
+    <RouterLink class="m-2" to="/editModerator">
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
 
@@ -89,7 +88,6 @@ onMounted(() => {
         </div>
       </div>
 
-      <CreateProducts/>
     </section>
   </main>
 </template>

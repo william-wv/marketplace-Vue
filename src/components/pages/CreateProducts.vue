@@ -49,6 +49,11 @@ onMounted(() => {
 </script>
 
 <template>
+
+<RouterLink class="m-2" to="/editModerator">
+      <i class="bi bi-arrow-left-short"></i>
+    </RouterLink> 
+
   <div class="myproducts">
     <h1>Meus Produtos</h1>
   </div>
