@@ -82,6 +82,15 @@ const router = createRouter({
             hideFooter: true    
       }
     },
+    {
+      path: '/editmoderator/deleteProducts',
+      name: 'delete products',
+      component: () => import('@/components/pages/DeleteProducts.vue') ,
+        meta: {
+            hideHeader: true,
+            hideFooter: true    
+      }
+    },
 
   ],
 })
