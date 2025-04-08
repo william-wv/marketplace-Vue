@@ -115,12 +115,15 @@ async function enviarLogin() {
           <h3>{{ auth.user.role }}</h3>
         </div>
         <div class="btns d-flex flex-column">
-          <ButtonArrow :text="'Go To My Account'" :style="'blue'" @click="auth.logout()" />
+          <RouterLink to="/myaccount">
+            <ButtonArrow :text="'Go To My Account'" :style="'blue'" />
+          </RouterLink>
           <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
         </div>
       </div>
 
       <div class="cards_login d-grid">
+        <!-- Cards User -->
         <CardsLogin :icon="'bi bi-bag'" :title="'Shopping Cart'" :num="1" :text="'Items waiting for checkout'"
           :btn_txt="'View Cart'" />
         <CardsLogin :icon="'bi bi-box-seam'" :title="'Recent orders'" :num="3" :text="'orders in the last 30 days'"
@@ -129,11 +132,14 @@ async function enviarLogin() {
           :btn_txt="'View Cart'" />
 
         <!-- cards adimin and moderator -->
-        <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-cart'"
-          :title="'Stock'" :num="6" :text="'Saved items for later'" :btn_txt="'View Stock'" />
+        <RouterLink to="/mystock">
+          <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-cart'"
+            :title="'Stock'" :num="6" :text="'Saved items for later'" :btn_txt="'View Stock'" />
+        </RouterLink>
+        <!-- card -->
         <RouterLink to="/editModerator">
-          <CardsLogin v-if="auth.user.role === 'MODERATOR' || auth.user.role === 'ADMIN'" :icon="'bi bi-tags'"
-            :title="'Categories and Products'" :text="'Saved items for later'" :num="6" :btn_txt="'View Categories'" />
+          <CardsLogin v-if="auth.user.role === 'ADMIN'" :icon="'bi bi-tags'" :title="'Categories and Products'"
+            :text="'Saved items for later'" :num="6" :btn_txt="'View Categories'" />
         </RouterLink>
 
       </div>

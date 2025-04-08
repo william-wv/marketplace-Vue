@@ -1,7 +1,7 @@
 import axios from 'axios';
 const api=axios.create({ baseURL: 'http://35.196.79.227:8000/', });
 const user = 6
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0MDg1NDAyfQ.7N91PZWMAsj6R3KsHRcIgQzqmrj7vq9INfWnhdmTi0k';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0MTc3MTUwfQ.tZFeO5PJPSyaO-submuoIGJ3ZkICEH0i8UkbU1tasyM';
 
   export async function login(payload) {
     try {
@@ -214,7 +214,6 @@ export const cartService = {
     });
   }
   ,
-
   async clearCart() {
     return api.delete('cart/clear', {
       headers: {
@@ -223,5 +222,14 @@ export const cartService = {
         'Content-Type': 'application/json',
       },
     });
-  }
+  },
 };
+
+export async function editStock(id){
+  try{
+    const response = await api.put(`products/${id}/stock`)
+    return response.data
+  } catch( e ) {
+    console.log('error ao autualuzar: ', e)
+  }
+}

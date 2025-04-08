@@ -91,7 +91,24 @@ const router = createRouter({
             hideFooter: true    
       }
     },
-
+    {
+      path: '/myaccount',
+      name: 'my account',
+      component: () => import('@/views/ProfileView.vue'),
+        meta: {
+            hideHeader: true,
+            hideFooter: true    
+      }
+    },
+    {
+      path: '/mystock',
+      name: 'my stock',
+      component: () => import('@/views/StockView.vue'),
+        meta: {
+            hideHeader: true,
+            hideFooter: true    
+      }
+    }
   ],
 })
 export default router

@@ -62,12 +62,11 @@ async function toggleCarrinho(prod) {
       console.error('Erro ao remover item do carrinho:', response);
     }
   } else {
-    // Adicionar ao carrinho
     const response = await cartService.addItemToCart({
       product_id: prod.id,
       quantity: 1,
       unit_price: prod.price
-    });
+    })
     if (response.status === 204) {
       carrinho.value[prod.id] = true;
       console.log('Item adicionado ao carrinho com sucesso!');

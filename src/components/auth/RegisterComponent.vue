@@ -6,6 +6,7 @@ import InputEmail from '../common/InputEmail.vue';
 import InputPassword from '../common/InputPassword.vue';
 import FooterComponent from '../layout/FooterComponent.vue';
 import ContinueWith from './ContinueWith.vue';
+import { push } from 'notivue';
 
 // Vue & js
 import { ref } from 'vue';
@@ -18,12 +19,13 @@ const nome = ref('');
 
 
 async function enviarRegister() {
-  const result = await register({ 
+  try {
+    const result = await register({ 
     name: nome.value,
     email: mail.value, 
     password: senha.value })  
 
-  if (result.status == 201) {
+  if ( result.status == 201) {
     push.success({
       title: 'Register Sucessful',
       message: '',
@@ -34,13 +36,17 @@ async function enviarRegister() {
     alert('Registro deu falha')
     console.log("Erro ou outro status:", result.status);
   }
+  } catch (e) {
+    console.log(e)
+  }
+  
 }
 
 </script>
 
 <template>
   <main class="pb-5">
-    <RouterLink class="m-2" to="/">
+    <RouterLink class="m-2" to="/login">
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
 
