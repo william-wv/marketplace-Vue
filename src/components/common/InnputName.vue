@@ -1,6 +1,7 @@
 <script setup>
 const props = defineProps({
   stepName: String,
+  icon: String
 })
 defineEmits(['update:modelValue']);
 
@@ -13,7 +14,9 @@ defineEmits(['update:modelValue']);
     </div>
 
     <div class="input-group">
-      <span class="input-group-text"><i class="bi bi-person"></i></span>
+      <span class="input-group-text">
+        <i :class='icon'></i>
+      </span>
       <input  
         @input="$emit('update:modelValue', $event.target.value)" 
         placeholder='digite aqui'

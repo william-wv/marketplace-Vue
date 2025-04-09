@@ -29,12 +29,8 @@ const auth = useAuthStore();
       </h1>
       <h2 style="color: var(--text-h2);">Welcome back to Marquetplace</h2>
     </div>
-    <div class="d-flex justify-content-center">
-      
-      <CardsHome :icon="'bi bi-bag'" :title="'My Cart'" :num="1" :text="'My Cart'"
-          :btn_txt="'View Cart'"  :route="'/'"/>
-      <CardsHome :icon="'bi bi-heart'" :title="'Wishlist'" :num="6" :text="'My saved item'"
-          :btn_txt="'View Cart'" :route="'/'" />
+    <div class="d-flex">
+    
     </div>
   </section>
 </template>

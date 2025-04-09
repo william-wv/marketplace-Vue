@@ -1,15 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-
-const mostrarSenha = ref(false);
-
-const toggleSenha = () => {
-  mostrarSenha.value = !mostrarSenha.value;
-};
 
 const props = defineProps({
   stepName: String,
-  forgot: String,
   modelValue: String,
 });
 
@@ -23,15 +15,14 @@ defineEmits(['update:modelValue']);
       <p class="forgot">{{ forgot }}</p>
     </div>
     <div class="input-group">
-      <span class="input-group-text"><i class="bi bi-cash"></i></span>
+      <span class="input-group-text"><i class="bi bi-123"></i></span>
 
       <input 
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        placeholder="Price" 
-        class="form-control" 
+        :placeholder="'Number'"
+        type="number" class="form-control" 
         required>
-
     </div>
   </div>
 </template>
