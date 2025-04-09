@@ -1,7 +1,7 @@
 import axios from 'axios';
 const api=axios.create({ baseURL: 'http://35.196.79.227:8000/', });
 const user = 6
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0MTc3MTUwfQ.tZFeO5PJPSyaO-submuoIGJ3ZkICEH0i8UkbU1tasyM';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0MjIxMjcxfQ.pRqa1qEm_P8sxWp3rFV7vYhZwiTWynxJdkpIcMxhADE';
 
   export async function login(payload) {
     try {
