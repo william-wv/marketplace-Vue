@@ -14,22 +14,10 @@ const carrinho = ref({});
 
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 import CategoriesDeskTop from '@/components/pages/CategoriesDeskTop.vue';
+import { useIsMobile } from '@/composable/useIsMobile';
 
+const {isMobile} = useIsMobile()
 
-
-const isMobile = ref(window.innerWidth <= 700);
-
-const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 768;
-};
-
-onMounted(() => {
-  window.addEventListener("resize", checkMobile);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", checkMobile);
-});
 
 async function getCategoria() {
   loading.value = true;

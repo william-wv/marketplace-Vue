@@ -108,7 +108,63 @@ const router = createRouter({
             hideHeader: true,
             hideFooter: true    
       }
+    },
+    // para somente area da conta
+    {
+      path: '/painel',
+      component: () => import('@/components/auth/isAuthDesktp.vue'),
+      children: [
+        {
+          path: '/myaccount',
+          name: 'my account',
+          component: () => import('@/views/ProfileView.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        },
+        {
+          path: '/mystock',
+          name: 'my stock',
+          component: () => import('@/views/StockView.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        },
+        {
+          path: '/editmoderator',
+          name: 'edit moderator',
+          component: () => import('@/views/AdminView.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        },
+        {
+          path: '/editmoderator/categories',
+          name: 'create categories',
+          component: () => import('@/components/pages/AdminCategory.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        },
+        {
+          path: '/editmoderator/products',
+          name: 'options products',
+          component: () => import('@/components/pages/AdminProducts.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        },
+        {
+          path: '/editmoderator/viewProducts',
+          name: 'view products',
+          component: () => import('@/components/pages/AdminProductsView.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        },
+        {
+          path: '/editmoderator/createProducts',
+          name: 'create products',
+          component: () => import('@/components/pages/CreateProducts.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        },
+        {
+          path: '/editmoderator/deleteProducts',
+          name: 'delete products',
+          component: () => import('@/components/pages/DeleteProducts.vue'),
+          meta: { hideHeader: true, hideFooter: true }
+        }
+      ]
     }
+    
   ],
 })
 export default router

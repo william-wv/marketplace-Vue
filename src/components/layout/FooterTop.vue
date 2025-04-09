@@ -26,7 +26,7 @@ const icons = ref(iconsData)
         </div>
       </div>
       <div class="icons-footer-top">
-        <a v-for="icon in icons" :key="icon.id" :href=icon.link target="_blankw">
+        <a v-for="icon in icons" :key="icon.id" :href=icon.link target="_blank">
           <img class="icons" :src=icon.image :alt=icon.desc>
         </a>
       </div>

@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1 ,
+    "icon": "bi bi-house" ,
+    "text": "My account",
+    "router": "/myaccount"
+  },
+  {
+    "id": 2 ,
+    "icon": "bi bi-bag" ,
+    "text": "My cart",
+    "router": "/mycart"
+  },
+  {
+    "id": 3 ,
+    "icon": "bi bi-box" ,
+    "text": "Recent orders",
+    "router": "/orders"
+  },
+  {
+    "id": 4 ,
+    "icon": "bi bi-cart" ,
+    "text": "My stock",
+    "router": "/stock"
+  },
+  {
+    "id": 5 ,
+    "icon": "bi bi-heart" ,
+    "text": "My wishlist",
+    "router": "/fav"
+  },
+  
+  {
+    "id": 6 ,
+    "icon": "bi bi-pen" ,
+    "text": "Moderator",
+    "router": "/editModerator"
+  }
+]

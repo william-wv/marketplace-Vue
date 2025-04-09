@@ -21,24 +21,24 @@ const number = props.num.toString()
         <i class="icon" :class=icon></i>
       </div>
       <h2 class="mt-2">{{ title }}</h2>
-      <h2 style="color: var(--Blue-900);">{{ number }}</h2>
+      <h2 style="color: var(--White-000);">{{ number }}</h2>
       <p class="mb-2">{{ text }}</p>
 
       <ButtonComponent :title=btn_txt :style="'blue'" />
     </div>
-</section>
+  </section>
 </template>
 
 <style scoped>
-
-section{
+section {
   padding: 20px 20px;
 }
+
 .card {
   display: flex;
   background-color: transparent;
-  border: 1px solid var(--Blue-500);
-  color: var(--White-250);
+  border: 1px solid var(--White-000);
+  color: var(--White-100);
   border-radius: 30px;
   text-align: center;
   justify-content: center;
@@ -61,33 +61,31 @@ section{
   color: var(--White-000);
 }
 
-i{
+i {
   font-size: 1.4rem;
   position: relative;
   top: 1px;
 }
 
 @media (min-width:1000px) {
-  .card{
+  .card {
     width: 300px;
     height: 350px;
   }
 }
 
 @media (min-width:1440px) {
-  .card{
+  .card {
     width: 450px;
     height: 500px;
   }
 
-  h2{
+  h2 {
     font-size: 3rem;
   }
 
-  p{
+  p {
     font-size: 1.5rem;
   }
 }
-
-
 </style>
