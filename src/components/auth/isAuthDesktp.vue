@@ -44,7 +44,7 @@ const route = useRoute();
             </div>
           </RouterLink>
 
-          <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
+         
         </div>
       </div>
     </aside>
