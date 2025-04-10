@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import CreateCategory from './CreateCategory.vue';
-import AdminMyCategories from './AdminMyCategories.vue';
+import CreateCategory from '../pages/CreateCategory.vue';
+import AdminMyCategories from '../pages/AdminMyCategories.vue';
 
 </script>
 
 
 
 <template>
-  <RouterLink class="m-2" to="/editModerator">
-      <i class="bi bi-arrow-left-short"></i>
-    </RouterLink>
- 
-
   <main class="contain">
     <div class="card">
       <AdminMyCategories />

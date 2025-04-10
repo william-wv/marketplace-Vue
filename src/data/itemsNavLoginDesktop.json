@@ -3,37 +3,50 @@
     "id": 1 ,
     "icon": "bi bi-house" ,
     "text": "My account",
-    "router": "/myaccount"
+    "router": "/myaccount",
+    "role": "all"
   },
   {
     "id": 2 ,
     "icon": "bi bi-bag" ,
     "text": "My cart",
-    "router": "/mycart"
+    "router": "/mycart",
+    "role": "all"
   },
   {
     "id": 3 ,
     "icon": "bi bi-box" ,
     "text": "Recent orders",
-    "router": "/orders"
+    "router": "/orders",
+    "role": "all"
   },
   {
     "id": 4 ,
     "icon": "bi bi-cart" ,
     "text": "My stock",
-    "router": "/stock"
+    "router": "/stock",
+    "role": "all"
   },
   {
     "id": 5 ,
     "icon": "bi bi-heart" ,
     "text": "My wishlist",
-    "router": "/fav"
+    "router": "/fav",
+    "role": "all"
   },
   
   {
     "id": 6 ,
     "icon": "bi bi-pen" ,
     "text": "Moderator",
-    "router": "/editModerator"
+    "router": "/editModerator",
+    "role": "MODERATOR"
+  },
+  {
+    "id": 7,
+    "icon": "bi bi-lock" ,
+    "text": "ADMIN",
+    "router": "/editAdmin",
+    "role": "ADMIN"
   }
 ]

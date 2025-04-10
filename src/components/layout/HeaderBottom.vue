@@ -110,7 +110,8 @@ const auth = useAuthStore();
         <div class="p-2">
           <p class="welcome" v-if="auth.isAuthenticated" style="color: var(--White-050);">
             Welcome <br>
-            {{ auth.user.name }}</p>
+            {{ auth.user.name }}
+          </p>
         </div>
       </div>
     </section>

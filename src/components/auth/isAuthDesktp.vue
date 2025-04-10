@@ -1,23 +1,28 @@
-<!-- src/layouts/BaseLayout.vue -->
 <script setup>
 // json
 import list from "@/data/itemsNavLoginDesktop.json"
-//vue
-import { ref } from "vue"
-import { useRoute } from "vue-router"
-//store
+// vue
+import { ref, computed } from "vue"
+import { useRoute, useRouter } from "vue-router"
+// store
 import useAuthStore from '@/stores/auth.js'
-//components
+// components
 import ButtonComponent from "../common/ButtonComponent.vue"
 
-const auth = useAuthStore();
-const navbarItens = ref(list)
-const route = useRoute();
+const auth = useAuthStore()
+const route = useRoute()
+const router = useRouter()
 
+const navbarItens = ref(list)
 
 const goToHome = () => {
-  route.push('/')
+  router.push('/')
 }
+
+const filteredNavbarItems = computed(() => {
+  const role = auth.user?.role || "guest" 
+  return navbarItens.value.filter(item => item.role === 'all' || item.role === role)
+})
 </script>
 
 <template>
@@ -29,8 +34,13 @@ const goToHome = () => {
             <h5 class="mb-4 px-3">Account</h5>
           </div>
         </div>
+
         <ul class="nav flex-column px-3">
-          <li v-for="item in navbarItens" :key="item.id" class="nav-item mb-2">
+          <li
+            v-for="item in filteredNavbarItems"
+            :key="item.id"
+            class="nav-item mb-2"
+          >
             <RouterLink
               :to="item.router"
               class="nav-link d-flex align-items-center gap-2"
@@ -42,10 +52,20 @@ const goToHome = () => {
           </li>
         </ul>
 
-        <div class="mt-auto px-3 d-flex flex-column ">
-
-            <ButtonComponent :icon="'bi bi-shop'" :title="'Visit Site'" :style="'orange'" class="w-100" @click="goToHome"/>
-          <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
+        <div class="mt-auto px-3 d-flex flex-column">
+          <ButtonComponent
+            :icon="'bi bi-shop'"
+            :title="'Visit Site'"
+            :style="'orange'"
+            class="w-100"
+            @click="goToHome"
+          />
+          <ButtonComponent
+            :icon="'bi bi-box-arrow-right'"
+            :title="'Logout'"
+            :style="'red'"
+            @click="auth.logout()"
+          />
         </div>
       </div>
     </aside>
@@ -65,7 +85,20 @@ aside {
 
 aside a {
   color: white;
-  transition: bacrouterld;
+  transition: background-color 0.3s, color 0.3s;
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: block;
+}
+
+aside a:hover {
+  color: var(--Orange-500) !important;
+}
+
+aside .active {
+  box-shadow: var(--shadow);
+  color: var(--Orange-500) !important;
+  font-weight: bold;
 }
 
 .container-aside {
@@ -75,28 +108,4 @@ aside a {
 .arrow-white {
   color: var(--White-000);
 }
-aside {
-  background-color: var(--Blue-500);
-  color: white;
-  height: 100vh;
-}
-
-aside a {
-  color: white;
-  transition: background-color 0.3s, color 0.3s;
-  padding: 0.5rem;
-  border-radius: 8px;
-  display: block;
-}
-
-aside a:hover{
-  color: var(--Gray-800) !important; /* Mantém o texto branco no hover */
-}
-
-aside a.active {
-  box-shadow: var(--shadow);
-  color: var(--White-000); /* Cor do texto quando está ativo */
-  font-weight: bold;
-}
-
 </style>

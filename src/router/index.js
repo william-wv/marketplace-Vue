@@ -51,47 +51,52 @@ const router = createRouter({
           path: '/mystock',
           name: 'my stock',
           component: () => import('@/views/StockView.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
+          meta: { hideHeader: true, hideFooter: true}
         },
         {
           path: '/editmoderator',
           name: 'edit moderator',
           component: () => import('@/views/AdminView.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
+          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
           path: '/editmoderator/categories',
           name: 'create categories',
-          component: () => import('@/components/pages/AdminCategory.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
+          component: () => import('@/components/ADMIN/AdminCategory.vue'),
+          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
           path: '/editmoderator/products',
           name: 'options products',
           component: () => import('@/components/pages/AdminProducts.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
+          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
           path: '/editmoderator/viewProducts',
           name: 'view products',
           component: () => import('@/components/pages/AdminProductsView.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
+          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
           path: '/editmoderator/createProducts',
           name: 'create products',
           component: () => import('@/components/pages/CreateProducts.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
+          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
           path: '/editmoderator/deleteProducts',
           name: 'delete products',
           component: () => import('@/components/pages/DeleteProducts.vue'),
+          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
+        },
+        {
+          path: '/editAdmin',
+          name: 'delete products',
+          component: () => import('@/components/ADMIN/AdminPage.vue'),
           meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
-        }
+        },
       ]
     },
-    // Página de acesso negado (opcional)
     {
       path: '/unauthorized',
       name: 'unauthorized',
@@ -104,8 +109,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const user = JSON.parse(localStorage.getItem('user'))
 
-  if (to.meta.requiresAdmin) {
-    if (user && user.role === 'admin') {
+  if (to.meta.requiresModeratorAndAdmin) {
+    if (user && user.role === 'ADMIN' || user.role === 'MODERATOR' ) {
       next()
     } else {
       next({ path: '/unauthorized' })
@@ -113,6 +118,19 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+
+  if (to.meta.requiresAdmin) {
+  if (user && user.role === 'ADMIN' ) {
+    next()
+  } else {
+    next({ path: '/unauthorized' })
+  }
+} else {
+  next()
+}
 })
+
+
+
 
 export default router
