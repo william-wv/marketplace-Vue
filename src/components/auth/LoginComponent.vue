@@ -48,8 +48,6 @@ async function enviarLogin() {
 
 <template>
   <main>
-   
-
     <section class="main1" v-if="!auth.isAuthenticated"> 
       <div class="backgraundI">
       <RouterLink class="m-2" to="/">
@@ -64,23 +62,19 @@ async function enviarLogin() {
             <p>Sign in to your account to continue</p>
           </div>
 
+
           <form @submit.prevent="enviarLogin">
             <InputEmail :stepName="'Email'" v-model="email" />
             <InputPassword :stepName="'Password'" v-model="senha" />
-
             <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-
             <ButtonComponent class="w-100" :title="'Login'" :style="'blue'" />
           </form>
           <ContinueWith />
-
           <p class="text-center accont mt-3">Don't have an account?
             <RouterLink to="/register">Sign Up</RouterLink>
           </p>
         </div>
-
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-
         <div class="d-none section-img">
           <img src="/icons/login/register-senha.svg" alt="">
           <RouterLink class="d-flex btn-center" to="/register">

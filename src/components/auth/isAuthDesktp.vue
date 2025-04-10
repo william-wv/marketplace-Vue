@@ -1,14 +1,23 @@
 <!-- src/layouts/BaseLayout.vue -->
 <script setup>
+// json
 import list from "@/data/itemsNavLoginDesktop.json"
+//vue
 import { ref } from "vue"
 import { useRoute } from "vue-router"
+//store
 import useAuthStore from '@/stores/auth.js'
+//components
 import ButtonComponent from "../common/ButtonComponent.vue"
 
 const auth = useAuthStore();
 const navbarItens = ref(list)
 const route = useRoute();
+
+
+const goToHome = () => {
+  route.push('/')
+}
 </script>
 
 <template>
@@ -19,11 +28,7 @@ const route = useRoute();
           <div>
             <h5 class="mb-4 px-3">Account</h5>
           </div>
-          <div class="circle">
-            <h1 style="color: var(--White-000); font-size: 1.5rem;">{{ auth.user.name.charAt() }}</h1>
-          </div>
         </div>
-
         <ul class="nav flex-column px-3">
           <li v-for="item in navbarItens" :key="item.id" class="nav-item mb-2">
             <RouterLink
@@ -38,13 +43,9 @@ const route = useRoute();
         </ul>
 
         <div class="mt-auto px-3 d-flex flex-column ">
-          <RouterLink class="m-2" to="/">
-            <div class="text-center p-2 ">
-              <p class="">Go to site</p>
-            </div>
-          </RouterLink>
 
-         
+            <ButtonComponent :icon="'bi bi-shop'" :title="'Visit Site'" :style="'orange'" class="w-100" @click="goToHome"/>
+          <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
         </div>
       </div>
     </aside>
@@ -64,14 +65,7 @@ aside {
 
 aside a {
   color: white;
-  transition: background-color 0.3s;
-}
-
-aside a.active {
-  background-color: var(--Blue-700);
-  border-radius: 8px;
-  padding: 0.5rem;
-  font-weight: bold;
+  transition: bacrouterld;
 }
 
 .container-aside {
