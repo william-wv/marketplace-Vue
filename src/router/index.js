@@ -15,7 +15,7 @@ const router = createRouter({
       meta: {
         hideHeader: true,
         hideFooter: true
-      }
+      },
     },
     {
       path: '/register',
@@ -42,6 +42,7 @@ const router = createRouter({
       path: '/dashboard',
       meta: { hideHeader: true, hideFooter: true },
       component: () => import('@/components/auth/isAuthDesktp.vue'),
+      
       children: [
         {
           path: 'myaccount',
@@ -56,11 +57,12 @@ const router = createRouter({
           meta: { hideHeader: true, hideFooter: true }
         },
         {
-          path: '/dashboard/editAdmin',
+          path: '/dashboard/editAdmin',            
+          redirect: '/dashboard/editAdmin/products',
           meta: {
             hideHeader: true, 
             hideFooter: true, 
-            requiresModeratorAndAdmin: true 
+            requiresModeratorAndAdmin: true,
           },
           component: () => import('@/components/ADMIN/AdminPage.vue'),
           children: [
@@ -72,18 +74,19 @@ const router = createRouter({
               path: 'categories',
               component: () => import('@/components/ADMIN/AdminProducts.vue')
             }
-          ]
+          ],
+          
         },
         {
           path: 'editmoderator/createProducts',
           name: 'create products',
-          component: () => import('@/components/pages/CreateProducts.vue'),
+          component: () => import('@/components/ADMIN/CreateProducts.vue'),
           meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
           path: 'editmoderator/deleteProducts',
           name: 'delete products',
-          component: () => import('@/components/pages/DeleteProducts.vue'),
+          component: () => import('@/components/ADMIN/DeleteProducts.vue'),
           meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {

@@ -1,9 +1,19 @@
-<script setup lang="ts">
-import CreateCategory from '../pages/CreateCategory.vue';
-import AdminMyCategories from './AdminMyCategories.vue';
+<script setup>
+// import { onMounted } from 'vue'
+// import { useRouter, useRoute } from 'vue-router'
+import AdminMyCategories from './AdminMyCategories.vue'
+import CreateCategory from '../pages/CreateCategory.vue'
 
+// const router = useRouter()
+// const route = useRoute()
 
+// onMounted(() => {
+//   if (route.path === '/dashboard/editAdmin') {
+//     router.replace('/dashboard/editAdmin/products')
+//   }
+// })
 </script>
+
 
 
 

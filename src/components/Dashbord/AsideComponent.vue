@@ -1,12 +1,8 @@
 <script setup>
-// json
 import list from "@/data/itemsNavLoginDesktop.json"
-// vue
-import { ref, computed } from "vue"
+import { ref, computed, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
-// store
 import useAuthStore from '@/stores/auth.js'
-// components
 import ButtonComponent from "../common/ButtonComponent.vue"
 
 const auth = useAuthStore()
@@ -23,6 +19,12 @@ const goToHome = () => {
 const filteredNavbarItems = computed(() => {
   const role = auth.user?.role || "guest" 
   return navbarItens.value.filter(item => item.role === 'all' || item.role === role)
+})
+
+onMounted(() => {
+  if (route.path === "login") {
+    router.replace("dashboard/myaccount")
+  }
 })
 </script>
 

@@ -12,13 +12,13 @@ const auth = useAuthStore();
     <div class="d-flex shadow">
       <RouterLink to="/dashboard/editAdmin/categories" class="col-6 p-0">
         <div class="bg-secondary bg-gradient divizor1 text-white text-center">
-          Categorias
+          Produtos
         </div>
       </RouterLink>
       
       <RouterLink to="/dashboard/editAdmin/products" class="col-6 p-0">
         <div class="bg-secondary bg-gradient divizor2 text-white text-center">
-          Produtos
+          Categorias
         </div>
       </RouterLink>
     </div>

@@ -1,9 +1,10 @@
 <script setup>
 // vue & js
-import { ref } from 'vue';
+import { ref , onMounted } from 'vue';
 import { login } from '@/services/http';
 import useAuthStore from '@/stores/auth.js';
 import { cartService } from '@/services/http';
+import router from '@/router';
 // notificações
 import { push } from 'notivue'
 // componentes
@@ -42,16 +43,22 @@ async function enviarLogin() {
     push.error('Invalid email or password');
   }
 }
+
+onMounted(() => {
+  if (auth.user.id) {
+    router.replace('/dashboard/myaccount')
+  }
+})
 </script>
 
 <template>
   <main>
-    <section class="main1" v-if="!auth.isAuthenticated"> 
+    <section class="main1" v-if="!auth.isAuthenticated">
       <div class="backgraundI">
-      <RouterLink class="m-2" to="/">
-        <i class="bi bi-arrow-left-short arrow-white"></i>
-      </RouterLink>
-    </div>
+        <RouterLink class="m-2" to="/">
+          <i class="bi bi-arrow-left-short arrow-white"></i>
+        </RouterLink>
+      </div>
       <div class="contain">
         <div class="spacecc">
           <div class="texts mb-4 mt-5">
@@ -100,7 +107,7 @@ async function enviarLogin() {
   padding: 10px;
 }
 
-main{
+main {
   background-color: var(--Blue-500);
 }
 
