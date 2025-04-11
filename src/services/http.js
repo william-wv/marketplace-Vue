@@ -4,10 +4,11 @@ const api = axios.create({
   baseURL: 'http://35.196.79.227:8000/',
 });
 
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0Mzk0MDQyfQ.7WRP2sYvUZabUfOgKxaGDloVZGu6TI9hwHgqJ2CvMWk'
+
 // Interceptor para injetar o token antes de cada requisição
 api.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -16,43 +17,20 @@ api.interceptors.request.use(
   error => Promise.reject(error)
 );
 
-// Interceptor para renovar token se expirado (401)
-axios.interceptors.response.use(
-  response => response,
-  async error => {
-    const originalRequest = error.config;
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const refreshToken = localStorage.getItem('refreshToken');
-        const res = await axios.post('http://35.196.79.227:8000/renew-token', {
-          refreshToken
-        });
-        const novoToken = res.data.accessToken;
-        localStorage.setItem('accessToken', novoToken);
-
-        originalRequest.headers['Authorization'] = `Bearer ${novoToken}`;
-        return axios(originalRequest);
-      } catch (err) {
-        console.error('Falha ao renovar token', err);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
 // ------ FUNÇÕES API --------
-
 const user = 6;
+
 
 export async function login(payload) {
   try {
     const response = await api.post('login', payload);
     return response;
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error);
   }
 }
+
+
 
 export async function register(payload) {
   try {
@@ -82,7 +60,7 @@ export function getImageUrl(imagePath) {
 export async function getProd() {
   try {
     const response = await api.get(`products/user/${user}`);
-    return response;
+    return response.data;
   } catch (error) {
     console.error('Erro ao buscar dados ', error);
   }

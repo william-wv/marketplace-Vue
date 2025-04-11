@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import CreateCategory from '../pages/CreateCategory.vue';
-import AdminMyCategories from '../pages/AdminMyCategories.vue';
+import AdminMyCategories from './AdminMyCategories.vue';
+
 
 </script>
 
 
 
 <template>
-  <main class="contain">
-    <div class="card">
+  <main class="contain d-flex col-12 justify-content-center">
+    <div class="col-6">
       <AdminMyCategories />
     </div>
-    <div class="card">
+    <div class="col-6">
       <CreateCategory />
     </div>
   </main>
@@ -19,26 +20,10 @@ import AdminMyCategories from '../pages/AdminMyCategories.vue';
 
 <style scoped>
 
-
 .contain{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 50px 0;
-  justify-content: center;
-}
-
-.card {
-  width: 300px;
-  height: 340px;
-  padding: 30px 20px;
+  background-color: rgba(0, 0, 0, 0.126);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2) !important;
 }
 
 
-@media (min-width: 768px) {
-  .card {
-    width: 300px;
-    height: 500px;
-  }
-}
 </style>

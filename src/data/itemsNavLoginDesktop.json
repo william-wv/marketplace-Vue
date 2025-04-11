@@ -1,52 +1,51 @@
 [
   {
-    "id": 1 ,
-    "icon": "bi bi-house" ,
+    "id": 1,
+    "icon": "bi bi-house",
     "text": "My account",
-    "router": "/myaccount",
+    "router": "/dashboard/myaccount",
     "role": "all"
   },
   {
-    "id": 2 ,
-    "icon": "bi bi-bag" ,
+    "id": 2,
+    "icon": "bi bi-bag",
     "text": "My cart",
     "router": "/mycart",
     "role": "all"
   },
   {
-    "id": 3 ,
-    "icon": "bi bi-box" ,
+    "id": 3,
+    "icon": "bi bi-box",
     "text": "Recent orders",
     "router": "/orders",
     "role": "all"
   },
   {
-    "id": 4 ,
-    "icon": "bi bi-cart" ,
+    "id": 4,
+    "icon": "bi bi-cart",
     "text": "My stock",
-    "router": "/stock",
+    "router": "/dashboard/mystock",
     "role": "all"
   },
   {
-    "id": 5 ,
-    "icon": "bi bi-heart" ,
+    "id": 5,
+    "icon": "bi bi-heart",
     "text": "My wishlist",
     "router": "/fav",
     "role": "all"
   },
-  
   {
-    "id": 6 ,
-    "icon": "bi bi-pen" ,
+    "id": 6,
+    "icon": "bi bi-pen",
     "text": "Moderator",
-    "router": "/editModerator",
+    "router": "/dashboard/editmoderator/viewProducts",
     "role": "MODERATOR"
   },
   {
     "id": 7,
-    "icon": "bi bi-lock" ,
+    "icon": "bi bi-lock",
     "text": "ADMIN",
-    "router": "/editAdmin",
+    "router": "/dashboard/editAdmin",
     "role": "ADMIN"
   }
 ]

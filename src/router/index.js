@@ -1,3 +1,4 @@
+import useAuthStore from '@/stores/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -11,7 +12,7 @@ const router = createRouter({
     {
       path: '/login',
       component: () => import('../views/LoginRegisterView.vue'),
-      meta: { 
+      meta: {
         hideHeader: true,
         hideFooter: true
       }
@@ -19,7 +20,7 @@ const router = createRouter({
     {
       path: '/register',
       component: () => import('../components/auth/RegisterComponent.vue'),
-      meta: { 
+      meta: {
         hideHeader: true,
         hideFooter: true
       }
@@ -38,60 +39,56 @@ const router = createRouter({
 
     // Rotas protegidas
     {
-      path: '/painel',
+      path: '/dashboard',
+      meta: { hideHeader: true, hideFooter: true },
       component: () => import('@/components/auth/isAuthDesktp.vue'),
       children: [
         {
-          path: '/myaccount',
+          path: 'myaccount',
           name: 'my account',
           component: () => import('@/views/ProfileView.vue'),
           meta: { hideHeader: true, hideFooter: true }
         },
         {
-          path: '/mystock',
+          path: 'mystock',
           name: 'my stock',
           component: () => import('@/views/StockView.vue'),
-          meta: { hideHeader: true, hideFooter: true}
+          meta: { hideHeader: true, hideFooter: true }
         },
         {
-          path: '/editmoderator',
-          name: 'edit moderator',
-          component: () => import('@/views/AdminView.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
+          path: '/dashboard/editAdmin',
+          meta: {
+            hideHeader: true, 
+            hideFooter: true, 
+            requiresModeratorAndAdmin: true 
+          },
+          component: () => import('@/components/ADMIN/AdminPage.vue'),
+          children: [
+            {
+              path: 'products',
+              component: () => import('@/components/ADMIN/AdminCategory.vue')
+            },
+            {
+              path: 'categories',
+              component: () => import('@/components/ADMIN/AdminProducts.vue')
+            }
+          ]
         },
         {
-          path: '/editmoderator/categories',
-          name: 'create categories',
-          component: () => import('@/components/ADMIN/AdminCategory.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
-        },
-        {
-          path: '/editmoderator/products',
-          name: 'options products',
-          component: () => import('@/components/pages/AdminProducts.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
-        },
-        {
-          path: '/editmoderator/viewProducts',
-          name: 'view products',
-          component: () => import('@/components/pages/AdminProductsView.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
-        },
-        {
-          path: '/editmoderator/createProducts',
+          path: 'editmoderator/createProducts',
           name: 'create products',
           component: () => import('@/components/pages/CreateProducts.vue'),
           meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
-          path: '/editmoderator/deleteProducts',
+          path: 'editmoderator/deleteProducts',
           name: 'delete products',
           component: () => import('@/components/pages/DeleteProducts.vue'),
           meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
         },
         {
-          path: '/editAdmin',
-          name: 'delete products',
+          path: 'editAdmin',
+          name: 'setup adm',
           component: () => import('@/components/ADMIN/AdminPage.vue'),
           meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
         },
@@ -107,10 +104,17 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const user = JSON.parse(localStorage.getItem('user'))
+  const authStore = useAuthStore()
+  const user = authStore.user
 
   if (to.meta.requiresModeratorAndAdmin) {
-    if (user && user.role === 'ADMIN' || user.role === 'MODERATOR' ) {
+    if (user && (user.role === 'ADMIN' || user.role === 'MODERATOR')) {
+      next()
+    } else {
+      next({ path: '/unauthorized' })
+    }
+  } else if (to.meta.requiresAdmin) {
+    if (user && user.role === 'ADMIN') {
       next()
     } else {
       next({ path: '/unauthorized' })
@@ -118,16 +122,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-
-  if (to.meta.requiresAdmin) {
-  if (user && user.role === 'ADMIN' ) {
-    next()
-  } else {
-    next({ path: '/unauthorized' })
-  }
-} else {
-  next()
-}
 })
 
 

@@ -4,7 +4,6 @@ import { ref } from 'vue';
 import { login } from '@/services/http';
 import useAuthStore from '@/stores/auth.js';
 import { cartService } from '@/services/http';
-import { useIsMobile } from '@/composable/useIsMobile';
 // notificações
 import { push } from 'notivue'
 // componentes
@@ -17,7 +16,6 @@ import IsAuth from './IsAuth.vue';
 const email = ref('');
 const senha = ref('');
 const errorMessage = ref('');
-const isMobile = useIsMobile()
 // store
 const auth = useAuthStore();
 // functions
