@@ -21,7 +21,7 @@ const route = useRoute()
   </header>
 
   <Notivue v-slot="item">
-    <Notification :item="item" />
+    <Notification :item="item" class="minha-notificacao" />
   </Notivue>
 
   <main>
@@ -66,5 +66,12 @@ const route = useRoute()
   font-size: 50px;
   padding: 10px;
 }
-
+.minha-notificacao {
+  background-color: #fff;
+  border-left: 4px solid #4caf50;
+  padding: 0.5rem;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  color: #333;
+}
 </style>

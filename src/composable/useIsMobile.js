@@ -8,6 +8,7 @@ export function useIsMobile() {
   };
 
   onMounted(() => {
+    checkMobile(); // força o estado correto no início
     window.addEventListener("resize", checkMobile);
   });
 

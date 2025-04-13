@@ -1,17 +1,24 @@
 <script setup>
-defineProps({
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const props = defineProps({
   title: String,
   icon: String,
-  style: String
-})
+  style: String,
+  rota: String,
+});
+
+function irParaRota() {
+  if (props.rota) {
+    router.push(props.rota);
+  }
+}
 </script>
 
 <template>
-  <button
-    @click="$emit('click')"
-    type="submit"
-    :class="style"
-  >
+  <button @click="irParaRota" type="submit" :class="style">
     <i :class="icon"></i> {{ title }}
   </button>
 </template>

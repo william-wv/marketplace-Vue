@@ -40,68 +40,104 @@ const router = createRouter({
     // Rotas protegidas
     {
       path: '/dashboard',
+      component: () => import('@/components/Dashbord/isAuthDesktp.vue'),
       meta: { hideHeader: true, hideFooter: true },
-      component: () => import('@/components/auth/isAuthDesktp.vue'),
-      
       children: [
         {
           path: 'myaccount',
-          name: 'my account',
+          name: 'myAccount',
           component: () => import('@/views/ProfileView.vue'),
           meta: { hideHeader: true, hideFooter: true }
         },
         {
           path: 'mystock',
-          name: 'my stock',
+          name: 'myStock',
           component: () => import('@/views/StockView.vue'),
           meta: { hideHeader: true, hideFooter: true }
         },
         {
-          path: '/dashboard/editAdmin',            
-          redirect: '/dashboard/editAdmin/products',
+          path: 'edit',
+          component: () => import('@/components/ADMIN/Configurations.vue'),
           meta: {
-            hideHeader: true, 
-            hideFooter: true, 
-            requiresModeratorAndAdmin: true,
+            hideHeader: true,
+            hideFooter: true,
+            requiresModeratorAndAdmin: true
           },
-          component: () => import('@/components/ADMIN/AdminPage.vue'),
           children: [
             {
-              path: 'products',
-              component: () => import('@/components/ADMIN/AdminCategory.vue')
+              path: 'categories/create',
+              name: 'createCategory',
+              component: () => import('@/components/ADMIN/pages/CreateCategory.vue'),
+              meta: {
+                hideHeader: true,
+                hideFooter: true,
+                requiresModeratorAndAdmin: true
+              }
             },
             {
-              path: 'categories',
-              component: () => import('@/components/ADMIN/AdminProducts.vue')
+              path: 'admin',
+              redirect: 'admin/products',
+              component: () => import('@/components/ADMIN/CategAndProd.vue'),
+              meta: {
+                hideHeader: true,
+                hideFooter: true,
+                requiresModeratorAndAdmin: true
+              },
+              children: [
+                {
+                  path: 'categories',
+                  name: 'adminCategories',
+                  component: () => import('@/components/ADMIN/AdminCategory.vue')
+                },
+                {
+                  path: 'products',
+                  name: 'adminProducts',
+                  component: () => import('@/components/ADMIN/AdminProducts.vue')
+                }
+              ]
             }
-          ],
-          
+          ]
         },
         {
           path: 'editmoderator/createProducts',
-          name: 'create products',
+          name: 'createProductModerator',
           component: () => import('@/components/ADMIN/CreateProducts.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
+          meta: {
+            hideHeader: true,
+            hideFooter: true,
+            requiresModeratorAndAdmin: true
+          }
         },
         {
           path: 'editmoderator/deleteProducts',
-          name: 'delete products',
+          name: 'deleteProductModerator',
           component: () => import('@/components/ADMIN/DeleteProducts.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresModeratorAndAdmin: true }
+          meta: {
+            hideHeader: true,
+            hideFooter: true,
+            requiresModeratorAndAdmin: true
+          }
         },
         {
           path: 'editAdmin',
-          name: 'setup adm',
-          component: () => import('@/components/ADMIN/AdminPage.vue'),
-          meta: { hideHeader: true, hideFooter: true, requiresAdmin: true }
-        },
+          name: 'setupAdmin',
+          component: () => import('@/components/ADMIN/CategAndProd.vue'),
+          meta: {
+            hideHeader: true,
+            hideFooter: true,
+            requiresAdmin: true
+          }
+        }
       ]
     },
     {
       path: '/unauthorized',
       name: 'unauthorized',
       component: () => import('@/views/UnauthorizedView.vue'),
-      meta: { hideHeader: true, hideFooter: true }
+      meta: {
+        hideHeader: true,
+        hideFooter: true
+      }
     }
   ]
 })
@@ -126,8 +162,5 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
-
-
 
 export default router

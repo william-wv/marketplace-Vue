@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import {  ref, watch } from "vue";
 import { useProductStore } from "@/stores/postProducts";
 import InputName from "../common/InnputName.vue";
 import InputPrice from "../common/InputNumber.vue";
@@ -35,18 +35,13 @@ async function enviarProd() {
   };
 
   await productStore.enviarProd(produto);
-
   window.location.reload()
-
 }
 
 watch(categoriaSelecionada, (newVal) => {
   productStore.getProdutosPorCategoria(newVal);
 });
 
-onMounted(() => {
-  productStore.getCategoria();
-});
 </script>
 
 <template>
@@ -54,9 +49,8 @@ onMounted(() => {
     <div class="myproducts">
       <h1 class="text-center">Create Product</h1>
     </div>
-
     <section class="d-flex justify-content-center align-items-center">
-      <div class="card">
+      <div class="">
         <div style="color: var( --White-100);" class="d-flex justify-content-between">
           <label for="categoria" class="form-label">Escolha uma categoria:</label>
           <select v-model="categoriaSelecionada" id="categoria" :disabled="productStore.loading">
@@ -67,20 +61,19 @@ onMounted(() => {
         </div>
         <section>
           <form @submit.prevent="enviarProd" class="pt-4">
-            <InputName style="color: var( --White-100);" v-model="nome" :step-name="'Nome do Produto'" />
-            <InputName style="color: var( --White-100);" v-model="desc" :step-name="'Descrição do Produto'" />
-            <InputPrice style="color: var( --White-100);" v-model="preco" :step-name="'Preço do Produto'" />
-            <InputPrice style="color: var( --White-100);" v-model="stock" :step-name="'Stock do produto'" />
+            <InputName  v-model="nome" :step-name="'Nome do Produto'" />
+            <InputName  v-model="desc" :step-name="'Descrição do Produto'" />
+            <InputPrice  v-model="preco" :step-name="'Preço do Produto'" />
+            <InputPrice  v-model="stock" :step-name="'Stock do produto'" />
 
             <div>
-              <InputImage style="color: var( --White-100);" :step-name="'Product Image'" v-model="imagemSelecionada"
-                @change="handleImageUpload" />
-              <div style="color: var( --White-100);" v-if="imagemPreview">
+              <InputImage  :step-name="'Product Image'" v-model="imagemSelecionada" @change="handleImageUpload" />
+              <!-- <div  v-if="imagemPreview">
                 <h4>Image preview:</h4>
                 <img :src="imagemPreview" alt="Pré-visualização da imagem" width="200" />
-              </div>
+              </div> -->
               <!-- <button type="submit" class="btn btn-primary">Add item</button> -->
-              <ButtonComponent :title="'Add item'" :style="'orange'" />
+              <ButtonComponent :title="'Add item'" :style="'blue'" />
             </div>
           </form>
         </section>
@@ -93,14 +86,14 @@ onMounted(() => {
 
 <style scoped>
 main{
-  height: 90vh;
+  height: 60vh;
 }
 .card {
   max-width: 600px;
   margin: 20px !important;
   padding: 10px !important;
-  background-color: var(--Blue-100) !important;
-
+  border: none;
+color: black !important;
 }
 
 select {

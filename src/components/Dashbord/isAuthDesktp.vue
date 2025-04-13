@@ -1,48 +1,70 @@
 <script setup>
-// json
 import list from "../../data/itemsNavLoginDesktop.json"
-// vue
 import { ref, computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
-// store
 import useAuthStore from '@/stores/auth.js'
-// components
 import ButtonComponent from "../common/ButtonComponent.vue"
 
 const auth = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 
+const mostrarItens = ref(false)
 const navbarItens = ref(list)
 const isCollapsed = ref(false)
+const jaMostrou = ref(false)
 
 const goToHome = () => {
   router.push('/')
 }
 
+function handleLogout() {
+  auth.logout()
+  router.push('/login')
+}
+
+const handleMouseEnter = () => {
+  isCollapsed.value = false
+
+  // Só faz a animação de delay 1x
+  if (!jaMostrou.value) {
+    jaMostrou.value = true
+    setTimeout(() => {
+      mostrarItens.value = true
+    }, 0)
+  } else {
+    mostrarItens.value = true // garante que continua visível
+  }
+}
+
 const filteredNavbarItems = computed(() => {
   const role = auth.user?.role || "guest"
-  return navbarItens.value.filter(item => item.role === 'all' || item.role === role)
+  return navbarItens.value.filter(item => {
+    if (item.role === 'all') return true
+    if (Array.isArray(item.role)) 
+    return item.role.includes(role)
+    return item.role === role
+  })
 })
+
 </script>
+
 
 <template>
   <div class="d-flex div-aside">
-    <!-- Sidebar -->
-    <aside class="border-end py-4 sidebar" :class="{ collapsed: isCollapsed }" @mouseenter="isCollapsed = false">
+    <aside class="border-end py-4 sidebar" :class="{ collapsed: isCollapsed }" @mouseenter="handleMouseEnter">
       <div class="container-aside d-flex flex-column h-100">
         <div class="d-flex">
           <div>
-            <h5 class="mb-4 px-3" v-if="!isCollapsed">Dashbord</h5>
-            <h5 class="mb-4 px-3 fs" v-if="isCollapsed">Compre+</h5>
+            <h1 class="mb-4 px-3" v-if="!isCollapsed">Dashbord</h1>
+            <h1 class="logo mb-4 px-3 fs" v-if="isCollapsed">C+</h1>
           </div>
         </div>
 
         <ul class="nav flex-column">
-          <li v-for="item in filteredNavbarItems" :key="item.id" class="nav-ite  m mb-2">
+          <li v-for="item in filteredNavbarItems" :key="item.id" class="nav-item  m mb-2">
             <RouterLink :to="item.router" class="nav-link d-flex align-items-center gap-2 position-relative"
-            :class="{ active: route.path.startsWith(item.router)}"
-            >
+              :class="{ active: route.path.startsWith(item.router) }">
               <span v-if="route.path.startsWith(item.router)" class="active-indicator"></span>
 
               <i class="m-2" :class="[item.icon]"></i>
@@ -50,53 +72,63 @@ const filteredNavbarItems = computed(() => {
             </RouterLink>
           </li>
         </ul>
-
         <div class="mt-auto px-3 d-flex flex-column" v-if="!isCollapsed">
-          <ButtonComponent :icon="'bi bi-shop'" :style="'orange'" class="w-100" @click="goToHome"
-            :title="'Visit Site'" />
-          <ButtonComponent :icon="'bi bi-box-arrow-right'" :title="'Logout'" :style="'red'" @click="auth.logout()" />
+          <ButtonComponent v-if="mostrarItens" :icon="'bi bi-shop'" :style="'orange'" class="w-100" @click="goToHome"
+            :title="''" />
+          <ButtonComponent v-if="mostrarItens" :icon="'bi bi-box-arrow-right'" :title="''" :style="'red'"
+            @click="handleLogout()" />
         </div>
       </div>
     </aside>
 
-    <!-- Conteúdo principal -->
-    <main
-  :class="{ 'ml-250': !isCollapsed, 'ml-110': isCollapsed }"
-  class="flex-grow-1 p-4 bg-light overflow-auto"
-  @mouseenter="isCollapsed = true"
->      <RouterView />
+    <main :class="{
+      'ml-notColapse': !isCollapsed,
+      'ml-colapse': isCollapsed
+    }" class=" bg-fundo flex-grow-1  bg-light" @mouseenter="isCollapsed = true">
+      <RouterView />
     </main>
   </div>
 </template>
 
-
 <style scoped>
+.bg-fundo {
+  background-color: rgba(207, 207, 207, 0.944) !important;
+  height: 100vh;
+}
 
-.ml-250 { 
+.ml-notColapse {
   transition: all 0.4s ease-in-out;
-  margin-left: 250px !important;  
+  margin-left: 220px !important;
+
 
 }
-.ml-110 { 
+
+.ml-colapse {
   transition: all 0.4s ease-in-out;
-  margin-left: 110px !important;  
+  margin-left: 80px !important;
+  justify-content:center;
 }
+
 .sidebar {
   background-color: var(--Blue-500);
   color: white;
   height: 100svh;
-  width: 250px;
-  min-width: 250px;
-  position: fixed; 
+  width: 20px;
+  min-width: 220px;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1;
   transition: all 0.4s ease-in-out;
 }
+.sidebar.collapsed .nav-link {
+  justify-content: center;
 
+}
 .sidebar.collapsed {
-  width: 110px;
-  min-width: 110px;
+  width: 80px;
+  min-width: 80px;
+    transition: all 0.5s ease-in-out;
 }
 
 .sidebar span,

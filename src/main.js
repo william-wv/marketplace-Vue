@@ -1,8 +1,14 @@
+if (typeof window !== 'undefined') {
+  window.localStorage.setItem('vue-devtools-force', 'true');
+}
+
 import './assets/main.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap'
 
+console.log('Modo atual:', import.meta.env.MODE);
 
 
 import { createApp } from 'vue'
@@ -19,6 +25,7 @@ import 'notivue/notification.css' // Only needed if using built-in notifications
 import 'notivue/animations.css' // Only needed if using built-in animations
 
 
+
 const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
@@ -30,7 +37,7 @@ const notivue = createNotivue({
   avoidDuplicates: true,
   notifications: {
     global: {
-      duration: 1000
+      duration: 4000
     }
   }
 })
@@ -40,3 +47,5 @@ app.use(pinia)
 app.use(router)
 
 app.mount('#app')
+
+window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app;

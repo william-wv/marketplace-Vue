@@ -1,61 +1,58 @@
-import { defineStore } from "pinia";
-import { postProd, getProductsByCategory, getCategories } from "@/services/http";
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
+import { cartService } from '@/services/http'; // Certifique-se de que esse serviço está certo
 
-export const useProductStore = defineStore("productStore", {
-  state: () => ({
-    produtos: [],
-    categorias: [],
-    loading: false,
-  }),
+export const useProductStore = defineStore('product', () => {
+  const categorias = ref([]);
+  const produtosPorCategoria = ref([]);
+  const loading = ref(false);
 
-  actions: {
-    async getProdutosPorCategoria(idCateg) {
-      if (!idCateg) return;
-      this.loading = true;
-      try {
-        const response = await getProductsByCategory(idCateg);
-        this.produtos = response;
-      } catch (err) {
-        console.error("Erro ao carregar produtos:", err);
-      } finally {
-        this.loading = false;
+  
+
+  async function getProdutosPorCategoria(idCategoria) {
+    loading.value = true;
+    try {
+      const response = await cartService.get(`/produtos/categoria/${idCategoria}`);
+      produtosPorCategoria.value = response.data;
+    } catch (error) {
+      console.error('Erro ao buscar produtos por categoria:', error);
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function enviarProd(produto) {
+    loading.value = true;
+    try {
+      const formData = new FormData();
+      formData.append('name', produto.name);
+      formData.append('description', produto.description);
+      formData.append('price', produto.price);
+      formData.append('stock', produto.stock);
+      formData.append('category_id', produto.category_id);
+      if (produto.image) {
+        formData.append('image', produto.image);
       }
-    },
 
-    async getCategoria() {
-      this.loading = true;
-      try {
-        const response = await getCategories();
-        this.categorias = response;
-      } catch (err) {
-        console.error("Erro ao carregar categorias:", err);
-      } finally {
-        this.loading = false;
-      }
-    },
+      const response = await cartService.post('/produtos', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-    async enviarProd(produto) {
-      try {
-        const formData = new FormData();
-        formData.append("name", produto.name);
-        formData.append("description", produto.description || "");
-        formData.append("price", produto.price);
-        formData.append("stock", produto.stock);
-        formData.append("category_id", produto.category_id);
+      console.log('Produto enviado com sucesso:', response.data);
+    } catch (error) {
+      console.error('Erro ao enviar produto:', error);
+    } finally {
+      loading.value = false;
+    }
+  }
 
-        if (produto.image) {
-          formData.append("image", produto.image);
-        }
-
-        const response = await postProd(formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-
-        this.produtos.push(response);
-        console.log("Produto adicionado:", response);
-      } catch (e) {
-        console.error("Erro ao enviar produto:", e);
-      }
-    },
-  },
+  return {
+    categorias,
+    produtosPorCategoria,
+    loading,
+    getProdutosPorCategoria,
+    enviarProd,
+  };
 });

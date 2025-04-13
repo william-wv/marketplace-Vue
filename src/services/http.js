@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: 'http://35.196.79.227:8000/',
 });
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0Mzk0MDQyfQ.7WRP2sYvUZabUfOgKxaGDloVZGu6TI9hwHgqJ2CvMWk'
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0NTk2ODE2fQ.fbvDjv5nffkMSoA1vra7Gu8NO2m5sDzgFjoFBHioU9E'
 
 // Interceptor para injetar o token antes de cada requisição
 api.interceptors.request.use(
@@ -29,8 +29,6 @@ export async function login(payload) {
     console.log(error);
   }
 }
-
-
 
 export async function register(payload) {
   try {
@@ -114,9 +112,23 @@ export async function createCategory(payload) {
   }
 }
 
+export const updateCateg = async (id, dados) => {
+  try {
+    return await axios.put(`/categories/${id}`, {
+      name: dados.name,
+      description: dados.description
+    });
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+
+
+
 export async function deleteCategory(id) {
   try {
-    const response = await api.delete(`categories/${id}`);
+    const response = await api.delete(`/categories/${id}`);
     return response.data;
   } catch (error) {
     console.error('Erro ao deletar categoria:', error);
@@ -135,6 +147,7 @@ export async function getImgProd(img) {
 
 // Carrinho
 export const cartService = {
+  
   async getCart() {
     return api.get('cart/');
   },

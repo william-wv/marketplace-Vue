@@ -12,8 +12,7 @@ import ButtonComponent from '../common/ButtonComponent.vue';
 import InputEmail from '../common/InputEmail.vue';
 import InputPassword from '../common/InputPassword.vue';
 import ContinueWith from './ContinueWith.vue';
-import IsAuth from './IsAuth.vue';
-// refs
+import IsAuthDesktp from '../Dashbord/isAuthDesktp.vue';// refs
 const email = ref('');
 const senha = ref('');
 const errorMessage = ref('');
@@ -37,6 +36,7 @@ async function enviarLogin() {
       message: 'Welcome back!',
     });
     auth.saveUser(result.data)
+    router.replace('/dashboard/myaccount')
   }
   else {
     errorMessage.value = 'Invalid email or password';
@@ -90,7 +90,7 @@ onMounted(() => {
     </section>
 
     <section v-else>
-      <IsAuth />
+      <IsAuthDesktp />
     </section>
   </main>
 </template>
