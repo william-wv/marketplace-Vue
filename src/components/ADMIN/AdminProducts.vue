@@ -18,7 +18,7 @@ import ViewProdutes from './ViewProdutes.vue';
 
 <style scoped>
 .h-90{
-  height: 90vh;
+  height: 70vh;
 }
 
 @media (min-width:1000px) {

@@ -60,3 +60,9 @@ onMounted(() => {
 
 </template>
 
+<style scoped>
+.h-90{
+  height: 70svh;
+}
+
+</style>
