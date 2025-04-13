@@ -118,16 +118,6 @@ const router = createRouter({
           }
         },
         {
-          path: 'editmoderator/deleteProducts',
-          name: 'deleteProductModerator',
-          component: () => import('@/components/ADMIN/DeleteProducts.vue'),
-          meta: {
-            hideHeader: true,
-            hideFooter: true,
-            requiresModeratorAndAdmin: true
-          }
-        },
-        {
           path: 'editAdmin',
           name: 'setupAdmin',
           component: () => import('@/components/ADMIN/CategAndProd.vue'),

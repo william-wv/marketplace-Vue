@@ -49,15 +49,64 @@ onMounted(() => {
 
 <template>
   <main class="contain bg-white h-90">
-    <CategoryTable :categorias="categorias" @editar="abrirModalEditar" @deletar="deletarCategoria"
-      />
+    <CategoryTable 
+    :categorias="categorias" 
+    @editar="abrirModalEditar" 
+    @deletar="deletarCategoria"
+     />
 
     <!-- Modal de Edição -->
-    <CategoryModal v-if="mostrarModal" :categoria="categoriaSelecionada" @salvar="salvarEdicao(categoriaSelecionada)"
-      @fechar="mostrarModal = false" />
+    <CategoryModal v-if="mostrarModal" 
+    :categoria="categoriaSelecionada" 
+    @salvar="salvarEdicao(categoriaSelecionada)"
+    @fechar="mostrarModal = false" 
+    />
 
   </main>
+ <!-- // Carrinho
+export const cartService = {
+  
+  async getCart() {
+    return api.get('cart/');
+  },
 
+  async createCart() {
+    try {
+      const response = await api.post('cart/', {});
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao criar carrinho:', error);
+      return null;
+    }
+  },
+
+  async getCartItems() {
+    return api.get('cart/items');
+  },
+
+  async addItemToCart(item) {
+    try {
+      return await api.post('cart/items', item);
+    } catch (error) {
+      console.error('Erro ao adicionar item ao carrinho:', error.response?.status, error.response?.data);
+    }
+  },
+
+  async removeCartItem(productId, quantity, unitPrice) {
+    return api.delete('cart/items', {
+      data: {
+        product_id: productId,
+        quantity: quantity,
+        unit_price: unitPrice
+      }
+    });
+  },
+
+  async clearCart() {
+    return api.delete('cart/clear');
+  },
+};
+ -->
 </template>
 
 <style scoped>

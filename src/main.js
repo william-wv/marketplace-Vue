@@ -21,9 +21,8 @@ import router from './router'
 
 import { createNotivue } from 'notivue'
 
-import 'notivue/notification.css' // Only needed if using built-in notifications
-import 'notivue/animations.css' // Only needed if using built-in animations
-
+import 'notivue/notification.css' 
+import 'notivue/animations.css' 
 
 
 const app = createApp(App)

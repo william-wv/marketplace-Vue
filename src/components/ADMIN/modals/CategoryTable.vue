@@ -2,6 +2,7 @@
 import CategoryRow from './CategoryRow.vue';
 defineProps(['categorias']);
 const emit = defineEmits(['editar', 'deletar']);
+
 </script>
 
 <template>
