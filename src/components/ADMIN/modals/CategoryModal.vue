@@ -2,9 +2,9 @@
 defineProps(['categoria']);
 defineEmits(['salvar', 'fechar']);
 
-const salvar = () => {
-  emit('salvar', categoriaEditavel.value); // <- Emitindo os dados editados
-};
+// const salvar = () => {
+//   emit('salvar', categoriaEditavel.value); // <- Emitindo os dados editados
+// };
 </script>
 
 <template>

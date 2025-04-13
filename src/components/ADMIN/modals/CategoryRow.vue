@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import CategoryDropdown from './CategoryDropdown.vue';
+import CategoryDropdown from './Dropdown.vue';
 
 defineProps(['categoria']);
 const emit = defineEmits(['editar', 'deletar']);

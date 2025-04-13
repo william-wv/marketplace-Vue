@@ -73,6 +73,15 @@ const router = createRouter({
                 hideFooter: true,
                 requiresModeratorAndAdmin: true
               }
+            }, {
+              path: 'products/create',
+              name: 'createProduct',
+              component: () => import('@/components/ADMIN/pages/CreateProducts.vue'),
+              meta: {
+                hideHeader: true,
+                hideFooter: true,
+                requiresModeratorAndAdmin: true
+              }
             },
             {
               path: 'admin',
@@ -87,12 +96,12 @@ const router = createRouter({
                 {
                   path: 'categories',
                   name: 'adminCategories',
-                  component: () => import('@/components/ADMIN/AdminCategory.vue')
+                  component: () => import('@/components/ADMIN/pages/AdminCategory.vue')
                 },
                 {
                   path: 'products',
                   name: 'adminProducts',
-                  component: () => import('@/components/ADMIN/AdminProducts.vue')
+                  component: () => import('@/components/ADMIN/pages/AdminProducts.vue')
                 }
               ]
             }
@@ -101,7 +110,7 @@ const router = createRouter({
         {
           path: 'editmoderator/createProducts',
           name: 'createProductModerator',
-          component: () => import('@/components/ADMIN/CreateProducts.vue'),
+          component: () => import('@/components/ADMIN/pages/CreateProducts.vue'),
           meta: {
             hideHeader: true,
             hideFooter: true,

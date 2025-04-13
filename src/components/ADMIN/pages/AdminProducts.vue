@@ -1,23 +1,27 @@
 <script setup>
-import CreateProducts from './CreateProducts.vue';
-import DeleteProducts from './DeleteProducts.vue';
-import ViewProdutes from './ViewProdutes.vue';
+// import CreateProducts from './pages/CreateProducts.vue';
+// import DeleteProducts from './DeleteProducts.vue';
+// import ViewProdutes from './ViewProdutes.vue';
+
 
 
 </script>
 
 <template>
+  <!-- 
+ <CreateProducts /> 
+ <ViewProdutes />
+<DeleteProducts /> -->
+
   <main>
     <div class="bg-white box-cards h-90">
-      <ViewProdutes />
-      <CreateProducts />
-      <DeleteProducts />
+  
     </div>
   </main>
 </template>
 
 <style scoped>
-.h-90{
+.h-90 {
   height: 70vh;
 }
 

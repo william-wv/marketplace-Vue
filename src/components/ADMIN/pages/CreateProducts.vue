@@ -1,10 +1,10 @@
 <script setup>
 import {  ref, watch } from "vue";
 import { useProductStore } from "@/stores/postProducts";
-import InputName from "../common/InnputName.vue";
-import InputPrice from "../common/InputNumber.vue";
-import InputImage from "../common/InputImage.vue";
-import ButtonComponent from "../common/ButtonComponent.vue";
+import InputName from "@/components/common/InnputName.vue";
+import InputPrice from "@/components/common/InputNumber.vue";
+import InputImage from "@/components/common/InputImage.vue";
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 
 const productStore = useProductStore();
 
@@ -45,6 +45,9 @@ watch(categoriaSelecionada, (newVal) => {
 </script>
 
 <template>
+   <RouterLink class="m-2" to="/dashboard/edit/admin/products">
+      <i class="bi bi-arrow-left-short"></i>
+    </RouterLink>
   <main>
     <div class="myproducts">
       <h1 class="text-center">Create Product</h1>
@@ -85,9 +88,7 @@ watch(categoriaSelecionada, (newVal) => {
 
 
 <style scoped>
-main{
-  height: 60vh;
-}
+
 .card {
   max-width: 600px;
   margin: 20px !important;

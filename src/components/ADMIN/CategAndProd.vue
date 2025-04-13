@@ -26,12 +26,12 @@ const props = defineProps({
     <RouterLink to="/dashboard/edit" class="d-flex  align-items-center">
       <i class="bi bi-arrow-left"></i>Return to control panel
     </RouterLink>
-
-    <ButtomComponentRoute  :rota="'/dashboard/edit/categories/create'" 
-  :icon="'bi bi-plus-lg'" 
-  :title="'Create Category'" 
-  :style="'blue'" />
-
+    <div class="d-flex - gap-3">
+      <ButtomComponentRoute :rota="'/dashboard/edit/categories/create'" :icon="'bi bi-plus-lg'"
+        :title="'Create Category'" :style="'blue'" />
+      <ButtomComponentRoute :rota="'/dashboard/edit/products/create'" :icon="'bi bi-plus-lg'"
+        :title="'Create Product'" :style="'blue'" />
+    </div>
 
   </div>
 
