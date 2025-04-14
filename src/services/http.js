@@ -170,3 +170,48 @@ export function getImageUrl(imagePath) {
   }
   return `http://35.196.79.227:8000${imagePath.startsWith('/uploads/products/') ? imagePath : `/uploads/products/${imagePath}`}`;
 }
+
+
+// Carrinho 
+export const cartService = {
+  
+  async getCart() {
+    return api.get('cart/');
+  },
+
+  async createCart() {
+    try {
+      const response = await api.post('cart/', {});
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao criar carrinho:', error);
+      return null;
+    }
+  },
+
+  async getCartItems() {
+    return api.get('cart/items');
+  },
+
+  async addItemToCart(item) {
+    try {
+      return await api.post('cart/items', item);
+    } catch (error) {
+      console.error('Erro ao adicionar item ao carrinho:', error.response?.status, error.response?.data);
+    }
+  },
+
+  async removeCartItem(productId, quantity, unitPrice) {
+    return api.delete('cart/items', {
+      data: {
+        product_id: productId,
+        quantity: quantity,
+        unit_price: unitPrice
+      }
+    });
+  },
+
+  async clearCart() {
+    return api.delete('cart/clear');
+  },
+};

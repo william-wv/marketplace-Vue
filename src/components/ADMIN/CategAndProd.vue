@@ -108,6 +108,5 @@ const props = defineProps({
 
 
 @media (min-width:1024px) {
-  .contain {}
 }
 </style>
