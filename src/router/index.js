@@ -95,6 +95,26 @@ const router = createRouter({
               }
             },
             {
+              path: 'menageUser',
+              name: 'menage users',
+              component: () => import('@/components/ADMIN/pages/AdminMenageUser.vue'),
+              meta: {
+                hideHeader: true,
+                hideFooter: true,
+                requiresModeratorAndAdmin: true
+              }
+            },
+            {
+              path: 'orders',
+              name: 'orders',
+              component: () => import('@/components/ADMIN/pages/AdminOrders.vue'),
+              meta: {
+                hideHeader: true,
+                hideFooter: true,
+                requiresModeratorAndAdmin: true
+              }
+            },
+            {
               path: 'admin',
               redirect: 'admin/products',
               component: () => import('@/components/ADMIN/CategAndProd.vue'),

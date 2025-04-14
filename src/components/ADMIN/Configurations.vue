@@ -1,7 +1,10 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import CardsConfig from '../layout/CardsConfig.vue';
+import useAuthStore from '@/stores/auth';
 
+
+const auth = useAuthStore()
 const route = useRoute()
 </script>
 
@@ -16,12 +19,12 @@ const route = useRoute()
       <CardsConfig icon="bi bi-diagram-3" title="Stock" subtitle="You can Update your products stocks" />
     </RouterLink>
 
-    <RouterLink to="/dashboard/edit/admin/" class="card-wrapper p-2">
+    <RouterLink to="/dashboard/edit/menageUser" class="card-wrapper p-2" v-if="auth.user.role === 'ADMIN'">
       <CardsConfig icon="bi bi-people" title="Manage Users"
         subtitle="Easily manage users through registration, editing, deletion, and data viewing." />
     </RouterLink>
 
-    <RouterLink to="/dashboard/edit/admin/" class="card-wrapper p-2">
+    <RouterLink to="/dashboard/edit/orders" class="card-wrapper p-2" v-if="auth.user.role === 'ADMIN'">
       <CardsConfig icon="bi bi-bag" title="Orders" subtitle="You can Update" />
     </RouterLink>
   </div>
