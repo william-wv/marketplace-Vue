@@ -57,7 +57,7 @@ const router = createRouter({
         },
         {
           path: 'edit',
-          component: () => import('@/components/ADMIN/Configurations.vue'),
+          component: () => import('@/components/client/ADMIN/Configurations.vue'),
           meta: {
             hideHeader: true,
             hideFooter: true,
@@ -67,7 +67,7 @@ const router = createRouter({
             {
               path: 'categories/create',
               name: 'createCategory',
-              component: () => import('@/components/ADMIN/pages/CreateCategory.vue'),
+              component: () => import('@/components/client/ADMIN/pages/CreateCategory.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,
@@ -77,7 +77,7 @@ const router = createRouter({
             {
               path: 'products/create',
               name: 'createProduct',
-              component: () => import('@/components/ADMIN/pages/CreateProducts.vue'),
+              component: () => import('@/components/client/ADMIN/pages/CreateProducts.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,
@@ -87,7 +87,7 @@ const router = createRouter({
             {
               path: 'stock',
               name: 'edit stock',
-              component: () => import('@/components/ADMIN/pages/AdminStock.vue'),
+              component: () => import('@/components/client/ADMIN/pages/AdminStock.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,
@@ -97,7 +97,7 @@ const router = createRouter({
             {
               path: 'menageUser',
               name: 'menage users',
-              component: () => import('@/components/ADMIN/pages/AdminMenageUser.vue'),
+              component: () => import('@/components/client/ADMIN/pages/AdminMenageUser.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,
@@ -107,7 +107,7 @@ const router = createRouter({
             {
               path: 'orders',
               name: 'orders',
-              component: () => import('@/components/ADMIN/pages/AdminOrders.vue'),
+              component: () => import('@/components/client/ADMIN/pages/AdminOrders.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,
@@ -117,7 +117,7 @@ const router = createRouter({
             {
               path: 'admin',
               redirect: 'admin/products',
-              component: () => import('@/components/ADMIN/CategAndProd.vue'),
+              component: () => import('@/components/client/ADMIN/CategAndProd.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,
@@ -127,12 +127,12 @@ const router = createRouter({
                 {
                   path: 'categories',
                   name: 'adminCategories',
-                  component: () => import('@/components/ADMIN/pages/AdminCategory.vue')
+                  component: () => import('@/components/client/ADMIN/pages/AdminCategory.vue')
                 },
                 {
                   path: 'products',
                   name: 'adminProducts',
-                  component: () => import('@/components/ADMIN/pages/AdminProducts.vue')
+                  component: () => import('@/components/client/ADMIN/pages/AdminProducts.vue')
                 }
               ]
             }
@@ -141,7 +141,7 @@ const router = createRouter({
         {
           path: 'editmoderator/createProducts',
           name: 'createProductModerator',
-          component: () => import('@/components/ADMIN/pages/CreateProducts.vue'),
+          component: () => import('@/components/client/ADMIN/pages/CreateProducts.vue'),
           meta: {
             hideHeader: true,
             hideFooter: true,
@@ -151,7 +151,7 @@ const router = createRouter({
         {
           path: 'editAdmin',
           name: 'setupAdmin',
-          component: () => import('@/components/ADMIN/CategAndProd.vue'),
+          component: () => import('@/components/client/ADMIN/CategAndProd.vue'),
           meta: {
             hideHeader: true,
             hideFooter: true,

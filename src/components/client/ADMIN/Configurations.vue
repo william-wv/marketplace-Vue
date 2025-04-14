@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from 'vue-router'
-import CardsConfig from '../layout/CardsConfig.vue';
+import CardsConfig from '@/components/layout/CardsConfig.vue';
 import useAuthStore from '@/stores/auth';
 
 

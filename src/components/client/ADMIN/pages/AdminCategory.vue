@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getCategories, updateCategory, deleteCategory } from '@/services/http';
-import CategoryTable from '@/components/ADMIN/modals/CategoryTable.vue';
-import CategoryModal from '@/components/ADMIN/modals/CategoryModal.vue';
+import CategoryTable from '@/components/client/ADMIN/modals/CategoryTable.vue';
+import CategoryModal from '@/components/client/ADMIN/modals/CategoryModal.vue';
 
 
 // Reatividade

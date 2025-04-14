@@ -7,7 +7,7 @@
 
 <template>
     <main>
-      {{ auth.user }}
+      <p>{{ auth }}</p>
     </main>
 </template>
 
