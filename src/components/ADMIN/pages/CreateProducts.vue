@@ -20,10 +20,8 @@ const imagemPreview = ref(null);
 // Buscar categorias ao carregar componente
 onMounted(async () => {
   try {
-    const categorias = await productStore.getCategorias(); // <-- Método na store
-    if (categorias.length > 0) {
-      categoriaSelecionada.value = categorias[0].id; // Se houverem categorias, seleciona a primeira
-    }
+    const categorias = await productStore.getCategoria(); // <-- Método na store
+    console.log(categorias)
   } catch (e) {
     console.error("Erro ao buscar categorias:", e);
   }
