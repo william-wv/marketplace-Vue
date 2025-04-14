@@ -1,35 +1,35 @@
 [
   {
     "id": 1,
-    "icon": "bi bi-house",
+    "icon": "bi bi-house-fill",
     "text": "Account",
     "router": "/dashboard/myaccount",
     "role": "all"
   },
   {
     "id": 2,
-    "icon": "bi bi-bag",
+    "icon": "bi bi-bag-fill",
     "text": "Cart",
     "router": "/mycart",
     "role": "all"
   },
   {
     "id": 3,
-    "icon": "bi bi-box",
+    "icon": "bi bi-box-fill",
     "text": "Orders",
     "router": "/orders",
     "role": "all"
   },
   {
     "id": 5,
-    "icon": "bi bi-heart",
+    "icon": "bi bi-heart-fill",
     "text": "Wishlist",
     "router": "/fav",
     "role": "all"
   },
   {
     "id": 7,
-    "icon": "bi bi-gear",
+    "icon": "bi bi-gear-fill",
     "text": "Configurations",
     "router": "/dashboard/edit",
     "role": ["ADMIN" , "MODERATOR"]

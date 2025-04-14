@@ -99,8 +99,6 @@ const filteredNavbarItems = computed(() => {
 .ml-notColapse {
   transition: all 0.4s ease-in-out;
   margin-left: 220px !important;
-
-
 }
 
 .ml-colapse {
@@ -128,7 +126,8 @@ const filteredNavbarItems = computed(() => {
 .sidebar.collapsed {
   width: 80px;
   min-width: 80px;
-    transition: all 0.5s ease-in-out;
+  font-size: 25px;
+  transition: all 0.5s ease-in-out;
 }
 
 .sidebar span,
