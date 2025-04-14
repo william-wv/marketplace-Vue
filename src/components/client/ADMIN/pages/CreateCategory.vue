@@ -37,10 +37,10 @@ async function enviarCat() {
     <RouterLink class="m-2" to="/dashboard/edit/admin/categories">
       <i class="bi bi-arrow-left-short"></i>
     </RouterLink>
-
+ <h1 class="text-center mt-5 ">Create Category</h1>
     <div class="d-flex flex-column justify-content-center height-main m-5 mt-0 mb-0 ">
-      <h1 class="text-center mt-3 mb-3">Create Category</h1>
-      <form @submit.prevent="enviarCat">
+     
+      <form @submit.prevent="enviarCat" class="card p-5">
         <InnputName :icon="'bi bi-alphabet-uppercase'" :stepName="'Category name'" v-model="catName" />
         <InnputName :icon="'bi bi-alphabet'" :stepName="'Category Description'" v-model="catDesc" />
         <div>

@@ -53,7 +53,6 @@ defineProps({
   padding: 10px 15px;
   background-color: var(--Orange-500);
   border: none;
-  border-radius: 8px;
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
   box-shadow: 0 4px 12px rgba(255, 165, 0, 0.2); /* tom alaranjado suave */

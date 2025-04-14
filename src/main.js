@@ -41,6 +41,9 @@ const notivue = createNotivue({
   }
 })
 
+app.config.devtools = true;
+
+
 app.use(notivue)
 app.use(pinia)
 app.use(router)
