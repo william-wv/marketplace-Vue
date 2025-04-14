@@ -6,7 +6,8 @@ const api = axios.create({
 });
 
 // Token para autenticação
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNzQ0NTk2ODE2fQ.fbvDjv5nffkMSoA1vra7Gu8NO2m5sDzgFjoFBHioU9E';
+const token = import.meta.env.VITE_API_TOKEN;
+;
 
 // Interceptor para injetar o token antes de cada requisição
 api.interceptors.request.use(
