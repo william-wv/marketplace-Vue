@@ -175,24 +175,19 @@ export function getImageUrl(imagePath) {
 
 // ---------- ADDRESS ----------------
 
-// src/services/addressService.js
 
-export async function criarEndereco(payload) {
+export async function getAddress() {
   try {
-    const response = await api.post('/addresses', payload);
-    return response.data;
+    const response = await api.get('/addresses/')
+    return response.data
   } catch (error) {
-    let errorMessage = 'Ocorreu um erro ao tentar criar o endereço.';
-
-    if (error.response && error.response.data) {
-      errorMessage = error.response.data.message || errorMessage;
-    }
-
-    // Aqui você poderia passar a mensagem de erro para a interface do usuário
-    throw new Error(errorMessage);
+    console.error(error)
   }
 }
-
+export async function criarEndereco(endereco) {
+  const response = await api.post('/addresses/', endereco) 
+  return response.data
+}
 
 
 // Carrinho 

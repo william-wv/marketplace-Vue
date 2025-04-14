@@ -25,11 +25,13 @@ import UserSection from '@/components/client/user/UserSection.vue';
 
 <style scoped>
 main{
-  overflow-y: hidden;
   height: 100%;
 }
 
-.d-grid{
-  grid-template-columns: repeat(1,2fr);
+@media (min-width:1400px) {
+  .d-flex{
+    flex-direction: row !important;
+  }
 }
+
 </style>

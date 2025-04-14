@@ -91,7 +91,6 @@ const router = createRouter({
             requiresModeratorAndAdmin: true
           },
           children: [
-
             // Criar nova categoria
             {
               path: 'categories/create',

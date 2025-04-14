@@ -6,15 +6,16 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref({})
   const isAuthenticated = ref(false)
   const isShoppNull = ref(true)
+  const endereco = ref({})
 
   function logout() {
     token.value = null
     user.value = {}
     isAuthenticated.value = false
     isShoppNull.value = false
-
+    endereco.value = {}
   }
-  
+
   function saveUser(result) {
     user.value = result.user
     isAuthenticated.value = true
@@ -28,16 +29,24 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  function setAddress(novoEndereco) {
+    // Atualiza o endereço dentro de user
+    user.value.address = novoEndereco
+  }
+
   return {
     token,
     user,
     isAuthenticated,
     isShoppNull,
+    endereco,
     logout,
     saveUser,
-    expired
+    expired,
+    setAddress 
   }
-},
-  { persist: true })
+}, {
+  persist: true
+})
 
 export default useAuthStore

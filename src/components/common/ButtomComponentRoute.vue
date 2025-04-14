@@ -8,17 +8,23 @@ const props = defineProps({
   icon: String,
   style: String,
   rota: String,
+  type: {
+    type: String,
+    default: 'submit'
+  }
 });
+
 
 function irParaRota() {
   if (props.rota) {
     router.push(props.rota);
   }
 }
+
 </script>
 
 <template>
-  <button @click="irParaRota" type="submit" :class="style">
+  <button @click="irParaRota" :type="type" :class="style">
     <i :class="icon"></i> {{ title }}
   </button>
 </template>
@@ -53,7 +59,6 @@ function irParaRota() {
   transform: scale(0.98);
   box-shadow: 0 2px 6px rgba(255, 0, 0, 0.2);
 }
-
 
 .orange {
   color: var(--White-000) !important;
