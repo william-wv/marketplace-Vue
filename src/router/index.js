@@ -73,10 +73,21 @@ const router = createRouter({
                 hideFooter: true,
                 requiresModeratorAndAdmin: true
               }
-            }, {
+            }, 
+            {
               path: 'products/create',
               name: 'createProduct',
               component: () => import('@/components/ADMIN/pages/CreateProducts.vue'),
+              meta: {
+                hideHeader: true,
+                hideFooter: true,
+                requiresModeratorAndAdmin: true
+              }
+            },
+            {
+              path: 'stock',
+              name: 'edit stock',
+              component: () => import('@/components/ADMIN/pages/AdminStock.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,

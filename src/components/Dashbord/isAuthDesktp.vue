@@ -56,8 +56,8 @@ const filteredNavbarItems = computed(() => {
       <div class="container-aside d-flex flex-column h-100">
         <div class="d-flex">
           <div>
-            <h1 class="mb-4 px-3" v-if="!isCollapsed">Dashbord</h1>
-            <h1 class="logo mb-4 px-3 fs" v-if="isCollapsed">C+</h1>
+            <h1 class="mb-4 px-3 text-uppercase" v-if="!isCollapsed">Dashbord</h1>
+            <h1 class="logo mb-4 px-3 fs text-uppercase" v-if="isCollapsed">c+</h1>
           </div>
         </div>
 
@@ -98,7 +98,7 @@ const filteredNavbarItems = computed(() => {
 
 .ml-notColapse {
   transition: all 0.4s ease-in-out;
-  margin-left: 220px !important;
+  margin-left: 250px !important;
 }
 
 .ml-colapse {
@@ -112,7 +112,7 @@ const filteredNavbarItems = computed(() => {
   color: white;
   height: 100svh;
   width: 20px;
-  min-width: 220px;
+  min-width: 250px;
   position: fixed;
   top: 0;
   left: 0;

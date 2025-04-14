@@ -12,7 +12,7 @@ const route = useRoute()
           subtitle="You can Create, Read, Update and Delete" />
     </RouterLink>
 
-    <RouterLink to="/dashboard/edit/admin/stock" class="card-wrapper p-2">
+    <RouterLink to="/dashboard/edit/stock" class="card-wrapper p-2">
       <CardsConfig icon="bi bi-diagram-3" title="Stock" subtitle="You can Update your products stocks" />
     </RouterLink>
 

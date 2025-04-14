@@ -85,15 +85,16 @@ export async function deleteProd(id) {
   }
 }
 
-export async function editStock(id) {
+export async function editStock(id, payload) {
   try {
-    const response = await api.put(`products/${id}/stock`);
-    return response.data;
+    const response = await api.put(`products/${id}/stock`, payload);
+    return response;
   } catch (error) {
     console.error('Erro ao atualizar estoque:', error);
     throw error;
   }
 }
+
 
 export async function getProductsByCategory(id) {
   try {
