@@ -4,7 +4,7 @@ import { ref , onMounted } from 'vue';
 import { login } from '@/services/http';
 import useAuthStore from '@/stores/auth.js';
 import { cartService } from '@/services/http';
-import router from '@/router';
+import router from '@/router/router';
 // notificações
 import { push } from 'notivue'
 // componentes
