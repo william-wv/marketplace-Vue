@@ -9,15 +9,10 @@ import UserSection from '@/components/client/user/UserSection.vue';
 <template>
   <main>
     <div class="p-3">
-      <div class="d-flex flex-column gap-3">
-        <div class="">
+        <div class="d-flex flex-column">
           <UserSection />
-          <ListUser />
-        </div>
-        <div>
+          <!-- <ListUser /> -->
           <UserAddress/>
-        </div>
-    
       </div>
     </div>
   </main>
@@ -28,8 +23,12 @@ main{
   height: 100%;
 }
 
-@media (min-width:1400px) {
-  .d-flex{
+.d-grid{
+  grid-template-columns: repeat(1,1fr);
+}
+
+@media (min-width:1024px) {
+  .flex-column {
     flex-direction: row !important;
   }
 }

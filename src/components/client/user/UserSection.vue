@@ -13,7 +13,7 @@ const primeiraLetra = auth.user.name?.charAt(0).toUpperCase() || '?';
 </script>
 
 <template>
-  <main class="d-flex flex-column gap-4">
+  <main class="d-flex flex-column  gap-4">
     <div class="card profile-card p-3 m-2 rounded-4 shadow">
       <div class="d-flex justify-content-center ">
         <div
@@ -29,15 +29,15 @@ const primeiraLetra = auth.user.name?.charAt(0).toUpperCase() || '?';
         </div>
       </div>
       <div class="d-flex justify-content-center mb-1 ">
-        <span style="width: 150px;" class="d-flex justify-content-center bg-primary rounded-5 text-white p-1 text-center">
+        <span style="width: 200px;" class="d-flex justify-content-center bg-primary rounded-5 text-white p-1 text-center">
           <i class="bi bi-shield-shaded"></i> <p>{{ auth.user.role }}</p>
         </span>
       </div>
       <div class="user-info">
-        <h2 class="mt-2 mb-3 fs-3 text-center">{{ auth.user.name }}</h2>
+        <h2 class="mt-2 mb-3 fs-5 text-center">{{ auth.user.name }}</h2>
 
         <div class="texts-info mb-4">
-          <div class="d-flex">
+          <div class="d-flex ">
             <p class="col-3 fs-6">Mail:</p>
             <p class="col-9 fs-6">{{ auth.user.email }}</p>
           </div>
@@ -57,5 +57,15 @@ const primeiraLetra = auth.user.name?.charAt(0).toUpperCase() || '?';
 <style scoped>
 .object-fit-cover {
   object-fit: cover;
+}
+
+@media (min-width:1024px) {
+  main{
+    width: 40svw; 
+    position: fixed;
+  }
+  .card{
+    height: 95svh;
+  }
 }
 </style>

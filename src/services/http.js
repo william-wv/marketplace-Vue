@@ -189,6 +189,9 @@ export async function criarEndereco(endereco) {
   return response.data
 }
 
+export async function deleteAddress(id) {
+  
+}
 
 // Carrinho 
 export const cartService = {

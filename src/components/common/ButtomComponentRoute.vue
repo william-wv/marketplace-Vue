@@ -35,6 +35,19 @@ function irParaRota() {
   color: var(--White-000) !important;
   padding: 10px 15px;
   background-color: var(--Blue-900);
+  border-radius: 8px;
+}
+
+
+.blue:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(201, 186, 186, 0.808);
+  background-color: var(--Blue-100);
+}
+
+.blue:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(86, 83, 190, 0.303);
 }
 
 .red {
