@@ -1,5 +1,4 @@
 <script setup>
-import ButtomComponentRoute from '@/components/common/ButtomComponentRoute.vue';
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 import { getAddress } from '@/services/http';
 import { onMounted, ref } from 'vue';
@@ -43,7 +42,6 @@ onMounted(() => {
           </div>
         </div>
       </div>
-
     </div>
   </main>
 </template>
@@ -62,13 +60,12 @@ ul{
 .addresses-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center !important;
   gap: 1rem;
   margin-top: 1rem;
 }
 
 .address-box {
-  width: 350px;
+  width: 300px;
   list-style: none;
   border-radius: 10px;
   background-color: #f8f9fa;

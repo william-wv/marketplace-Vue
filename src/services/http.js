@@ -178,7 +178,7 @@ export function getImageUrl(imagePath) {
 
 export async function getAddress() {
   try {
-    const response = await api.get('/addresses/')
+    const response = await api.get(`/addresses/`)
     return response.data
   } catch (error) {
     console.error(error)
@@ -187,6 +187,11 @@ export async function getAddress() {
 export async function criarEndereco(endereco) {
   const response = await api.post('/addresses/', endereco) 
   return response.data
+}
+
+export async function getAddressById(addressId) {
+  const response = await api.get(`/addresses/${addressId}`);
+  return response.data;
 }
 
 export async function deleteAddress(id) {
