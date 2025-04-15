@@ -44,9 +44,6 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="d-flex  p-2 gap-3">
-        <ButtomComponentRoute :rota="'/update'" :title="'Add New'" class="btn-add blue" />
-      </div>
     </div>
   </main>
 </template>
@@ -84,7 +81,7 @@ ul{
   }
 
   .card {
-    max-height: 95svh;
+    height: 95svh;
   }
 }
 </style>
