@@ -1,85 +1,60 @@
 <script setup>
-import { onMounted ,ref} from 'vue';
-import { storeToRefs } from 'pinia';
-import { getProd, getImageUrl } from '@/services/http';
-import { useCartStore } from '@/stores/carrinho'; 
+import { onMounted, ref } from 'vue';
+import { useCartStore } from '@/stores/carrinho';
+import { getImageUrl } from '@/services/http';
 
 const cartStore = useCartStore();
 
-const { items: carrinho, total_amount, carregandoCarrinho } = storeToRefs(cartStore);
+const carregandoCarrinho = ref(true);
 
-const { carregarCarrinho, totalCart, excluirItem, limparCarrinho } = cartStore;
 
-const produtos = ref([]);
+onMounted(async () => {
+  await Promise.all([cartStore.getProducts(), cartStore.getItemsCart()]);
+  carregandoCarrinho.value = false; 
+});
 
-async function getProducts() {
-  try {
-    const resposta = await getProd();
-    produtos.value = resposta.data;
-    console.log('Produtos carregados:', produtos.value);
-  } catch (e) {
-    console.error('Erro ao carregar os produtos:', e);
-  }
+
+function converterParaDolar(precoBRL) {
+  return cartStore.converterParaDolar(precoBRL);
 }
 
+
 function getNomeProduto(produtoId) {
-  if (!produtos.value.length) return 'Carregando...';
-  const produto = produtos.value.find(p => p.id === produtoId);
-  return produto ? produto.name : 'Produto não encontrado';
+  return cartStore.getNomeProduto(produtoId);
 }
 
 function alterarQuantidade(produtoId, operacao) {
-  const produtoNoCarrinho = carrinho.value.find(item => item.product_id === produtoId);
-  const produtoEstoque = produtos.value.find(produto => produto.id === produtoId);
-
-  if (!produtoNoCarrinho || !produtoEstoque) return;
-
-  if (operacao === 'incrementar') {
-    if (produtoNoCarrinho.quantity < produtoEstoque.stock) {
-      produtoNoCarrinho.quantity++;
-      total_amount.value += produtoNoCarrinho.unit_price;
-    } else {
-      console.warn('Estoque máximo atingido para este produto!');
-    }
-  } else if (operacao === 'decrementar') {
-    if (produtoNoCarrinho.quantity > 1) {
-      produtoNoCarrinho.quantity--;
-      total_amount.value -= produtoNoCarrinho.unit_price;
-    } else {
-      console.warn('Quantidade mínima atingida!');
-    }
-  }
+  cartStore.alterarQuantidade(produtoId, operacao);
 }
 
-const taxaDeCambio = ref(0.17);
-function converterParaDolar(precoBRL) {
-  if (!precoBRL) return '$ 0.00';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(precoBRL * taxaDeCambio.value);
+function excluirItem(prodCarrinho) {
+  cartStore.removeItem(prodCarrinho.product_id);
 }
 
-onMounted(async () => {
-  await Promise.all([getProducts(), carregarCarrinho(), totalCart()]);
-});
+// onMounted(async () => {
+//   await Promise.all([cartStore.getProducts(), cartStore.getItemsCart()]);
+//   console.log('Produtos:', cartStore.produtos);
+//   console.log('Carrinho:', cartStore.carrinho);
+//   carregandoCarrinho.value = false;
+// });
+
 </script>
 
-
 <template>
-  <div class="">
+  <div>
     <div class="d-flex justify-content-between m-3">
       <h1 style="font-size: 2.4rem; text-transform: uppercase;">Meu Carrinho</h1>
-      <button v-if=" carrinho.length" @click="limparCarrinho()">Limpar Carrinho
-      </button>
     </div>
+
+    <!-- Carregando o carrinho -->
     <div v-if="carregandoCarrinho">
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
     </div>
 
-    <div class="d-grid" v-if="carrinho.length && produtos.length">
-      <div class="contain-card d-flex" v-for="prodCarrinho in carrinho" :key="prodCarrinho.id">
+    <!-- Exibindo produtos do carrinho -->
+    <div class="d-grid" v-if="cartStore.carrinho.length && cartStore.produtos.length">
+      <div class="contain-card d-flex" v-for="prodCarrinho in cartStore.carrinho" :key="prodCarrinho.id">
         <div class="img-produto d-flex align-items-center">
           <img :src="getImageUrl(prodCarrinho.image_path)" alt="Imagem do produto" />
         </div>
@@ -103,16 +78,13 @@ onMounted(async () => {
 
       <div>
         <div class="d-flex justify-content-between m-3">
-          <h2>Total: {{ converterParaDolar(total_amount) }}</h2>
-          <button @click="">Finalizar Compra
-          </button>
-
+          <h2>Total: {{ converterParaDolar(cartStore.totalPriceCart) }}</h2>
+          <button @click="">Finalizar Compra</button>
         </div>
       </div>
     </div>
 
-
-    <div v-else-if="!carregandoCarrinho && !carrinho.length" class="empty-cart">
+    <div v-else-if="!carregandoCarrinho && !cartStore.carrinho.length" class="empty-cart">
       <h3>Seu carrinho está vazio!</h3>
       <p>Adicione itens ao carrinho para visualizar aqui.</p>
       <button @click="$router.push('/categories')">Explorar Produtos</button>
@@ -121,6 +93,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+/* Estilo das skeletons de carregamento */
 .skeleton-card {
   width: 100%;
   height: 120px;
@@ -140,6 +113,7 @@ onMounted(async () => {
   }
 }
 
+/* Outros estilos para o layout do carrinho */
 img {
   width: 150px;
   height: 150px;
@@ -164,7 +138,6 @@ button {
   border-radius: 15px;
 }
 
-
 button:hover {
   background-color: darkred;
 }
@@ -174,8 +147,6 @@ button:hover {
   grid-template-columns: repeat(1fr, 1fr);
   gap: 30px;
 }
-
-
 
 .gerenciator-items {
   align-items: end !important;

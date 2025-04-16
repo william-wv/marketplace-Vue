@@ -13,6 +13,8 @@ export const useStore = defineStore('store', () => {
   const favoritos = ref({});
   const carrinho = ref({});
 
+
+  console.log(carrinho.value)
   // Função para buscar categorias
   async function getCategoria() {
     loading.value = true;
@@ -45,7 +47,6 @@ export const useStore = defineStore('store', () => {
   }
   
   const taxaDeCambio = ref(0.17);
-  // Função para converter preço para dólar
   function converterParaDolar(precoBRL) {
     if (!precoBRL) return '$ 0.00';
     return new Intl.NumberFormat('en-US', {
