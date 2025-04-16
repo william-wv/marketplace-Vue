@@ -68,7 +68,7 @@ async function enviarRegister() {
           </div>
           <form @submit.prevent="enviarRegister">
             
-            <InnputName v-model="nome" :step-name="'Name'" />
+            <InnputName v-model="nome" :icon="'bi bi-person-add'" :step-name="'Name'"  />
             <InputEmail v-model="mail" :step-name="'Email'" />
             <InputPassword v-model="senha" :step-name="'Password'" />
             <!-- 

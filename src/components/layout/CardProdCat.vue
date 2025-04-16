@@ -39,29 +39,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="mb-2 mt-4">
-
-    <h1>{{ category }}</h1>
-    <div class="produto-card" v-for="prod in produtos" :key="prod.id">
-      <div class="contain-card  mb-4">
-        <div class="div-img d-flex justify-content-center">
-          <img :src="getImageUrl(prod.image_path)" alt="Imagem do produto" />
-        </div>
-
-        <div class="texts col-6">
-          <div>
-            <h2 class="p-name"><b>{{ prod.name }}</b></h2>
-            <p class="p-desc">{{ prod.description }}</p>
-          </div>
-          <div class="price d-flex col-6">
-            <div>
-              <p class="p-price">{{ converterParaDolar(prod.price) }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+  <
 </template>
 
 <style scoped>

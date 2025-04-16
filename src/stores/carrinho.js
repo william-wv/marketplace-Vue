@@ -2,14 +2,15 @@ import { defineStore } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { getProd, cartService } from '@/services/http';
 import { useStore } from './produtos';
- const prd = useStore()
+import { push } from 'notivue';
+const prd = useStore()
 
 export const useCartStore = defineStore('cart', () => {
-  const produtos = prd.produtos; 
+  const produtos = prd.produtos;
   const carrinho = ref([]);
-  const totalPriceCart = ref(0); 
+  const totalPriceCart = ref(0);
   const carregandoCarrinho = ref(true);
-  const taxaDeCambio = ref(0.17); 
+  const taxaDeCambio = ref(0.17);
 
   function atualizarTotal() {
     totalPriceCart.value = carrinho.value.reduce((total, item) => {
@@ -34,7 +35,7 @@ export const useCartStore = defineStore('cart', () => {
       // console.log(carrinho.value)
     } catch (error) {
       console.error('Erro ao carregar os itens do carrinho:', error);
-      carrinho.value = []; 
+      carrinho.value = [];
     }
   }
 
@@ -48,6 +49,17 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  async function clearCartAll() {
+    try {
+      const resposta = await cartService.clearCart()
+      carrinho.value = [];
+      push.warning('Your cart is ')
+      return resposta
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
   async function clearCarts(id) {
     try {
       const resposta = await cartService.clearCart(id);
@@ -89,6 +101,7 @@ export const useCartStore = defineStore('cart', () => {
   }
 
 
+
   onMounted(() => {
     getProd()
   })
@@ -106,10 +119,11 @@ export const useCartStore = defineStore('cart', () => {
     alterarQuantidade,
     getNomeProduto,
     converterParaDolar,
+    clearCartAll
   };
 }, {
   persist: {
     key: 'cart',
-    storage: localStorage, 
+    storage: localStorage,
   },
 });

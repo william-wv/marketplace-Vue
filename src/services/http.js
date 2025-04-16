@@ -11,7 +11,6 @@ api.interceptors.request.use((config) => {
   if (authStore.token) {
     config.headers.Authorization = `Bearer ${authStore.token}`;
   } else {
-    // Se ninguém estiver logado, usa o token ADMIN
     const adminToken = import.meta.env.VITE_ADMIN_TOKEN;
     config.headers.Authorization = `Bearer ${adminToken}`;
   }
@@ -47,7 +46,6 @@ export async function login(payload) {
   }
 }
 
-
 export async function register(payload) {
   try {
     const response = await api.post('register', payload, {
@@ -63,29 +61,7 @@ export async function register(payload) {
   }
 }
 
-export async function verify() {
-  try {
-      console.log(authHeaders())
-      const response = await api.get('/verify-token', {
-          headers: {...authHeaders()}
-      }); 
-    
-      return response;
-  }catch (error) {
-  throw error;
-  }
-}
 
-export async function renewToken() {
-  try {
-      const response = await apiUrl.post('/renew-token', null, {
-          headers: {...authHeaders()}
-      }); 
-      return response;
-  }catch (error) {
-  throw error;
-  }
-}
 // ------ FUNÇÕES DE PRODUTO ------
 export async function getProd() {
   try {
@@ -280,5 +256,23 @@ export const cartService = {
     return api.delete('cart/clear');
   },
 };
+
+
+// orders
+export async function postOrders(order) {
+  try{
+    const reponse = await api.post('orders/', order,{
+        headers:{
+            ...authHeaders(),
+            'Content-Type': 'application/json' 
+        }
+    })
+    return reponse
+}catch(error){
+    console.log(error)
+}
+
+}
+
 
 export default api

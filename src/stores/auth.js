@@ -1,4 +1,3 @@
-import { verify } from "@/services/http.js"
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -9,8 +8,6 @@ export const useAuthStore = defineStore('auth', () => {
   const isShoppNull = ref(true)
   const endereco = ref({})
 
-
-  
   function logout() {
     token.value = null
     user.value = {}
@@ -26,15 +23,6 @@ export const useAuthStore = defineStore('auth', () => {
     isShoppNull.value = result.isShoppNull
   }
 
-  async function verifyMe() {
-    try {
-      const response = await verify()
-      const expiration = response.data.expires_at
-      console.log("Token expira em:", expiration)
-    } catch (error) {
-      logout()
-    }
-  }
 
   function setToken(newToken) {
     token.value = newToken;
@@ -53,7 +41,6 @@ export const useAuthStore = defineStore('auth', () => {
     endereco,
     logout,
     saveUser,
-    verifyMe,
     setToken,
     setAddress
   }

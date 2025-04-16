@@ -11,7 +11,7 @@ import CarrinhoComponente from '@/components/pages/CarrinhoComponente.vue';
     <HeaderShop/>
 </header>
 
-<main>
+<main class="d-flex justify-content-center">
   <CarrinhoComponente/>
 </main>
 

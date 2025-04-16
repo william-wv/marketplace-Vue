@@ -8,16 +8,13 @@ import HeaderTop from './components/layout/HeaderTop.vue';
 import HeaderHome from './components/layout/HeaderHome.vue';
 // import ListPages from './components/layout/ListPages.vue';
 import useAuthStore from './stores/auth';
+
 const auth = useAuthStore()
 
 import { Notivue, Notification } from 'notivue'
-import { onMounted } from 'vue';
 
 const route = useRoute()
 
-onMounted(() => {
-  auth.verifyMe(); 
-})
 
 </script>
 
