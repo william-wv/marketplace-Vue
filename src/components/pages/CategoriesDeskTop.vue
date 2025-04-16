@@ -1,84 +1,19 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js';
-import { cartService } from '@/services/http.js';
+import { onMounted, watch } from 'vue';
+import { useStore } from '@/stores/produtos'; 
+import { getImageUrl } from '@/services/http.js';
 
-const produtos = ref([]);
-const categorias = ref([]);
-const categoriaSelecionada = ref('');
-const loading = ref(false);
-const error = ref('');
-const favoritos = ref({});
-const carrinho = ref({});
+const store = useStore(); // Crie uma instância da store
 
 async function getCategoria() {
-  loading.value = true;
-  try {
-    categorias.value = await getCategories();
-    if (categorias.value.length > 0) {
-      categoriaSelecionada.value = categorias.value[0].id;
-    }
-  } catch (err) {
-    error.value = 'Erro ao carregar categorias.';
-  } finally {
-    loading.value = false;
-  }
-}
-
-async function getProdutosPorCategoria(idCateg) {
-  loading.value = true;
-  error.value = '';
-  produtos.value = [];
-  try {
-    produtos.value = await getProductsByCategory(idCateg);
-  } catch (err) {
-    error.value = 'Erro ao carregar os produtos.';
-  } finally {
-    loading.value = false;
-  }
-}
-
-const taxaDeCambio = ref(0.17);
-function converterParaDolar(precoBRL) {
-  if (!precoBRL) return '$ 0.00';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(precoBRL * taxaDeCambio.value);
-}
-
-async function toggleCarrinho(prod) {
-  if (carrinho.value[prod.id]) {
-    const response = await cartService.removeCartItem(prod.id);
-    if (response.status === 204) {
-      const novoCarrinho = { ...carrinho.value };
-      delete novoCarrinho[prod.id];
-      carrinho.value = novoCarrinho;
-    }
-  } else {
-    const response = await cartService.addItemToCart({
-      product_id: prod.id,
-      quantity: 1,
-      unit_price: prod.price
-    });
-    if (response.status === 204) {
-      carrinho.value = {
-        ...carrinho.value,
-        [prod.id]: true
-      };
-    }
-  }
-}
-
-function ativeFav(produtoId) {
-  favoritos.value[produtoId] = !favoritos.value[produtoId];
+  await store.getCategoria();
 }
 
 watch(
-  categoriaSelecionada,
+  store.categoriaSelecionada,
   (novaCategoria, antigaCategoria) => {
     if (novaCategoria && novaCategoria !== antigaCategoria) {
-      getProdutosPorCategoria(novaCategoria);
+      store.getProdutosPorCategoria(novaCategoria);
     }
   },
   { immediate: true }
@@ -93,29 +28,29 @@ onMounted(() => {
   <div class="container mt-4">
     <div class="row mb-4">
       <div
-        v-for="cat in categorias"
+        v-for="cat in store.categorias"
         :key="cat.id"
         class="col-md-3 mb-2"
       >
         <button
           class="btn w-100"
-          :class="categoriaSelecionada === cat.id ? 'btn-primary' : 'btn-outline-primary'"
-          @click="categoriaSelecionada = cat.id"
+          :class="store.categoriaSelecionada === cat.id ? 'btn-primary' : 'btn-outline-primary'"
+          @click="store.categoriaSelecionada = cat.id"
         >
           {{ cat.name }}
         </button>
       </div>
     </div>
 
-    <div v-if="loading" class="text-center my-5">
+    <div v-if="store.loading" class="text-center my-5">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
 
-    <div v-else-if="error" class="alert alert-danger">{{ error }}</div>
+    <div v-else-if="store.error" class="alert alert-danger">{{ store.error }}</div>
 
-    <div v-else-if="produtos.length > 0" class="row">
+    <div v-else-if="store.produtos.length > 0" class="row">
       <div
-        v-for="prod in produtos"
+        v-for="prod in store.produtos"
         :key="prod.id"
         class="col-md-4 mb-4"
       >
@@ -132,23 +67,23 @@ onMounted(() => {
               <p class="card-text">{{ prod.description }}</p>
             </div>
             <div class="d-flex justify-content-between align-items-center mt-3">
-              <span class="text-success fw-bold">{{ converterParaDolar(prod.price) }}</span>
+              <span class="text-success fw-bold">{{ store.converterParaDolar(prod.price) }}</span>
               <i
                 class="bi"
-                :class="favoritos[prod.id] ? 'bi-heart-fill text-danger' : 'bi-heart'"
+                :class="store.favoritos[prod.id] ? 'bi-heart-fill text-danger' : 'bi-heart'"
                 style="cursor: pointer;"
-                @click="ativeFav(prod.id)"
+                @click="store.ativeFav(prod.id)"
               ></i>
             </div>
           </div>
           <div class="card-footer bg-transparent border-top-0 text-center">
             <button
               class="btn w-100"
-              :class="carrinho[prod.id] ? 'btn-danger' : 'btn-success'"
-              @click="toggleCarrinho(prod)"
+              :class="store.carrinho[prod.id] ? 'btn-danger' : 'btn-success'"
+              @click="store.toggleCarrinho(prod)"
             >
-              <i :class="carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'"></i>
-              {{ carrinho[prod.id] ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+              <i :class="store.carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'"></i>
+              {{ store.carrinho[prod.id] ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
             </button>
           </div>
         </div>
