@@ -43,19 +43,16 @@ function excluirItem(prodCarrinho) {
     </div>
 
     <!-- Carregando o carrinho -->
-    <div v-if="carregandoCarrinho">
+    <!-- <div v-if="carregandoCarrinho">
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
-    </div>
+    </div> -->
 
     <!-- Produtos no carrinho -->
-    <div v-else-if="cartStore.carrinho && cartStore.produtos" class="d-grid">
+    <div v-if="cartStore.carrinho.values && cartStore.produtos.values" class="d-grid">
       <div class="contain-card d-flex" v-for="prodCarrinho in cartStore.carrinho" :key="prodCarrinho.product_id">
         <div class="img-produto d-flex align-items-center">
-          <img
-            :src="getImageUrl(prodCarrinho.image_path) || '/imagem-padrao.jpg'"
-            alt="Imagem do produto"
-          />
+          <img :src="getImageUrl(prodCarrinho.image_path) || '/imagem-padrao.jpg'" alt="Imagem do produto" />
         </div>
         <div class="col-6">
           <ul>
@@ -83,11 +80,15 @@ function excluirItem(prodCarrinho) {
     </div>
 
     <!-- Carrinho vazio -->
-    <div v-else class="empty-cart">
-      <h3>Seu carrinho está vazio!</h3>
-      <p>Adicione itens ao carrinho para visualizar aqui.</p>
-      <button @click="$router.push('/categories')">Explorar Produtos</button>
+    <div v-else class="empty-cart d-flex flex-column align-items-center justify-content-center text-center p-5">
+      <i class="bi bi-cart-x fs-1 text-muted mb-3"></i>
+      <h3 class="mb-2">Seu carrinho está vazio!</h3>
+      <p class="mb-4 text-secondary">Adicione itens ao carrinho para visualizar aqui.</p>
+      <button class="btn btn-primary" @click="$router.push('/categories')">
+        <i class="bi bi-box-seam me-2"></i> Explorar Produtos
+      </button>
     </div>
+
   </div>
 </template>
 
@@ -106,6 +107,7 @@ function excluirItem(prodCarrinho) {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }

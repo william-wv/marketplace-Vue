@@ -1,3 +1,4 @@
+import { verify } from "@/services/http.js"
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -23,27 +24,31 @@ export const useAuthStore = defineStore('auth', () => {
     isShoppNull.value = result.isShoppNull
   }
 
-  function expired() {
-    if (user.token === 'Invalid or expired token') {
-      logout()
+  async function ferifyMe() {
+    try {
+      const response = await verify();
+      const expiration = response.data.expires_at;
+      console.log("Token expira em:", expiration);
+    } catch (error) {
+      logout();
     }
-  }
 
-  function setAddress(novoEndereco) {
-    // Atualiza o endereço dentro de user
-    user.value.address = novoEndereco
-  }
+    function setAddress(novoEndereco) {
+      user.value.address = novoEndereco
+    }
 
-  return {
-    token,
-    user,
-    isAuthenticated,
-    isShoppNull,
-    endereco,
-    logout,
-    saveUser,
-    expired,
-    setAddress 
+    return {
+      token,
+      user,
+      isAuthenticated,
+      isShoppNull,
+      endereco,
+      logout,
+      saveUser,
+      ferifyMe,
+      expired,
+      setAddress
+    }
   }
 }, {
   persist: true

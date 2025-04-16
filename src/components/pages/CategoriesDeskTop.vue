@@ -27,6 +27,9 @@ onMounted(() => {
 <template>
   <div class="container mt-4">
     <div class="row mb-4">
+      <div class="d-flex justify-content-center">
+        <span style="width: 300px;" class="bg-primary mb-4 p-2 rounded-pill text-white"><h1 class="text-center text-uppercase">Categorias</h1></span>
+      </div>
       <div
         v-for="cat in store.categorias"
         :key="cat.id"

@@ -160,7 +160,7 @@ onMounted(() => {
     </div>
   </section>
 
-  <section v-else-if="!isMobile">
+  <section v-else-if="!isMobile" class=" d-flex  justify-content-center mt-4 w-100">
     <CategoriesDeskTop/>
   </section>
 </template>

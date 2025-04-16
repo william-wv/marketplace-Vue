@@ -74,7 +74,7 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   function getNomeProduto(produtoId) {
-    if (!produtos.value.length) return 'Carregando...';
+    if (!produtos.value) return 'Carregando...';
     const produto = produtos.value.find(p => p.id === produtoId);
     return produto ? produto.name : 'Produto não encontrado';
   }

@@ -49,6 +49,29 @@ export async function register(payload) {
   }
 }
 
+export async function verify() {
+  try {
+      console.log(authHeaders())
+      const response = await apiUrl.get('/verify-token', {
+          headers: {...authHeaders()}
+      }); 
+    
+      return response;
+  }catch (error) {
+  throw error;
+  }
+}
+
+export async function renewToken() {
+  try {
+      const response = await apiUrl.post('/renew-token', null, {
+          headers: {...authHeaders()}
+      }); 
+      return response;
+  }catch (error) {
+  throw error;
+  }
+}
 // ------ FUNÇÕES DE PRODUTO ------
 export async function getProd() {
   try {
