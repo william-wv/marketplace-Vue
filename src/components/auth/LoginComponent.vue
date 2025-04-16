@@ -16,8 +16,10 @@ import IsAuthDesktp from '../Dashbord/isAuthDesktp.vue';// refs
 const email = ref('');
 const senha = ref('');
 const errorMessage = ref('');
+
 // store
 const auth = useAuthStore();
+
 // functions
 async function enviarLogin() {
   const result = await login({

@@ -1,24 +1,31 @@
 import axios from 'axios';
+import useAuthStore from '@/stores/auth';
 
-// Criação de uma instância do Axios
 const api = axios.create({
   baseURL: 'http://35.196.79.227:8000/',
 });
 
-// Token para autenticação
-const token = import.meta.env.VITE_API_TOKEN;
-;
+api.interceptors.request.use((config) => {
+  const authStore = useAuthStore();
 
-// Interceptor para injetar o token antes de cada requisição
-api.interceptors.request.use(
-  (config) => {
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+  if (authStore.token) {
+    config.headers.Authorization = `Bearer ${authStore.token}`;
+  } else {
+    // Se ninguém estiver logado, usa o token ADMIN
+    const adminToken = import.meta.env.VITE_ADMIN_TOKEN;
+    config.headers.Authorization = `Bearer ${adminToken}`;
+  }
+
+  return config;
+});
+function authHeaders() {
+  const authStore = useAuthStore();
+  const token = authStore.token;
+
+  return {
+      'Authorization': `Bearer ${token}`
+  };
+}
 
 // ID do usuário (fixo)
 const userId = 6;
@@ -27,12 +34,19 @@ const userId = 6;
 export async function login(payload) {
   try {
     const response = await api.post('login', payload);
+    const { token } = response.data;
+
+    // Salva no Pinia (authStore)
+    const authStore = useAuthStore();
+    authStore.setToken(token);
+
     return response;
   } catch (error) {
     console.error('Erro ao realizar login:', error);
     throw error;
   }
 }
+
 
 export async function register(payload) {
   try {
@@ -52,7 +66,7 @@ export async function register(payload) {
 export async function verify() {
   try {
       console.log(authHeaders())
-      const response = await apiUrl.get('/verify-token', {
+      const response = await api.get('/verify-token', {
           headers: {...authHeaders()}
       }); 
     
@@ -266,3 +280,5 @@ export const cartService = {
     return api.delete('cart/clear');
   },
 };
+
+export default api

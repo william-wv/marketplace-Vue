@@ -1,4 +1,5 @@
 <script setup>
+// import "@/service/socket"
 import { useRoute } from 'vue-router';
 import FooterBottom from './components/layout/FooterBottom.vue';
 import FooterTop from './components/layout/FooterTop.vue';
@@ -6,10 +7,17 @@ import HeaderBottom from './components/layout/HeaderBottom.vue';
 import HeaderTop from './components/layout/HeaderTop.vue';
 import HeaderHome from './components/layout/HeaderHome.vue';
 // import ListPages from './components/layout/ListPages.vue';
+import useAuthStore from './stores/auth';
+const auth = useAuthStore()
 
 import { Notivue, Notification } from 'notivue'
+import { onMounted } from 'vue';
 
 const route = useRoute()
+
+onMounted(() => {
+  auth.verifyMe(); 
+})
 
 </script>
 

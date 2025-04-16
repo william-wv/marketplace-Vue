@@ -3,12 +3,14 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 
 export const useAuthStore = defineStore('auth', () => {
-  const token = ref(null)
+  const token = ref(localStorage.getItem('user_token') || '');
   const user = ref({})
   const isAuthenticated = ref(false)
   const isShoppNull = ref(true)
   const endereco = ref({})
 
+
+  
   function logout() {
     token.value = null
     user.value = {}
@@ -24,31 +26,36 @@ export const useAuthStore = defineStore('auth', () => {
     isShoppNull.value = result.isShoppNull
   }
 
-  async function ferifyMe() {
+  async function verifyMe() {
     try {
-      const response = await verify();
-      const expiration = response.data.expires_at;
-      console.log("Token expira em:", expiration);
+      const response = await verify()
+      const expiration = response.data.expires_at
+      console.log("Token expira em:", expiration)
     } catch (error) {
-      logout();
+      logout()
     }
+  }
 
-    function setAddress(novoEndereco) {
-      user.value.address = novoEndereco
-    }
+  function setToken(newToken) {
+    token.value = newToken;
+    localStorage.setItem('user_token', newToken);
+  }
 
-    return {
-      token,
-      user,
-      isAuthenticated,
-      isShoppNull,
-      endereco,
-      logout,
-      saveUser,
-      ferifyMe,
-      expired,
-      setAddress
-    }
+  function setAddress(novoEndereco) {
+    user.value.address = novoEndereco
+  }
+
+  return {
+    token,
+    user,
+    isAuthenticated,
+    isShoppNull,
+    endereco,
+    logout,
+    saveUser,
+    verifyMe,
+    setToken,
+    setAddress
   }
 }, {
   persist: true
