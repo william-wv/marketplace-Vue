@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { getProd, cartService } from '@/services/http';
+import { useStore } from './produtos';
+ const prd = useStore()
 
 export const useCartStore = defineStore('cart', () => {
-  const produtos = ref([]);
+  const produtos = prd.produtos; 
   const carrinho = ref([]);
   const totalPriceCart = ref(0); 
   const carregandoCarrinho = ref(true);
@@ -29,10 +31,7 @@ export const useCartStore = defineStore('cart', () => {
     try {
       const resposta = await cartService.getCartItems();
       carrinho.value = resposta.data.items
-      // console.log(resposta.data.items)
-  
-
-    
+      // console.log(carrinho.value)
     } catch (error) {
       console.error('Erro ao carregar os itens do carrinho:', error);
       carrinho.value = []; 

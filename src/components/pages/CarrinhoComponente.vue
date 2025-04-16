@@ -4,20 +4,24 @@ import { useCartStore } from '@/stores/carrinho';
 import { getImageUrl } from '@/services/http';
 
 const cartStore = useCartStore();
-
 const carregandoCarrinho = ref(true);
 
-
+// Carregar dados ao montar
 onMounted(async () => {
-  await Promise.all([cartStore.getProducts(), cartStore.getItemsCart()]);
-  carregandoCarrinho.value = false; 
-});
+  await Promise.all([
+    cartStore.getProducts(),
+    cartStore.getItemsCart()
+  ]);
 
+  // console.log('Produtos:', cartStore.produtos);
+  console.log('Carrinho:', cartStore.carrinho);
+
+  carregandoCarrinho.value = false;
+});
 
 function converterParaDolar(precoBRL) {
   return cartStore.converterParaDolar(precoBRL);
 }
-
 
 function getNomeProduto(produtoId) {
   return cartStore.getNomeProduto(produtoId);
@@ -30,14 +34,6 @@ function alterarQuantidade(produtoId, operacao) {
 function excluirItem(prodCarrinho) {
   cartStore.removeItem(prodCarrinho.product_id);
 }
-
-// onMounted(async () => {
-//   await Promise.all([cartStore.getProducts(), cartStore.getItemsCart()]);
-//   console.log('Produtos:', cartStore.produtos);
-//   console.log('Carrinho:', cartStore.carrinho);
-//   carregandoCarrinho.value = false;
-// });
-
 </script>
 
 <template>
@@ -52,19 +48,21 @@ function excluirItem(prodCarrinho) {
       <div class="skeleton-card"></div>
     </div>
 
-    <!-- Exibindo produtos do carrinho -->
-    <div class="d-grid" v-if="cartStore.carrinho.length && cartStore.produtos.length">
-      <div class="contain-card d-flex" v-for="prodCarrinho in cartStore.carrinho" :key="prodCarrinho.id">
+    <!-- Produtos no carrinho -->
+    <div v-else-if="cartStore.carrinho && cartStore.produtos" class="d-grid">
+      <div class="contain-card d-flex" v-for="prodCarrinho in cartStore.carrinho" :key="prodCarrinho.product_id">
         <div class="img-produto d-flex align-items-center">
-          <img :src="getImageUrl(prodCarrinho.image_path)" alt="Imagem do produto" />
+          <img
+            :src="getImageUrl(prodCarrinho.image_path) || '/imagem-padrao.jpg'"
+            alt="Imagem do produto"
+          />
         </div>
         <div class="col-6">
-          <div>
-            <ul>
-              <li>Nome: <br> {{ getNomeProduto(prodCarrinho.product_id) }}</li>
-              <li>Valor: {{ converterParaDolar(prodCarrinho.unit_price) }}</li>
-            </ul>
-          </div>
+          <ul>
+            <li>Produto ID: {{ prodCarrinho.product_id }}</li>
+            <li>Nome: <br> {{ getNomeProduto(prodCarrinho.product_id) }}</li>
+            <li>Valor: {{ converterParaDolar(prodCarrinho.unit_price) }}</li>
+          </ul>
           <div class="gerenciator-items d-flex justify-content-between ">
             <div @click="excluirItem(prodCarrinho)" style="font-size: 1.5rem;" class="bi bi-trash"></div>
             <div class="d-flex cart">
@@ -84,7 +82,8 @@ function excluirItem(prodCarrinho) {
       </div>
     </div>
 
-    <div v-else-if="!carregandoCarrinho && !cartStore.carrinho.length" class="empty-cart">
+    <!-- Carrinho vazio -->
+    <div v-else class="empty-cart">
       <h3>Seu carrinho está vazio!</h3>
       <p>Adicione itens ao carrinho para visualizar aqui.</p>
       <button @click="$router.push('/categories')">Explorar Produtos</button>
@@ -107,13 +106,11 @@ function excluirItem(prodCarrinho) {
   0% {
     background-position: 200% 0;
   }
-
   100% {
     background-position: -200% 0;
   }
 }
 
-/* Outros estilos para o layout do carrinho */
 img {
   width: 150px;
   height: 150px;
@@ -144,7 +141,7 @@ button:hover {
 
 .d-grid {
   display: grid;
-  grid-template-columns: repeat(1fr, 1fr);
+  grid-template-columns: 1fr;
   gap: 30px;
 }
 
@@ -156,13 +153,13 @@ button:hover {
 .green {
   background-color: var(--Green-500);
   padding: 3px 10px;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 10px 0 0 10px;
 }
 
 .red {
   background-color: var(--Red-500);
   padding: 3px 10px;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0 10px 10px 0;
 }
 
 .qtd {

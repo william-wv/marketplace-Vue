@@ -1,7 +1,7 @@
 // stores/products.js
 import { defineStore } from 'pinia';
 import { ref, watch } from 'vue';
-import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js';
+import { getCategories, getProductsByCategory } from '@/services/http.js';
 import { cartService } from '@/services/http.js';
 
 export const useStore = defineStore('store', () => {
@@ -37,7 +37,7 @@ export const useStore = defineStore('store', () => {
     produtos.value = [];
     try {
       produtos.value = await getProductsByCategory(idCateg);
-      console.log(produtos.value); // Verifique o log aqui
+      // console.log(produtos.value); 
     } catch (err) {
       error.value = 'Erro ao carregar os produtos.';
       console.error(err); // Log do erro
