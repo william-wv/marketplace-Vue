@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
-import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js'
+import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js';
 import { cartService } from '@/services/http.js';
 
 const produtos = ref([]);
@@ -9,9 +9,7 @@ const categoriaSelecionada = ref('');
 const loading = ref(false);
 const error = ref('');
 const favoritos = ref({});
-const carrinho = ref({}); 
-
-import ButtonComponent from '@/components/common/ButtonComponent.vue';
+const carrinho = ref({});
 
 async function getCategoria() {
   loading.value = true;
@@ -21,8 +19,7 @@ async function getCategoria() {
       categoriaSelecionada.value = categorias.value[0].id;
     }
   } catch (err) {
-    console.error('Erro ao carregar categorias:', err);
-    error.value = 'Erro ao carregar as categorias. Tente novamente mais tarde.';
+    error.value = 'Erro ao carregar categorias.';
   } finally {
     loading.value = false;
   }
@@ -35,8 +32,7 @@ async function getProdutosPorCategoria(idCateg) {
   try {
     produtos.value = await getProductsByCategory(idCateg);
   } catch (err) {
-    console.error('Erro ao carregar produtos:', err);
-    error.value = 'Erro ao carregar os produtos. Tente novamente mais tarde.';
+    error.value = 'Erro ao carregar os produtos.';
   } finally {
     loading.value = false;
   }
@@ -53,25 +49,23 @@ function converterParaDolar(precoBRL) {
 
 async function toggleCarrinho(prod) {
   if (carrinho.value[prod.id]) {
-    // Remover do carrinho
-    const response = await cartService.removeItemFromCart(prod.id);
+    const response = await cartService.removeCartItem(prod.id);
     if (response.status === 204) {
-      delete carrinho.value[prod.id];
-      console.log('Item removido do carrinho com sucesso!');
-    } else {
-      console.error('Erro ao remover item do carrinho:', response);
+      const novoCarrinho = { ...carrinho.value };
+      delete novoCarrinho[prod.id];
+      carrinho.value = novoCarrinho;
     }
   } else {
     const response = await cartService.addItemToCart({
       product_id: prod.id,
       quantity: 1,
       unit_price: prod.price
-    })
+    });
     if (response.status === 204) {
-      carrinho.value[prod.id] = true;
-      console.log('Item adicionado ao carrinho com sucesso!');
-    } else {
-      console.error('Erro ao adicionar item ao carrinho:', response);
+      carrinho.value = {
+        ...carrinho.value,
+        [prod.id]: true
+      };
     }
   }
 }
@@ -96,198 +90,77 @@ onMounted(() => {
 </script>
 
 <template>
-<section class="categorias-grid mb-4 mt-5">
-  <div
-    v-for="cat in categorias"
-    :key="cat.id"
-    class="card-categoria"
-    @click="categoriaSelecionada = cat.id"
-    :class="{ active: categoriaSelecionada === cat.id }"
-  >
-    <p>{{ cat.name }}</p>
-  </div>
-</section>
-
-  <div>
-    <div v-if="loading" class="loading-container">
-      <div class="loading-spinner"></div>
+  <div class="container mt-4">
+    <div class="row mb-4">
+      <div
+        v-for="cat in categorias"
+        :key="cat.id"
+        class="col-md-3 mb-2"
+      >
+        <button
+          class="btn w-100"
+          :class="categoriaSelecionada === cat.id ? 'btn-primary' : 'btn-outline-primary'"
+          @click="categoriaSelecionada = cat.id"
+        >
+          {{ cat.name }}
+        </button>
+      </div>
     </div>
 
-    <section v-if="error" class="error-message">{{ error }}</section>
+    <div v-if="loading" class="text-center my-5">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
 
-    <section v-else-if="produtos.length > 0" class=" card-categ mb-5">
-      <div v-for="prod in produtos" :key="prod.id" class="div-categ">
-        <div class="contain-card ">
-          <div class="div-img d-flex justify-content-center">
-            <img :src="getImageUrl(prod.image_path)" alt="Imagem do produto" />
-          </div>
+    <div v-else-if="error" class="alert alert-danger">{{ error }}</div>
 
-          <div class="texts">
-            <div>
-              <p class="p-name"><b>{{ prod.name }}</b></p>
-              <h2 class="p-desc">{{ prod.description }}</h2>
-            </div>
-            <div class="price d-flex">
-              <div>
-                <p class="p-price">{{ converterParaDolar(prod.price) }}</p>
-              </div>
-              <div @click="ativeFav(prod.id)" class="i-fav">
-                <i class="i-favorite" :class="favoritos[prod.id] ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="div-btn">
-          <ButtonComponent
-            @click="toggleCarrinho(prod)"
-            :title="carrinho[prod.id] ? 'Remove from Cart' : 'Add to Cart'"
-            :style="carrinho[prod.id] ? 'red' : 'blue'"
-            :icon="carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'"
+    <div v-else-if="produtos.length > 0" class="row">
+      <div
+        v-for="prod in produtos"
+        :key="prod.id"
+        class="col-md-4 mb-4"
+      >
+        <div class="card h-100 shadow-sm">
+          <img
+            :src="getImageUrl(prod.image_path)"
+            class="card-img-top"
+            alt="Imagem do produto"
+            style="object-fit: cover; height: 200px;"
           />
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">{{ prod.name }}</h5>
+              <p class="card-text">{{ prod.description }}</p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="text-success fw-bold">{{ converterParaDolar(prod.price) }}</span>
+              <i
+                class="bi"
+                :class="favoritos[prod.id] ? 'bi-heart-fill text-danger' : 'bi-heart'"
+                style="cursor: pointer;"
+                @click="ativeFav(prod.id)"
+              ></i>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top-0 text-center">
+            <button
+              class="btn w-100"
+              :class="carrinho[prod.id] ? 'btn-danger' : 'btn-success'"
+              @click="toggleCarrinho(prod)"
+            >
+              <i :class="carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'"></i>
+              {{ carrinho[prod.id] ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+            </button>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <p v-else>Não há produtos para esta categoria.</p>
+    <div v-else class="text-center text-muted">Não há produtos nesta categoria.</div>
   </div>
 </template>
 
 <style scoped>
-.categorias-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-}
-
-.card-categoria {
-  background-color: #f9f9f9;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 5px;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.3s ease;
-  min-width: 150px;
-}
-
-.card-categoria:hover { 
-  background-color: #eaeaea;
-}
-
-.card-categoria.active {
-  border-color: var(--Blue-500);
-  background-color: #d0e8ff;
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.error-message {
-  color: red;
-  font-size: 16px;
-}
-
-.div-img {
-  width: 100%;
-}
-
-p,
-h1 {
-  color: black;
-  font-size: 1.5rem;
-}
-
-h2 {
-  font-size: 1rem;
-  color: var(--text-h2);
-}
-
-.select-cat{
-  font-size: 1.5rem;
-}
-
-.selet-cat{
-  padding: 10px !important;
-  border-radius: 10px !important;
-}
-
-.card-categ {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin: 20px 30px !important;
-  gap: 10px;
-}
-
-.div-categ {
-
-  padding: 5px;
-  border-radius: 10px;
-  border: 1px solid var(--Gray-600);
-}
-
-.img-txts {
-  display: flex;
-}
-
-.texts {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  width: 100%;
-}
-
-.price {
-  align-self: end;
-  display: flex;
-  justify-content: space-between;
-}
-
-img {
-  height: 200px !important;
-}
-
-.i-fav {
-  cursor: pointer;
-}
-
-.bi-heart-fill {
-  color: var(--Red-500) !important;
-}
-
-.btn {
-  background-color: var(--Blue-500);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.div-btn {
-  width: 100%;
-  background-color: white;
-  padding: 10px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.div-btn button {
-  flex: 1;
-  width: 100%;
-  max-width: 400px;
-}
-
-@media (min-width: 1440px) {
-  .card-categ {
-    grid-template-columns: repeat(3, 2fr);
-  }
+.bi-heart, .bi-heart-fill {
+  font-size: 1.4rem;
 }
 </style>

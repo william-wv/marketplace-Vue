@@ -52,7 +52,7 @@ export async function register(payload) {
 // ------ FUNÇÕES DE PRODUTO ------
 export async function getProd() {
   try {
-    const response = await api.get(`products/user/${userId}`);
+    const response = await api.get(`products/`);
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
@@ -119,7 +119,7 @@ export async function getImgProd(img) {
 // ------ FUNÇÕES DE CATEGORIA ------
 export async function getCategories() {
   try {
-    const response = await api.get(`categories/user/${userId}`);
+    const response = await api.get(`categories/`);
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar categorias:', error);
@@ -223,18 +223,20 @@ export const cartService = {
     try {
       return await api.post('cart/items', item);
     } catch (error) {
-      console.error('Erro ao adicionar item ao carrinho:', error.response?.status, error.response?.data);
+      console.error('Erro ao adicionar item ao carrinho:', error);
     }
   },
 
-  async removeCartItem(productId, quantity, unitPrice) {
-    return api.delete('cart/items', {
-      data: {
-        product_id: productId,
-        quantity: quantity,
-        unit_price: unitPrice
-      }
-    });
+  async removeCartItem(productId) {
+    try {
+      const resp = await api.delete('/cart/items', {
+        data: { product_id: productId }
+      });
+      return resp;
+    } catch (error) {
+      console.error('Erro ao remover item do carrinho:', error);
+      throw error;
+    }
   },
 
   async clearCart() {
