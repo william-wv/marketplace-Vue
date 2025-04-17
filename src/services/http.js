@@ -22,7 +22,7 @@ function authHeaders() {
   const token = authStore.token;
 
   return {
-      'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${token}`
   };
 }
 
@@ -198,7 +198,7 @@ export async function getAddress() {
   }
 }
 export async function criarEndereco(endereco) {
-  const response = await api.post('/addresses/', endereco) 
+  const response = await api.post('/addresses/', endereco)
   return response.data
 }
 
@@ -208,12 +208,12 @@ export async function getAddressById(addressId) {
 }
 
 export async function deleteAddress(id) {
-  
+
 }
 
 // Carrinho 
 export const cartService = {
-  
+
   async getCart() {
     return api.get('cart/');
   },
@@ -260,19 +260,20 @@ export const cartService = {
 
 // orders
 export async function postOrders(order) {
-  try{
-    const reponse = await api.post('orders/', order,{
-        headers:{
-            ...authHeaders(),
-            'Content-Type': 'application/json' 
-        }
+  try {
+    const reponse = await api.post('orders/', order, {
+      headers: {
+        ...authHeaders(),
+        'Content-Type': 'application/json'
+      }
     })
     return reponse
-}catch(error){
+  } catch (error) {
     console.log(error)
-}
+  }
 
 }
+
 
 
 export default api
