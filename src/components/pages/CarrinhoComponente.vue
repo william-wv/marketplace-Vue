@@ -10,7 +10,7 @@ import CardLoc from '../layout/CardLoc.vue';
 const cartStore = useCartStore();
 const carregandoCarrinho = ref(true);
 
-const idEnderecoSelecionado = ref(null);
+const idEnderecoSelecionado = ref(0);
 
 function atualizarEndereco(id) {
   idEnderecoSelecionado.value = id;
@@ -105,7 +105,8 @@ function excluirCartAlls() {
       <h3 class="mb-2">Seu carrinho está vazio!</h3>
       <p class="mb-4 text-secondary">Adicione itens ao carrinho para visualizar aqui.</p>
       <button class="btn btn-primary" @click="$router.push('/categories')">
-        <i class="bi bi-box-seam me-2"></i> Explorar Produtos
+        <i class="bi bi-box-seam me-2"></i>
+        Explorar Produtos
       </button>
     </div>
   </div>

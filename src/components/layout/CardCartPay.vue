@@ -17,7 +17,7 @@ const props = defineProps({
 const cartStore = useCartStore()
 const orders = useOrder()
 
-const cuponSelect = ref('') 
+const cuponSelect = ref(0) 
 
 function converterParaDolar(precoBRL) {
   return cartStore.converterParaDolar(precoBRL);

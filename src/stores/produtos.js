@@ -87,7 +87,7 @@ export const useStore = defineStore('store', () => {
   watch(
     categoriaSelecionada,
     (novaCategoria, antigaCategoria) => {
-      console.log('Categoria selecionada:', novaCategoria); // Verifique o valor da categoria
+      console.log('Categoria selecionada:', novaCategoria); 
       if (novaCategoria && novaCategoria !== antigaCategoria) {
         getProdutosPorCategoria(novaCategoria);
       }

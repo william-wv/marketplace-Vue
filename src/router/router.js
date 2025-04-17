@@ -181,8 +181,6 @@ const router = createRouter({
             }
           ]
         },
-
-        // Criar produto pelo moderador
         {
           path: 'editmoderator/createProducts',
           name: 'createProductModerator',
@@ -193,8 +191,6 @@ const router = createRouter({
             requiresModeratorAndAdmin: true
           }
         },
-
-        // Acesso exclusivo de admin para configurações gerais
         {
           path: 'editAdmin',
           name: 'setupAdmin',
@@ -204,8 +200,7 @@ const router = createRouter({
             hideFooter: true,
             requiresAdmin: true
           }
-        }
-
+        },
       ]
     },
 

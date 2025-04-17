@@ -1,6 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CategoryDropdown from './Dropdown.vue';
+import { getAddressById,  } from '@/services/http';
+
+
 
 defineProps(['categoria']);
 const emit = defineEmits(['editar', 'deletar']);
@@ -12,7 +15,7 @@ const showDropdown = ref(false);
     <td class="p-3 text-center">{{ categoria.id }}</td>
     <td class="p-3">{{ categoria.name }}</td>
     <td class="p-3">{{ categoria.description }}</td>
-    <td class="p-3 text-center">1</td>
+    <td class="p-3 text-center"> 1 </td>
     <td class="p-3 text-center">
       <span class="bg-success bg-gradient rounded-pill text-white p-2">
         <i class="bi bi-check-circle animate-pulse"></i>
