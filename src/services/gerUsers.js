@@ -20,8 +20,14 @@ api.interceptors.request.use((config) => {
 
 export async function postMod(payload) {
   try {
-    const resp  = api.post('/user/create-moderator',payload)
-    return resp.data
+    const resp  = api.post('users/create-moderator',payload , {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }) 
+    
+    return resp
   } catch (error) {
     console.log(error)
   }
