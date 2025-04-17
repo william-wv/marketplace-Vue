@@ -3,7 +3,7 @@ defineProps(['categoria']);
 defineEmits(['salvar', 'fechar']);
 
 const salvar = () => {
-  emit('salvar', ProdutEditavel.value); // <- Emitindo os dados editados
+  emit('salvar', ProdutEditavel.value); 
 };
 </script>
 

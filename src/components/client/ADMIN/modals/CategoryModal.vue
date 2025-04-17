@@ -1,4 +1,6 @@
 <script setup>
+import InnputName from '@/components/common/InnputName.vue';
+
 defineProps(['categoria']);
 defineEmits(['salvar', 'fechar']);
 
@@ -13,8 +15,9 @@ defineEmits(['salvar', 'fechar']);
     <!-- Modal -->
     <div class="modal-content" @click.stop>
       <h2>{{ categoria.id ? 'Editar Categoria' : 'Nova Categoria' }}</h2>
-      <input v-model="categoria.name" placeholder="Nome da categoria" />
-      <input v-model="categoria.description" placeholder="Descrição da categoria" />
+      <!-- < v-model="categoria.name" placeholder="Nome da categoria" /> -->
+      <InnputName v-model="categoria.name" placeholder="Nome da categoria" :icon="'bi bi-box'"/>
+      <InnputName v-model="categoria.description"  placeholder="Descrição da categoria" :icon="'bi bi-list'"/>
 
       <div class="botoes">
         <button @click="$emit('fechar')">Cancelar</button>
@@ -48,7 +51,7 @@ defineEmits(['salvar', 'fechar']);
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  width: 300px;
+  width: 50svw;
   z-index: 1001;
   /* Coloca o modal acima do backdrop */
   position: relative;
