@@ -5,7 +5,7 @@ import useAuthStore from "@/stores/auth";
 
 const isMobile = ref(window.innerWidth <= 700);
 const checkMobile = () => {
-isMobile.value = window.innerWidth <= 768;
+  isMobile.value = window.innerWidth <= 768;
 };
 
 onMounted(() => {
@@ -41,64 +41,64 @@ const auth = useAuthStore();
 </script>
 
 <template>
-  <div class="container__header d-flex">
-    <section v-if="isMobile">
-      <nav class="navbar">
-        <div class="container-fluid">
-          <RouterLink class="logo navbar-brand" to="/">Compre +</RouterLink>
-          <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </nav>
-
-      <div ref="offcanvasElement" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: var(--White-050);">Menu</h5>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav">
-            <RouterLink class="d-flex" to="/" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Home</li>
-            </RouterLink>
-            <RouterLink class="d-flex" to="/login" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li class="nav-item">Login</li>
-            </RouterLink>
-            <RouterLink class="d-flex" to="/categories" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Categories</li>
-            </RouterLink>
-            <RouterLink class="d-flex" to="/discounts" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Discounts</li>
-            </RouterLink>
-            <RouterLink class="d-flex" to="/coupons" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Coupons</li>
-            </RouterLink>
-            <RouterLink class="d-flex" to="/shop" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Shop</li>
-            </RouterLink>
-          </ul>
-        </div>
+  <section v-if="isMobile">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <RouterLink class="logo navbar-brand" to="/">Compre +</RouterLink>
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       </div>
-    </section>
-    <section v-else>
-      <div class="container-itens__header d-flex w-100">
+    </nav>
+
+    <div ref="offcanvasElement" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: var(--White-050);">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav">
+          <RouterLink class="d-flex" to="/" @click="closeOffcanvas">
+            <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+            <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Home</li>
+          </RouterLink>
+          <RouterLink class="d-flex" to="/login" @click="closeOffcanvas">
+            <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+            <li class="nav-item">Login</li>
+          </RouterLink>
+          <RouterLink class="d-flex" to="/categories" @click="closeOffcanvas">
+            <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+            <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Categories</li>
+          </RouterLink>
+          <RouterLink class="d-flex" to="/discounts" @click="closeOffcanvas">
+            <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+            <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Discounts</li>
+          </RouterLink>
+          <RouterLink class="d-flex" to="/coupons" @click="closeOffcanvas">
+            <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+            <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Coupons</li>
+          </RouterLink>
+          <RouterLink class="d-flex" to="/shop" @click="closeOffcanvas">
+            <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
+            <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Shop</li>
+          </RouterLink>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section v-else>
+      <div class="container-itens__header d-flex ">
         <div class="logo__header">
           <RouterLink to="/">
             <h1 class="logo">Compre +</h1>
           </RouterLink>
         </div>
 
-        <div class="busca__header">
-          <input type="text" class="form-control" placeholder="Digite para buscar..." />
-
+        <div class="busca__header gap-3">
+          <label for="site-search"><i class="bi bi-search text-white"></i></label>
+          <input type="search" id="site-search" name="q" class="w-100 text-center rounded" placeholder="Pesquise aqui"/>
           <!-- <ul class="list-group mt-3">
           <li v-for="item in filteredItems" :key="item.id" class="list-group-item">
             {{ item.name }}
@@ -114,8 +114,7 @@ const auth = useAuthStore();
           </p>
         </div>
       </div>
-    </section>
-  </div>
+  </section>
 </template>
 
 <style scoped>
@@ -128,6 +127,8 @@ const auth = useAuthStore();
   width: 100svw;
   display: flex !important;
   justify-content: space-between !important;
+  box-shadow:  0px 2px 0px rgba(255, 255, 255, 0.1);
+  background-color: var(--Blue-700);
 }
 
 i {
@@ -154,9 +155,7 @@ li:hover {
 }
 
 .container__header {
-  box-shadow: inset 0px 2px 0px rgba(255, 255, 255, 0.1);
   background-color: var(--Blue-700);
-  justify-content: space-evenly;
   padding: 10px 0;
   align-items: center;
 }
@@ -172,14 +171,16 @@ h1 {
   width: 30vw;
 }
 
-.icon-flex{
+.icon-flex {
   display: flex;
   align-items: center;
 }
 
 .container-itens__header {
   align-items: center;
-  justify-content: center;
+  box-shadow: inset 0px 2px 0px rgba(255, 255, 255, 0.1) !important;
+  justify-content: space-around;
+  background-color: var(--Blue-700);
   gap: 30px;
 }
 
