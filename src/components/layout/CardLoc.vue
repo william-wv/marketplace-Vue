@@ -26,18 +26,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <span class="bg-primary-subtle" style="width: 300px;">
-    <h1 class="mt-4 text-center ">Meus endereços</h1>
-  </span>
-  <div v-for="endereco in enderecos" :key="endereco.id" class="">
-    <div class="d-flex ">
-      <InputRadio :zip="endereco.zip" @click="() => selecionarEndereco(endereco.id)" />
-    </div>
+  <div class="container py-4">
+    <div class="bg-light rounded p-4 shadow-sm">
+      <h1 class="text-center text-primary mb-4">Meus endereços</h1>
 
-    <!-- <ButtonComponent @click="selecionarEndereco(endereco.id)"
-      :title="'Select Address'"
-      :icon="'bi bi-select'"
-      :class="'blue'"
-    /> -->
+      <div v-for="endereco in enderecos" :key="endereco.id" class="card mb-3">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="card-title mb-0">
+              <i class="bi bi-geo-alt-fill me-2 text-primary"></i>CEP: {{ endereco.zip }}
+            </h5>
+          </div>
+          <InputRadio :zip="endereco.zip" @click="() => selecionarEndereco(endereco.id)" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
