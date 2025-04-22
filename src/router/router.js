@@ -68,6 +68,13 @@ const router = createRouter({
             requiresModeratorAndAdmin: true
           }
         },
+        {
+          path: '/mycart',
+          name: 'cart',
+          component: () => import('../views/ShopView.vue'),
+          meta: { hideHeader: true,
+            hideFooter: true, }
+        },
         // Página do perfil do usuário
         {
           path: 'myaccount',
