@@ -61,7 +61,7 @@ const router = createRouter({
         {
           path: 'userOrder',
           name: 'user orders',
-          component: () => import('@/components/client/ADMIN/pages/AdminOrders.vue'),
+          component: () => import('@/components/client/user/pages/ClientOrder.vue'),
           meta: {
             hideHeader: true,
             hideFooter: true,
