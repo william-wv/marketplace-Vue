@@ -21,7 +21,7 @@ defineEmits(['update:modelValue']);
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         :placeholder="'Number'"
-        type="number" class="form-control" 
+        type="number" class="form-control responsive-input" 
         required>
     </div>
   </div>
@@ -48,20 +48,28 @@ defineEmits(['update:modelValue']);
   text-decoration: underline;
 }
 
-@media (min-width:1920px) {
-  .input-group {
-    height: 60px !important;
+/* Responsivo para telas maiores */
+@media (min-width: 768px) {
+  .responsive-input {
+    font-size: 1.25rem;
+    padding: 0.6rem 1.2rem;
   }
 
-  input::placeholder {
-    font-size: 1.6rem !important;
-    position: relative;
-    top: 10%;
+  .input-group-text i {
+    font-size: 1.5rem;
   }
-
-  i {
-    font-size: 1.6rem !important;
-  }
-
 }
+
+/* Telas muito grandes (ex: 1440px ou mais) */
+@media (min-width: 1440px) {
+  .responsive-input {
+    font-size: 1.5rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .input-group-text i {
+    font-size: 1.75rem;
+  }
+}
+
 </style>

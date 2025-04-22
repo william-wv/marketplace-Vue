@@ -17,7 +17,7 @@
     "id": 3,
     "icon": "bi bi-box-fill",
     "text": "Orders",
-    "router": "/orders",
+    "router": "/dashboard/userOrder",
     "role": "all"
   },
   {

@@ -6,13 +6,13 @@ const salvar = () => {
   emit('salvar', ProdutEditavel.value); 
 };
 </script>
-
+z
 <template>
   <!-- Backdrop -->
   <div class="modal-backdrop" @click="$emit('fechar')">
     <!-- Modal -->
     <div class="modal-content" @click.stop>
-      <h2>{{ categoria.id ? 'Editar Categoria' : 'Nova Categoria' }}</h2>
+      <h2>Editar Categoria'</h2>
       <input v-model="categoria.name" placeholder="Nome da categoria" />
       <input v-model="categoria.description" placeholder="Descrição da categoria" />
 
@@ -40,7 +40,6 @@ const salvar = () => {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  /* Coloca o backdrop acima de outros elementos */
 }
 
 /* Modal */

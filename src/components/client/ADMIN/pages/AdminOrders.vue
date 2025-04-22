@@ -1,68 +1,33 @@
-
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import socket from '@/services/socket';
-
-const orders = ref([]);
-console.log(orders.value)
-onMounted(() => {
-  socket.on("connect", () => {
-    console.log("Conectado com sucesso");
-    socket.emit("get_all_orders");
-  });
-
-  socket.on("all_orders", (data) => {
-    console.log("Orders recebidas:", data);
-    orders.value = data;
-  });
-
-  socket.on("new_order", (data) => {
-    console.log("Novo pedido:", data);
-    orders.value.push(data);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("Desconectado");
-  });
-});
-
-onUnmounted(() => {
-  socket.off("connect");
-  socket.off("all_orders");
-  socket.off("new_order");
-  socket.off("disconnect");
-});
+import UpdateOrders from '../orders/UpdateOrders.vue';
+import OrdersComponent from '../orders/OrdersComponent.vue';
+import DeleteOrders from '../orders/DeleteOrders.vue';
+import GetOrders from '../orders/GetOrders.vue';
 </script>
 
 <template>
-  <div class="container mt-4">
-    <h2 class="mb-4">📦 Lista de Pedidos</h2>
+  <main class="container-fluid py-4 px-3 px-md-5">
+    <div class="row gy-4 gx-md-5">
+      
+      <!-- Coluna Esquerda -->
+      <div class="col-12 col-md-6 d-flex flex-column gap-4">
+        <OrdersComponent style="height: 50svh;" />
+        <GetOrders />
+      </div>
 
-    <div v-if="orders.length === 0" class="alert alert-info">
-      Nenhum pedido encontrado.
+      <!-- Coluna Direita -->
+      <div class="col-12 col-md-6 d-flex flex-column gap-4">
+        <UpdateOrders style="height: 50svh;" />
+        <DeleteOrders />
+      </div>
+
     </div>
-
-    <ul class="list-group">
-      <li v-for="order in orders" :key="order.order_id" class="list-group-item d-flex justify-content-between align-items-center">
-        <div>
-          <strong>Pedido #{{ order.order_id }}</strong>
-        </div>
-          {{ order.status || 'Sem status' }}
-      </li>
-    </ul>
-  </div>
+  </main>
 </template>
 
-
-
 <style scoped>
-/* Só um estilo básico */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 8px;
+main {
+  min-height: 100vh;
+  background-color: #f8f9fa;
 }
 </style>

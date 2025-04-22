@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import CategoryDropdown from './Dropdown.vue';
+import Dropdown from './Dropdown.vue';
 
 defineProps(['produtos']);
 const emit = defineEmits(['editar', 'deletar']);
@@ -20,7 +20,7 @@ const showDropdown = ref(false);
     </td>
     <td class="p-3 text-center">
       <i class="fs-4 bi bi-three-dots" role="button" @click="showDropdown = !showDropdown"></i>
-      <CategoryDropdown
+      <Dropdown
         v-if="showDropdown"
         @editar="emit('editar', produtos)"
         @deletar="emit('deletar', produtos)"

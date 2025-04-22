@@ -283,9 +283,35 @@ export async function postOrders(order) {
   } catch (error) {
     console.log(error)
   }
+}
 
+export async function putOrders(id_Order, payload) {
+  try {
+    const reponse = await api.put(`orders/${id_Order}`, payload, {
+      headers: {
+        ...authHeaders(),
+        'Content-Type': 'application/json'
+      }
+    })
+    return reponse
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 
+export async function getOrdersById(id_Order) {
+  try{
+    const response = await api.get(`orders/${id_Order}`, {
+      headers: {
+        ...authHeaders(),
+        'Content-Type': 'application/json'
+      }
+    }) 
+  return response.data
+  } catch(e){
+    console.log(e)
+  }
+}
 
 export default api

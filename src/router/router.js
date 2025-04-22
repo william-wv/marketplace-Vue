@@ -57,6 +57,17 @@ const router = createRouter({
       meta: { hideHeader: true, hideFooter: true },
       children: [
 
+        // Visualização de pedidos
+        {
+          path: 'userOrder',
+          name: 'user orders',
+          component: () => import('@/components/client/ADMIN/pages/AdminOrders.vue'),
+          meta: {
+            hideHeader: true,
+            hideFooter: true,
+            requiresModeratorAndAdmin: true
+          }
+        },
         // Página do perfil do usuário
         {
           path: 'myaccount',
@@ -69,7 +80,7 @@ const router = createRouter({
         },
         // update account
         {
-          path: '/update',
+          path: 'update',
           name: 'update',
           component: () => import('@/components/client/user/pages/UpdateInfo.vue')
         },
