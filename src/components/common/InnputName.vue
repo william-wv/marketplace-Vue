@@ -18,7 +18,7 @@ defineEmits(['update:modelValue']);
       </span>
       <input
         @input="$emit('update:modelValue', $event.target.value)"
-        placeholder="Digite aqui"
+        placeholder="Text here"
         id="name"
         type="text"
         class="form-control responsive-input"

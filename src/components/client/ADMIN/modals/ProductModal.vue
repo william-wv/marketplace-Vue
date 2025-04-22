@@ -1,30 +1,24 @@
 <script setup>
-defineProps(['categoria']);
+defineProps(['produto']);
 defineEmits(['salvar', 'fechar']);
-
-const salvar = () => {
-  emit('salvar', ProdutEditavel.value); 
-};
 </script>
-z
+
 <template>
   <!-- Backdrop -->
   <div class="modal-backdrop" @click="$emit('fechar')">
     <!-- Modal -->
     <div class="modal-content" @click.stop>
-      <h2>Editar Categoria'</h2>
-      <input v-model="categoria.name" placeholder="Nome da categoria" />
-      <input v-model="categoria.description" placeholder="Descrição da categoria" />
+      <h2>Editar produto</h2> <!-- Corrigido a ortografia -->
+      <input v-model="produto.name" placeholder="Nome do produto" />
+      <input v-model="produto.description" placeholder="Descrição do produto" />
 
       <div class="botoes">
         <button @click="$emit('fechar')">Cancelar</button>
-        <button @click="$emit('salvar')">Salvar</button>
+        <button @click="$emit('salvar', produto)">Salvar</button> <!-- Passando dados do produto ao salvar -->
       </div>
     </div>
   </div>
 </template>
-
-
 
 <style scoped>
 /* Backdrop */
@@ -35,7 +29,6 @@ z
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
-  /* Fundo semitransparente */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +42,6 @@ z
   border-radius: 8px;
   width: 300px;
   z-index: 1001;
-  /* Coloca o modal acima do backdrop */
   position: relative;
 }
 

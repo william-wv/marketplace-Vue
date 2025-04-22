@@ -1,5 +1,6 @@
 <script setup>
-const emit = defineEmits(['editar', 'deletar','create']);
+defineProps(['produto']);
+defineEmits(['editar', 'deletar']);
 </script>
 
 <template>
@@ -13,10 +14,8 @@ const emit = defineEmits(['editar', 'deletar','create']);
 </template>
 
 <style scoped>
-
-i:hover{
+i:hover {
   background-color: var(--foregraund-w);
   border-radius: 10px;
 }
-
 </style>

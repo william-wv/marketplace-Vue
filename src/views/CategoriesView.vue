@@ -125,16 +125,14 @@ onMounted(() => {
 
       <section v-else-if="produtos.length > 0" class="card card-categ mb-5">
         <div v-for="prod in produtos" :key="prod.id" class="div-categ">
-
           <div class="contain-card ">
             <div class="div-img d-flex justify-content-center">
               <img :src="getImageUrl(prod.image_path)" alt="Imagem do produto" />
             </div>
-
             <div class="texts">
               <div>
                 <p class="p-name"><b>{{ prod.name }}</b></p>
-                <h2 class="p-desc">{{ prod.description }}</h2>
+                <!-- <h2 class="p-desc">{{ prod.description }}</h2> -->
               </div>
               <div class="price d-flex">
                 <div>
@@ -146,7 +144,6 @@ onMounted(() => {
               </div>
             </div>
           </div>
-
           <div class="div-btn">
             <ButtonComponent @click="toggleCarrinho(prod)"
               :title="carrinho[prod.id] ? 'Remove from Cart' : 'Add to Cart'"
@@ -155,7 +152,6 @@ onMounted(() => {
           </div>
         </div>
       </section>
-
       <p v-else>Não há produtos para esta categoria.</p>
     </div>
   </section>

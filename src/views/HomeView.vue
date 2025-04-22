@@ -1,6 +1,5 @@
 <script setup>
 import HomeComponent from '@/components/pages/HomeComponent.vue';
-import HomeServices from '@/components/pages/HomeServices.vue';
 
 
 
@@ -9,6 +8,6 @@ import HomeServices from '@/components/pages/HomeServices.vue';
 <template>
   <main>
     <HomeComponent/>
-    <HomeServices/>
+    
   </main>
 </template>

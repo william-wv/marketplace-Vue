@@ -2,17 +2,17 @@
 import { ref } from 'vue';
 import Dropdown from './Dropdown.vue';
 
-defineProps(['produtos']);
+const props = defineProps(['produto']);
 const emit = defineEmits(['editar', 'deletar']);
 const showDropdown = ref(false);
 </script>
 
 <template>
   <tr class="border position-relative">
-    <td class="p-3 text-center">{{ produtos.id }}</td>
-    <td class="p-3">{{ produtos.name }}</td>
-    <td class="p-3 text-center">{{ produtos.category.id }}</td>
-    <td class="p-3 text-center">{{ produtos.stock }}</td>
+    <td class="p-3 text-center">{{ produto.id }}</td>
+    <td class="p-3">{{ produto.name }}</td>
+    <td class="p-3 text-center">{{ produto.category.name }}</td>
+    <td class="p-3 text-center">{{ produto.stock }}</td>
     <td class="p-3 text-center">
       <span class="bg-success bg-gradient rounded-pill text-white p-2">
         <i class="bi bi-check-circle animate-pulse"></i>
@@ -22,8 +22,8 @@ const showDropdown = ref(false);
       <i class="fs-4 bi bi-three-dots" role="button" @click="showDropdown = !showDropdown"></i>
       <Dropdown
         v-if="showDropdown"
-        @editar="emit('editar', produtos)"
-        @deletar="emit('deletar', produtos)"
+        @editar="emit('editar', produto)"
+        @deletar="emit('deletar', produto)"
       />
     </td>
   </tr>

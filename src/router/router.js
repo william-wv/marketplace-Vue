@@ -49,6 +49,11 @@ const router = createRouter({
       component: () => import('../views/ShopView.vue'),
       meta: { hideNav: true }
     },
+    {
+      path: '/coupons',
+      name: 'coupons',
+      component: () => import('../views/CuponsView.vue'),
+    },
 
     // Área do painel (dashboard) protegida por autenticação
     {
@@ -65,7 +70,6 @@ const router = createRouter({
           meta: {
             hideHeader: true,
             hideFooter: true,
-            requiresModeratorAndAdmin: true
           }
         },
         {
@@ -144,7 +148,16 @@ const router = createRouter({
                 requiresModeratorAndAdmin: true
               }
             },
-
+            {
+              path: 'cupons',
+              name: 'create cupons',
+              component: () => import('@/components/client/ADMIN/pages/CreateCupon.vue'),
+              meta: {
+                hideHeader: true,
+                hideFooter: true,
+                requiresModeratorAndAdmin: true
+              }
+            },
             // Gerenciamento de usuários
             {
               path: 'menageUser',

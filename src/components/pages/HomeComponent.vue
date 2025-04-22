@@ -2,6 +2,7 @@
 
 import Json from '@/data/IconsHomeComp.json';
 import ButtonComponent from '../common/ButtonComponent.vue';
+import ButtomComponentRoute from '../common/ButtomComponentRoute.vue';
 </script>
 
 <template>
@@ -9,20 +10,15 @@ import ButtonComponent from '../common/ButtonComponent.vue';
     <section class="hero-section text-white py-5 py-md-6">
       <div class="contain">
         <div class="row align-items-center">
-          
+
           <div class="col-lg-6 div-txts">
             <h1 class="display-4 fw-bold mb-4">Your best purchases only here</h1>
-            <!-- <p class="lead mb-4">
-            </p> -->
-            <div class="d-flex flex-column flex-sm-row gap-2">
-              <ButtonComponent class="btn btn-outline-light" 
-              :title="'See categorias'"
-          
-              />
-              <ButtonComponent class="btn btn-outline-light" 
-              :title="'Entre em contato'"
-            
-              />
+            <p class="lead mb-4 " style="color: var(--Orange-500);">
+              Discover unbeatable deals and top-quality products all in one place. Shop with confidence and find everything you need right here!
+            </p>
+            <div class="d-flex flex-column flex-sm-row gap-2 p-1">
+                <ButtomComponentRoute  :rota="'/categories'" class="btn btn-outline-light" :title="'See categorias'" />
+              <ButtonComponent :class="'orange'" :title="'Entre em contato'" />
             </div>
           </div>
 
@@ -35,7 +31,6 @@ import ButtonComponent from '../common/ButtonComponent.vue';
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </section>
@@ -44,14 +39,13 @@ import ButtonComponent from '../common/ButtonComponent.vue';
 
 
 <style scoped>
-
-i{
+i {
   font-size: 2rem !important;
 }
 
 .hero-section {
   border-radius: 30px;
-  margin: 30px 150px  !important;
+  margin: 30px 150px !important;
   background-color: var(--Blue-700);
 }
 
@@ -64,7 +58,7 @@ i{
   gap: 0.5rem;
 }
 
-.contain{
+.contain {
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -101,25 +95,25 @@ i{
 
 @media (max-width:450px) {
   .cards {
-  gap: 1.5rem;
-  padding: 0;
-  margin: 0;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
   }
 
   .cards-container {
-  padding: 50px 80px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
+    padding: 50px 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
   }
 
-  .div-txts{
+  .div-txts {
     padding: 0 50px;
   }
 }
 
 @media (min-width:700px) {
-  .div-txts{
+  .div-txts {
     padding: 0 50px;
   }
 }

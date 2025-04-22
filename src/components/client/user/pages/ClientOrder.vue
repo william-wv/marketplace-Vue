@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getOrders , deleteOrders} from '@/services/OrdersUsers';
+import { getOrders, deleteOrders } from '@/services/OrdersUsers';
 
 const orders = ref([]);
 const loading = ref(true);
@@ -28,54 +28,6 @@ const deletarPedido = async (id) => {
   }
 };
 
-onMounted(carregarPedidos);
-</script>
-
-<template>
-  <div class="container mt-4">
-    <h3 class="mb-4">Lista de Pedidos</h3>
-
-    <div v-if="loading" class="text-muted">Carregando pedidos...</div>
-    <div v-else-if="error" class="text-danger">{{ error }}</div>
-    <div v-else-if="orders.length === 0" class="text-warning">Nenhum pedido encontrado.</div>
-
-    <div v-else class="row gy-3">
-      <div
-        class="col-12 col-md-6 col-lg-4"
-        v-for="order in orders"
-        :key="order.id"
-      >
-        <div class="card shadow-sm h-100">
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              <h5 class="card-title">Pedido #{{ order.id }}</h5>
-              <p class="card-text mb-1">
-                <strong>Status:</strong>
-                <span :class="statusClass(order.status)">
-                  {{ order.status }}
-                </span>
-              </p>
-              <p class="card-text mb-1"><strong>Endereço:</strong> {{ order.address_id }}</p>
-              <p class="card-text mb-1"><strong>Cupom:</strong> {{ order.coupon_id || 'Nenhum' }}</p>
-              <p class="card-text"><strong>Data:</strong> {{ order.order_date }}</p>
-            </div>
-
-            <div v-if="order.status !== 'CANCELED'" class="mt-3">
-              <button
-                class="btn btn-sm btn-outline-danger w-100"
-                @click="deletarPedido(order.id)"
-              >
-                Deletar Pedido
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
 function statusClass(status) {
   switch (status) {
     case 'PENDING':
@@ -92,10 +44,56 @@ function statusClass(status) {
       return 'badge bg-light text-dark';
   }
 }
+
+onMounted(carregarPedidos);
 </script>
+
+<template>
+  <div class="row ">
+    <h3 class="mb-4 d-flex justify-content-center pt-5">Lista de Pedidos</h3>
+
+    <div v-if="loading" class="text-muted">Carregando pedidos...</div>
+    <div v-else-if="error" class="text-danger">{{ error }}</div>
+    <div v-else-if="orders.length === 0">
+
+      <div class="d-flex justify-content-center gap-3 align-items-center h-100">
+        <i class="bi bi-box"></i>
+        <p>Nenhum pedido encontrado !!</p>
+      </div>
+    </div>
+
+    <div v-else class="d-flex flex-wrap justify-content-center">
+      <div class="" v-for="order in orders" :key="order.id">
+        <div v-if="order.status !== 'CANCELED'" class="mt-3">
+          <div class="card card-body">
+            <h5 class="card-title">Pedido #{{ order.id }}</h5>
+            <p class="card-text mb-1">
+              <strong>Status:</strong>
+              <span :class="statusClass(order.status)">
+                {{ order.status }}
+              </span>
+            </p>
+            <p class="card-text mb-1"><strong>Endereço:</strong> {{ order.address_id }}</p>
+            <p class="card-text mb-1"><strong>Cupom:</strong> {{ order.coupon_id || 'Nenhum' }}</p>
+            <p class="card-text"><strong>Data:</strong> {{ order.order_date }}</p>
+
+            <button class="btn btn-sm btn-outline-danger w-100" @click="deletarPedido(order.id)">
+              Deletar Pedido
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 .card-title {
   font-size: 1.1rem;
+}
+
+.h-100 {
+  height: 80svh !important;
 }
 </style>
