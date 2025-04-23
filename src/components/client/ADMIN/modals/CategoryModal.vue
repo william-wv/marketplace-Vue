@@ -14,8 +14,8 @@ defineEmits(['salvar', 'fechar']);
   <div class="modal-backdrop" @click="$emit('fechar')">
     <!-- Modal -->
     <div class="modal-content" @click.stop>
-      <h2>{{ categoria.id ? 'Editar Categoria' : 'Nova Categoria' }}</h2>
-      <!-- < v-model="categoria.name" placeholder="Nome da categoria" /> -->
+      <h2>Editar Categoria</h2>
+      <span class="text-primary"><h3 class="fs-6">{{ categoria.name }}</h3></span>
       <InnputName v-model="categoria.name" placeholder="Nome da categoria" :icon="'bi bi-box'"/>
       <InnputName v-model="categoria.description"  placeholder="Descrição da categoria" :icon="'bi bi-list'"/>
 

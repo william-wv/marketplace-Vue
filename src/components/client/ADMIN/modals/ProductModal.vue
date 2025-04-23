@@ -1,4 +1,6 @@
 <script setup>
+import InnputName from '@/components/common/InnputName.vue';
+
 defineProps(['produto']);
 defineEmits(['salvar', 'fechar']);
 </script>
@@ -8,9 +10,10 @@ defineEmits(['salvar', 'fechar']);
   <div class="modal-backdrop" @click="$emit('fechar')">
     <!-- Modal -->
     <div class="modal-content" @click.stop>
-      <h2>Editar produto</h2> <!-- Corrigido a ortografia -->
-      <input v-model="produto.name" placeholder="Nome do produto" />
-      <input v-model="produto.description" placeholder="Descrição do produto" />
+      <h2>Editar produto</h2>  
+      <span class="text-primary"><h3 class="fs-6">{{ produto.name }}</h3></span>
+      <InnputName v-model="produto.name" :icon="'bi bi-box'" />
+      <InnputName v-model="produto.description" :icon="'bi bi-list'" />
 
       <div class="botoes">
         <button @click="$emit('fechar')">Cancelar</button>
@@ -40,7 +43,7 @@ defineEmits(['salvar', 'fechar']);
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  width: 300px;
+  width: 50svw;
   z-index: 1001;
   position: relative;
 }

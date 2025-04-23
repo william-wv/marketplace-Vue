@@ -45,7 +45,7 @@ i {
 
 .hero-section {
   border-radius: 30px;
-  margin: 30px 150px !important;
+  margin: 30px 100px !important;
   background-color: var(--Blue-700);
 }
 
@@ -93,7 +93,7 @@ i {
   color: white;
 }
 
-@media (max-width:450px) {
+@media (max-width:1024px) {
   .cards {
     gap: 1.5rem;
     padding: 0;
@@ -101,7 +101,7 @@ i {
   }
 
   .cards-container {
-    padding: 50px 80px;
+    padding: 50px 50px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(10px);
@@ -109,12 +109,23 @@ i {
 
   .div-txts {
     padding: 0 50px;
-  }
-}
-
-@media (min-width:700px) {
+  } 
+  
   .div-txts {
     padding: 0 50px;
   }
 }
+
+@media (max-width:440px) {
+  .hero-section{
+    margin: 40px 20px !important;
+  }
+}
+
+@media (max-width:440px) {
+  .hero-section{
+    margin: 40px 20px !important;
+  }
+}
+
 </style>
