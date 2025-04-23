@@ -2,14 +2,12 @@
 import { getCupons } from '@/services/cupons';
 import { onMounted, ref } from 'vue';
 
-const coupons = ref({})
+const coupons = ref([])
 
 async function couponsTot() {
   const result = await getCupons()
-  return coupons.value = result.data
+  coupons.value = result.data
 }
-
-console.log(coupons.value)
 
 onMounted(() => {
   couponsTot()
@@ -17,20 +15,30 @@ onMounted(() => {
 </script>
 
 <template>
-<main class="mt-4 mb-4">
-  <h1 class="text-center">Coupons Avaliable</h1> 
-  <h3 class="text-center mb-5 mt-3" style="color: var(--Orange-500);">You need use the Code Number !!!</h3>
+<main class="d-flex flex-column  my-5">
+  <h1 class="text-center mb-3">Coupons Available</h1> 
+  <h5 class="text-center text-warning mb-5">Use the Code Number to get your discount!</h5>
 
-  <div class="d-flex flex-wrap justify-content-center gap-5 mx-5 my-3">
-    <div class="card p-3" v-for="coupon in coupons" >
-      <p>{{ coupon.code }}</p>  
-      <p>Code: {{ coupon.id }}</p>
-      <p>Discount:{{ coupon.discount_percentage }}%</p>
+  <div class="row g-4">
+    <div 
+      v-for="coupon in coupons" 
+      :key="coupon.id"
+      class="col-sm-12 col-md-6 col-lg-4"
+    >
+      <div class="card shadow-sm border-0 rounded-4 p-3 h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title text-primary fw-bold">{{ coupon.code }}</h5>
+          <p class="card-text mb-1"><strong>Code ID:</strong> {{ coupon.id }}</p>
+          <p class="card-text"><strong>Discount:</strong> {{ coupon.discount_percentage }}%</p>
+        </div>
+      </div>
     </div>
   </div>
 </main>
 </template>
 
 <style scoped>
-
+.card {
+  background-color: #f8f9fa;
+}
 </style>

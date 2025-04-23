@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue';
 import { useCartStore } from '@/stores/carrinho';
 import { getImageUrl } from '@/services/http';
 import ButtonComponent from '../common/ButtonComponent.vue';
-import InnputName from '../common/InnputName.vue';
 import CardCartPay from '../layout/CardCartPay.vue';
 import CardLoc from '../layout/CardLoc.vue';
 
@@ -15,8 +14,6 @@ const idEnderecoSelecionado = ref(null);
 function atualizarEndereco(id) {
   idEnderecoSelecionado.value = id;
 }
-
-
 
 onMounted(async () => {
   await Promise.all([
@@ -59,13 +56,6 @@ function excluirCartAlls() {
       <ButtonComponent :icon="'bi bi-trash-fill'" :title="'Clear All'" :class="'red'" @click="excluirCartAlls()" />
     </div>
 
-
-    <!-- <div v-if="carregandoCarrinho" class="mb-4">
-      <div class="skeleton-card mb-3"></div>
-      <div class="skeleton-card"></div>
-    </div> -->
-
-    <!-- Carrinho com produtos -->
     <div v-if="cartStore.carrinho.length > 0">
       <div class="row">
         <div class="col-12" v-for="prodCarrinho in cartStore.carrinho" :key="prodCarrinho.product_id">
@@ -96,7 +86,6 @@ function excluirCartAlls() {
       </div>
       <CardLoc @selecionar-endereco="atualizarEndereco" />
       <CardCartPay :idEndereco="idEnderecoSelecionado" />
-
     </div>
 
     <!-- Carrinho vazio -->

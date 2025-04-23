@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-
-import InnputName from '../common/InnputName.vue';
 import ButtonComponent from '../common/ButtonComponent.vue';
 
 import { useCartStore } from '@/stores/carrinho';
-import { useOrder } from '@/stores/order.js';
+import InputNumber from '../common/InputNumber.vue';
 
 const props = defineProps({
   idEndereco: {
@@ -15,7 +13,6 @@ const props = defineProps({
 });
 
 const cartStore = useCartStore()
-const orders = useOrder()
 
 const cuponSelect = ref('') 
 
@@ -25,7 +22,7 @@ function converterParaDolar(precoBRL) {
 
 function Enviar() {
   console.log("Cupom enviado:", cuponSelect.value);
-  orders.addOrder({
+  cartStore.addOrder({
     address_id: props.idEndereco,
     coupon_id: cuponSelect.value || null
   });
@@ -72,7 +69,7 @@ function Enviar() {
         </div>
 
         <!-- Cupom -->
-        <InnputName
+        <InputNumber
           class="mb-3"
           :icon="'bi bi-wallet-fill'"
           :step-name="'Adicione seu cupom'"
