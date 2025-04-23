@@ -170,4 +170,8 @@ onMounted(() => {
 .bi-heart-fill {
   font-size: 1.4rem;
 }
+
+.bg-primary{
+  background-color: var(--Blue-500) !important;
+}
 </style>

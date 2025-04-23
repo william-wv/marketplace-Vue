@@ -152,6 +152,22 @@ export async function getCategories() {
   }
 }
 
+export async function getCategoriesWithImage() {
+  try {
+    const response = await api.get(`categories/`, {
+      headers: {
+        Accept: 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar categorias:', error);
+    throw error;
+  }
+}
+
+
 export async function createCategory(payload) {
   try {
     const response = await api.post('categories/', payload, {
@@ -192,14 +208,10 @@ export async function deleteCategory(id) {
 
 // ------ FUNÇÕES DE IMAGEM ------
 export function getImageUrl(imagePath) {
-  if (!imagePath) {
-    return '/placeholder.jpg';
-  }
-  return `http://35.196.79.227:8000${imagePath.startsWith('/uploads/products/') ? imagePath : `/uploads/products/${imagePath}`}`;
+  const baseUrl = 'http://35.196.79.227:8000';
+  return `${baseUrl}${imagePath}`;
 }
-
 // ---------- ADDRESS ----------------
-
 
 export async function getAddress() {
   try {

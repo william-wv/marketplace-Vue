@@ -6,18 +6,17 @@ import ButtomComponentRoute from '../common/ButtomComponentRoute.vue';
 </script>
 
 <template>
-  <main>
-    <section class="hero-section text-white py-5 py-md-6">
-      <div class="contain">
+  <main class="mt-5 d-flex align-items-center justify-content-center">
+    <section class="hero-section text-white  container ">
+      <div class="">
         <div class="row align-items-center">
-
           <div class="col-lg-6 div-txts">
             <h1 class="display-4 fw-bold mb-4">Your best purchases only here</h1>
-            <p class="lead mb-4 " style="color: var(--Orange-500);">
+            <p class="lead mb-4">
               Discover unbeatable deals and top-quality products all in one place. Shop with confidence and find everything you need right here!
             </p>
             <div class="d-flex flex-column flex-sm-row gap-2 p-1">
-                <ButtomComponentRoute  :rota="'/categories'" class="btn btn-outline-light" :title="'See categorias'" />
+              <ButtomComponentRoute  :rota="'/categories'" class="btn btn-outline-light" :title="'See categorias'" />
               <ButtonComponent :class="'orange'" :title="'Entre em contato'" />
             </div>
           </div>
@@ -45,22 +44,7 @@ i {
 
 .hero-section {
   border-radius: 30px;
-  margin: 30px 100px !important;
   background-color: var(--Blue-700);
-}
-
-.py-md-6 {
-  padding-top: 5rem !important;
-  padding-bottom: 5rem !important;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.contain {
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
 
@@ -91,41 +75,6 @@ i {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
-}
-
-@media (max-width:1024px) {
-  .cards {
-    gap: 1.5rem;
-    padding: 0;
-    margin: 0;
-  }
-
-  .cards-container {
-    padding: 50px 50px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-  }
-
-  .div-txts {
-    padding: 0 50px;
-  } 
-  
-  .div-txts {
-    padding: 0 50px;
-  }
-}
-
-@media (max-width:440px) {
-  .hero-section{
-    margin: 40px 20px !important;
-  }
-}
-
-@media (max-width:440px) {
-  .hero-section{
-    margin: 40px 20px !important;
-  }
 }
 
 </style>
