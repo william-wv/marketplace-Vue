@@ -1,4 +1,5 @@
 <script setup>
+import { putProd } from '@/services/http'; 
 import { ref, computed } from 'vue';
 import ProductRow from './ProductRow.vue';
 import Modal from './ProductModal.vue';  // Modal importado
@@ -7,8 +8,8 @@ const props = defineProps(['produtos']);
 const emit = defineEmits(['editar', 'deletar']);
 
 const categoriaSelecionada = ref('');
-const showModal = ref(false);  // Controle do modal
-const produtoEditando = ref(null);  // Produto que está sendo editado
+const showModal = ref(false); 
+const produtoEditando = ref(null);  
 
 const categorias = computed(() => {
   const unicos = new Map();
@@ -26,19 +27,26 @@ const produtosFiltrados = computed(() => {
 });
 
 const abrirModal = (produto) => {
-  produtoEditando.value = produto;  // Setando o produto para editar
-  showModal.value = true;  // Abrindo o modal
+  produtoEditando.value = produto;  
+  showModal.value = true;
 };
 
 const fecharModal = () => {
-  showModal.value = false;  // Fechando o modal
+  showModal.value = false; 
 };
 
-const salvarProduto = (produtoAtualizado) => {
-  // Lógica para salvar o produto atualizado
-  emit('editar', produtoAtualizado);
-  fecharModal();  // Fechar modal após salvar
+
+const salvarProduto = async (produtoAtualizado) => {
+  try {
+    const response = await putProd(produtoAtualizado.id, produtoAtualizado); 
+    console.log(produtoAtualizado)
+    emit('editar', response.data); 
+    fecharModal();
+  } catch (error) {
+    console.error('Erro ao salvar produto:', error);
+  }
 };
+
 </script>
 
 <template>

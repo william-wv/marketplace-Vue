@@ -4,12 +4,12 @@ import ButtonComponent from '../common/ButtonComponent.vue';
 </script>
 
 <template>
-  <section class=" py-5 d-flex justify-content-center">
-    <div class="container">
-      <div class="row align-items-center bg-white p-4 rounded shadow">
+  <section class=" py-5 d-flex justify-content-center ">
+    <div class=" p-3">
+      <div class="row align-items-center bg-white p-2 rounded shadow p-5 border">
         <!-- Text Column -->
         <div class="col-md-5 text-center">
-          <img src="/src/assets/img/phone-call.png" alt="Customer Support" class="img-fluid" style="max-width: 250px; ">
+          <img src="/src/assets/img/smartphone.png" alt="Customer Support" class="img-fluid" style="max-width: 250px; ">
         </div>
         <div class="col-md-7">
           <h2 class="mb-3" style="color: var(--Orange-500);"> Contact Us</h2>
@@ -37,3 +37,10 @@ import ButtonComponent from '../common/ButtonComponent.vue';
     </div>
   </section>
 </template>
+
+<style scoped>
+.border{
+  border: 1px solid var(--Blue-500) !important;
+}
+
+</style>

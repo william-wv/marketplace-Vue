@@ -98,15 +98,16 @@ export async function deleteProd(id) {
   }
 }
 
-export async function putProd(id) {
+export async function putProd(id, payload) {
   try {
-    const response = await api.put(`/products/${id}`);
-    return response.data;
+    const response = await api.put(`products/${id}`, payload);
+    return response;
   } catch (error) {
-    console.error('Erro ao deletar produto:', error);
+    console.error('Erro ao atualizar produto:', error);
     throw error;
   }
 }
+
 
 
 

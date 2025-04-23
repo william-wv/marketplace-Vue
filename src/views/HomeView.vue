@@ -12,8 +12,8 @@ import HomeComponent from '@/components/pages/HomeComponent.vue';
   <main class="bg-light">
     <HomeComponent/>
     
-    <SeeCategories/>
-    <DiscontIcons/>
+    <SeeCategories />
+    <DiscontIcons />
 
     <CallUs/>
   </main>

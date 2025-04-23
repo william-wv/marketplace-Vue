@@ -17,7 +17,7 @@ defineEmits(['salvar', 'fechar']);
 
       <div class="botoes">
         <button @click="$emit('fechar')">Cancelar</button>
-        <button @click="$emit('salvar', produto)">Salvar</button> <!-- Passando dados do produto ao salvar -->
+        <button @click="$emit('salvar', produto)">Salvar</button>
       </div>
     </div>
   </div>

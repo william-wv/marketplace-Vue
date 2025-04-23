@@ -43,7 +43,7 @@ onMounted(() => {
     </div>
     <div class="mx-5 row">
       <div class="col-md-4 mb-4" v-for="cat in paginatedCategories" :key="cat.id">
-        <RouterLink :to="`/categories/${cat.id}`" class="text-decoration-none text-dark w-100">
+        <RouterLink  class="text-decoration-none text-dark w-100">
           <div class="card h-100 shadow-sm w-100">
             <img :src="getImageUrl(cat.image_path)" class="card-img-top" alt="Category Image"
               style="height: 200px; object-fit: cover;">
@@ -73,3 +73,10 @@ onMounted(() => {
     </nav>
   </main>
 </template>
+
+<style scoped>
+.border{
+  border: 1px solid var(--Blue-500) !important;
+}
+
+</style>
