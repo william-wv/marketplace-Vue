@@ -1,32 +1,39 @@
 <script setup>
-import ListUser from '@/components/client/user/ListUser.vue';
-import UserAddress from '@/components/client/user/UserAddress.vue';
-import UserSection from '@/components/client/user/UserSection.vue';
-import CardsHome from '@/components/layout/CardsHome.vue';
-
-
+import User from '@/components/client/user/UserSection.vue';
+import MyAccont from '@/components/client/user/pages/MyAccont.vue';
 </script>
 
+
 <template>
-  <main>
-    <div class="p-3">
-        <div class="d-flex flex-column">
-          <!-- <UserSection /> -->
-          <!-- <UserAddress/> -->
-      </div>
-    </div>
-  </main>
+  <div class="d-flex">
+    <!-- Lado fixo com componentes filhos sempre visíveis -->
+    <aside class="col-2 position-sticky">
+      <User />
+      <MyAccont />
+    </aside>
+
+    <!-- Área onde as rotas mudam -->
+    <section class="col-10">
+      <RouterView />
+    </section>
+  </div>
 </template>
 
 <style scoped>
-main{
-  height: 100%;
+.d-flex {
+  display: flex;
 }
 
-@media (min-width:1024px) {
-  .flex-column {
-    flex-direction: row !important;
-  }
+.col-2 {
+  width: 20%;
 }
 
+.col-10 {
+  width: 80%;
+}
+
+.position-sticky {
+  position: sticky;
+  top: 0;
+}
 </style>

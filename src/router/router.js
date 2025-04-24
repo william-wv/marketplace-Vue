@@ -85,16 +85,16 @@ const router = createRouter({
           name: 'myAccount',
           component: () => import('@/views/ProfileView.vue'),
           meta: { hideHeader: true, hideFooter: true },
-          children: [
-
+          children:[
+            {
+              path: 'addressCreate',
+              name: 'update',
+              component: () => import('@/components/client/user/pages/UpdateInfo.vue')
+            },
           ]
         },
         // update account
-        {
-          path: 'update',
-          name: 'update',
-          component: () => import('@/components/client/user/pages/UpdateInfo.vue')
-        },
+        
         // Página de controle de estoque
         {
           path: 'mystock',

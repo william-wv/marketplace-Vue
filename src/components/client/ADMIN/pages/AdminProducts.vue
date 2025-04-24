@@ -7,15 +7,7 @@ import { deleteProd, getProd } from '@/services/http';
 const produtos = ref([])
 const mostrarModal = ref(false)
 
-// async function pegandoProd(){
-// try {
-//   const response = await getProd()
-//   products.value = response
-//   console.log(products.value)
-// } catch (e) {
-//   console.log(e)
-// }
-// } 
+
 
 const pegandoProd = async () => {
   produtos.value = await getProd();
@@ -24,17 +16,6 @@ const pegandoProd = async () => {
 const abrirModalEditar = () => {
   mostrarModal.value = true;
 };
-
-// const salvarEdicao = async (product) => {
-//   console.log(product)
-//   try {
-//     await updateProd(product.id, product);
-//     await carregarProdutos();
-//   } catch (e) {
-//     console.error('Erro ao salvar a categoria:', e);
-//   }
-//   mostrarModal.value = false;
-// };
 
 const deletarProduto = async (produtos) => {
   await deleteProd(produtos.id);

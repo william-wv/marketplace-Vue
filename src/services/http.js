@@ -61,7 +61,19 @@ export async function register(payload) {
   }
 }
 
-
+export async function updateImage(payload) {
+  try {
+    const response = await api.put("users/image" , payload, {
+      headers: {
+        Accept: 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
 // ------ FUNÇÕES DE PRODUTO ------
 export async function getProd() {
   try {
