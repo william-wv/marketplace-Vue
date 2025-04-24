@@ -140,20 +140,20 @@ nav .nav-link {
 }
 
 nav .nav-link.active {
-  background-color: #ff9800 !important; /* Laranja */
-  color: white !important; /* Texto branco para quando estiver ativo */
+  background-color: #ff9800 !important; 
+  color: white !important; 
 }
 
 nav ul ul {
-  opacity: 1 !important; /* Remover qualquer transparência */
+  opacity: 1 !important; 
 }
 
 nav ul ul li a {
-  color: rgb(255, 255, 255) !important; /* Cor do texto preto para os itens do dropdown */
+  color: rgb(255, 255, 255) !important;
 }
 
 nav ul ul li a:hover {
-  color: #ff9800 !important; /* Texto laranja ao passar o mouse */
+  color: #ff9800 !important; 
 }
 
 nav .nav-item:hover > ul {
