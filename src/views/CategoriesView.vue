@@ -57,7 +57,6 @@ function converterParaDolar(precoBRL) {
 async function toggleCarrinho(prod) {
   if (carrinho.value[prod.id]) {
     const response = await cartService.removeCartItem(prod.id);
-
     if (response.status === 204) {
       delete carrinho.value[prod.id];
       push.success('Item removido ao carrinho com sucesso!')
@@ -71,7 +70,6 @@ async function toggleCarrinho(prod) {
       quantity: 1,
       unit_price: prod.price
     });
-
     if (response.status === 204) {
       carrinho.value[prod.id] = true;
       push.success('Item adicionado ao carrinho com sucesso!')
@@ -91,8 +89,7 @@ watch(
     if (novaCategoria && novaCategoria !== antigaCategoria) {
       getProdutosPorCategoria(novaCategoria);
     }
-  },
-  { immediate: true }
+  }, { immediate: true }
 );
 
 onMounted(() => {

@@ -11,9 +11,8 @@ import CardsHome from '@/components/layout/CardsHome.vue';
   <main>
     <div class="p-3">
         <div class="d-flex flex-column">
-          <UserSection />
-          <UserAddress/>
-          
+          <!-- <UserSection /> -->
+          <!-- <UserAddress/> -->
       </div>
     </div>
   </main>

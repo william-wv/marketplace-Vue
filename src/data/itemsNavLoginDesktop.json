@@ -21,17 +21,47 @@
     "role": "all"
   },
   {
-    "id": 5,
+    "id": 4,
     "icon": "bi bi-heart-fill",
     "text": "Wishlist",
     "router": "/fav",
     "role": "all"
   },
   {
-    "id": 7,
+    "id": 5,
     "icon": "bi bi-gear-fill",
     "text": "Configurations",
     "router": "/dashboard/edit",
-    "role": ["ADMIN" , "MODERATOR"]
+    "role": [
+      "ADMIN",
+      "MODERATOR"
+    ],
+    "actions": [
+      {
+        "name": "Categories and Products",
+        "route": "/dashboard/edit/admin/categories",
+        "desc": "You can Create, Read, Update and Delete"
+      },
+      {
+        "name": "Stock",
+        "route": "/dashboard/edit/stock",
+        "desc": "You can Update your products stocks"
+      },
+      {
+        "name": "Cupons",
+        "route": "/dashboard/edit/cupons",
+        "desc": "You can create your cupons"
+      },
+      {
+        "name": "Menage User",
+        "route": "/dashboard/edit/menageUser",
+        "desc": "You can Create new moderator"
+      },
+      {
+        "name": "Orders",
+        "route": "/dashboard/edit/orders",
+        "desc": "You can Create, Read, Update and Delete"
+      }
+    ]
   }
 ]

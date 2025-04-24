@@ -1,4 +1,4 @@
-<script setup>
+ <!-- <script setup>
 import { useRoute } from 'vue-router'
 import CardsConfig from '@/components/layout/CardsConfig.vue';
 import useAuthStore from '@/stores/auth';
@@ -10,6 +10,7 @@ const route = useRoute()
 
 <template>
   <div class="d-flex flex-wrap justify-content-center align-items-center vh-100" v-if="route.path === '/dashboard/edit'">
+
     <RouterLink to="/dashboard/edit/admin/categories" class="card-wrapper p-2">
         <CardsConfig icon="bi bi-boxes" title="Categories and Products"
           subtitle="You can Create, Read, Update and Delete" />
@@ -33,4 +34,7 @@ const route = useRoute()
   </div>
 
   <RouterView />
+</template> -->
+<template>
+<RouterView></RouterView>
 </template>
