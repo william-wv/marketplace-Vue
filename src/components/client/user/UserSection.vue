@@ -20,7 +20,7 @@ const imageUrl = computed(() => getImageUrl(auth.user.image_path));
         <img :src="imageUrl" alt="User image" class="w-100 h-100 object-fit-cover rounded-circle" />
       </span>
       <div v-else
-        class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow m-3">
+        class="d-flex justify-content-center align-items-center h-100 text-white bg-primary">
         <h1 class="fs-3 m-0">{{ primeiraLetra }}</h1>
       </div>
     </div>
@@ -31,4 +31,7 @@ const imageUrl = computed(() => getImageUrl(auth.user.image_path));
 
 <style scoped>
 
+.bg-primary{
+  background-color: var(--Blue-500) !important;
+}
 </style>

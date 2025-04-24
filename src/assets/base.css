@@ -57,4 +57,7 @@
   font-style: normal;
 }
 
+.bg-primary{
+  background-color: var(--Blue-500) !important;
+}
 

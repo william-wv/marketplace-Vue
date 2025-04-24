@@ -61,8 +61,6 @@ const router = createRouter({
       component: () => import('@/components/Dashbord/isAuthDesktp.vue'),
       meta: { hideHeader: true, hideFooter: true },
       children: [
-
-        // Visualização de pedidos
         {
           path: 'userOrder',
           name: 'user orders',

@@ -120,6 +120,9 @@ const filteredNavbarItems = computed(() => {
 
 <style scoped>
 
+.bg-primary{
+  background-color: var(--Blue-500) !important;
+}
 
 nav.collapsed {
   min-width: 80px !important;
