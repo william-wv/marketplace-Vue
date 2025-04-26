@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth.js';
+import { getUser } from './gerUsers';
 const api = axios.create({
   baseURL: 'http://35.196.79.227:8000/',
 });
@@ -19,7 +20,6 @@ api.interceptors.request.use((config) => {
 function authHeaders() {
   const authStore = useAuthStore();
   const token = authStore.token;
-
   return {
     'Authorization': `Bearer ${token}`
   };
@@ -34,10 +34,9 @@ export async function login(payload) {
     const response = await api.post('login', payload);
     const { token } = response.data;
 
-    // Salva no Pinia (authStore)
     const authStore = useAuthStore();
-    authStore.setToken(token);
-
+    authStore.token = token
+    // console.log(authStore.token)
     return response;
   } catch (error) {
     console.error('Erro ao realizar login:', error);
@@ -309,15 +308,15 @@ export async function putOrders(id_Order, payload) {
 
 
 export async function getOrdersById(id_Order) {
-  try{
+  try {
     const response = await api.get(`orders/${id_Order}`, {
       headers: {
         ...authHeaders(),
         'Content-Type': 'application/json'
       }
-    }) 
-  return response.data
-  } catch(e){
+    })
+    return response.data
+  } catch (e) {
     console.log(e)
   }
 }

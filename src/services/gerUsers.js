@@ -41,7 +41,7 @@ export async function updateImage(payload) {
         'Content-Type': 'multipart/form-data',
       },
     });
-    return response.data
+    return response
   } catch (e) {
     console.log(e)
   }
@@ -58,8 +58,8 @@ export async function getUser(params) {
 
 export async function updateUser(params) {
   try {
-    const resp = await api.put('users/me')   
-    return resp.data 
+    const resp = await api.put('users/me',params)   
+    return resp
   } catch (error) {
     console.log(error)
   }
@@ -76,7 +76,7 @@ export async function updateImageProfile(params) {
 
 export async function deleteUser(params) {
   try {
-    const resp = await api.delete('users/me')   
+    const resp = await api.delete('users/me',params)   
     return resp.data 
   } catch (error) {
     console.log(error)

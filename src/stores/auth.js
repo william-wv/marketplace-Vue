@@ -1,4 +1,6 @@
+import { getUser, updateImage, updateUser } from "@/services/gerUsers";
 import { deleteAddress, getAddress } from "@/services/http.js";
+import { push } from "notivue";
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -32,6 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('user_token', newToken);
   }
 
+  // address
   function setAddress(novoEndereco) {
     endereco.value = novoEndereco
   }
@@ -39,13 +42,37 @@ export const useAuthStore = defineStore('auth', () => {
   async function getAddressesUser() {
     endereco.value = await getAddress()
   }
-
-  async function delAddressesUser(id) {
-    endereco.value = await deleteAddress(id)
+  function delAddressesUser(id) {
+    endereco.value = deleteAddress(id)
     getAddressesUser()
   }
 
+  // user
+  async function updateImageProfile(formda) {
+    const response = await updateImage(formda)
+    getUserMe()
+    console.log(response.status)
+    if (response.status === 200) {
+      push.success('Image updated')
+    } else {
+      push.error('Fail to upload')
+    }
+  }
+  
+  async function getUserMe() {
+    user.value = await  getUser()
+  }
 
+  async function updateProfile(params) {
+    const response = await updateUser(params)
+    getUserMe()
+    if (response.status == 200) {
+      push.success('User updated')
+    } else {
+      push.error('Fail to upload')
+    }
+    console.log('pinias')
+  }
 
   return {
     token,
@@ -58,7 +85,10 @@ export const useAuthStore = defineStore('auth', () => {
     setToken,
     setAddress,
     getAddressesUser,
-    delAddressesUser
+    delAddressesUser,
+    updateImageProfile,
+    getUserMe,
+    updateProfile
   }
 }, {
   persist: true

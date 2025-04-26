@@ -49,7 +49,7 @@ defineProps({
 .red:hover {
   background-color: var(--Red-600);
   box-shadow: 0 6px 16px rgba(201, 186, 186, 0.808);
-  background-color: var(--Red-500);
+  background-color: rgba(255, 0, 0, 0.601);
 }
 
 .red:active {
@@ -74,6 +74,27 @@ defineProps({
 }
 
 .orange:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(255, 140, 0, 0.2);
+}
+
+.orange-w {
+  color: rgb(255, 255, 255) !important;
+  padding: 10px 15px;
+  background-color: var(--Orange-500);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.2);
+}
+
+.orange-w:hover {
+  background-color: var(--Orange-600);
+  box-shadow: 0 6px 16px rgba(255, 140, 0, 0.3);
+}
+
+.orange-w:active {
   transform: scale(0.98);
   box-shadow: 0 2px 6px rgba(255, 140, 0, 0.2);
 }

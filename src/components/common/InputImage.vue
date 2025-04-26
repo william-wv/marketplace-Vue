@@ -31,6 +31,9 @@ defineEmits(['update:modelValue']);
     top: 10%;
   }
 
+}
 
+.blue{
+  background-color: var(--Blue);
 }
 </style>
