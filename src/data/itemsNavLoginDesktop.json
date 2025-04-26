@@ -4,7 +4,19 @@
     "icon": "bi bi-house-gear-fill",
     "text": "Account",
     "router": "/dashboard/myaccount",
-    "role": "all"
+    "role": "all",
+    "actions": [
+      {
+        "name": "Profile",
+        "route": "/dashboard/myaccount/editProfile",
+        "desc": "You can Create, Read, Update and Delete"
+      },
+      {
+        "name": "Address",
+        "route": "/dashboard/myaccount/address",
+        "desc": "You can Update your products stocks"
+      }
+    ]
   },
   {
     "id": 2,
@@ -30,7 +42,7 @@
   {
     "id": 5,
     "icon": "bi bi-gear-fill",
-    "text": "Configurations",
+    "text": "Config",
     "router": "/dashboard/edit",
     "role": [
       "ADMIN",

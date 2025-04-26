@@ -1,6 +1,5 @@
 import axios from 'axios';
-import useAuthStore from '@/stores/auth';
-
+import { useAuthStore } from '@/stores/auth.js';
 const api = axios.create({
   baseURL: 'http://35.196.79.227:8000/',
 });
@@ -61,19 +60,7 @@ export async function register(payload) {
   }
 }
 
-export async function updateImage(payload) {
-  try {
-    const response = await api.put("users/image" , payload, {
-      headers: {
-        Accept: 'multipart/form-data',
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data
-  } catch (e) {
-    console.log(e)
-  }
-}
+
 // ------ FUNÇÕES DE PRODUTO ------
 export async function getProd() {
   try {
@@ -120,9 +107,6 @@ export async function putProd(id, payload) {
   }
 }
 
-
-
-
 export async function editStock(id, payload) {
   try {
     const response = await api.put(`products/${id}/stock`, payload);
@@ -132,7 +116,6 @@ export async function editStock(id, payload) {
     throw error;
   }
 }
-
 
 export async function getProductsByCategory(id) {
   try {
@@ -180,7 +163,6 @@ export async function getCategoriesWithImage() {
   }
 }
 
-
 export async function createCategory(payload) {
   try {
     const response = await api.post('categories/', payload, {
@@ -198,7 +180,7 @@ export async function createCategory(payload) {
 
 export async function updateCategory(id, dados) {
   try {
-    const response = await api.put(`/categories/${id}`, {
+    const response = await api.put(`categories/${id}`, {
       name: dados.name,
       description: dados.description,
     });
@@ -211,7 +193,7 @@ export async function updateCategory(id, dados) {
 
 export async function deleteCategory(id) {
   try {
-    const response = await api.delete(`/categories/${id}`);
+    const response = await api.delete(`categories/${id}`);
     return response.data;
   } catch (error) {
     console.error('Erro ao deletar categoria:', error);
@@ -228,24 +210,25 @@ export function getImageUrl(imagePath) {
 
 export async function getAddress() {
   try {
-    const response = await api.get(`/addresses/`)
+    const response = await api.get(`addresses/`)
     return response.data
   } catch (error) {
     console.error(error)
   }
 }
 export async function criarEndereco(endereco) {
-  const response = await api.post('/addresses/', endereco)
+  const response = await api.post('addresses/', endereco)
   return response.data
 }
 
 export async function getAddressById(addressId) {
-  const response = await api.get(`/addresses/${addressId}`);
+  const response = await api.get(`addresses/${addressId}`);
   return response.data;
 }
 
 export async function deleteAddress(id) {
-
+  const response = await api.delete(`addresses/${id}`)
+  return response.data
 }
 
 // Carrinho 
@@ -279,7 +262,7 @@ export const cartService = {
 
   async removeCartItem(productId) {
     try {
-      const resp = await api.delete('/cart/items', {
+      const resp = await api.delete('cart/items', {
         data: { product_id: productId }
       });
       return resp;

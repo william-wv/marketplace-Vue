@@ -112,7 +112,7 @@ const filteredNavbarItems = computed(() => {
     </nav>
 
     <!-- Conteúdo principal -->
-    <main class="flex-grow-1 bg-light" style="min-height: 100vh; padding-left: 1rem;">
+    <main class="flex-grow-1 bg-body" style="min-height: 100svh;">
       <RouterView />
     </main>
   </div>
@@ -163,4 +163,7 @@ nav .nav-item:hover > ul {
   display: block;
 }
 
+.bg-body{
+  background-color: aliceblue !important;
+}
 </style>

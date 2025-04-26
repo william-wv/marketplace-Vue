@@ -38,7 +38,7 @@ async function enviarLogin() {
       message: 'Welcome back!',
     });
     auth.saveUser(result.data)
-    router.replace('/dashboard/myaccount')
+    router.replace('/dashboard/myaccount/editProfile')
   }
   else {
     errorMessage.value = 'Invalid email or password';
@@ -48,7 +48,7 @@ async function enviarLogin() {
 
 onMounted(() => {
   if (auth.user.id) {
-    router.replace('/dashboard/myaccount')
+    router.replace('/dashboard/myaccount/editProfile')
   }
 })
 </script>

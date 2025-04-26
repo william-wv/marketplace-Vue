@@ -1,3 +1,4 @@
+import { deleteAddress, getAddress } from "@/services/http.js";
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -6,14 +7,15 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref({})
   const isAuthenticated = ref(false)
   const isShoppNull = ref(true)
-  const endereco = ref({})
+  const endereco = ref([]);
 
   function logout() {
     token.value = null
     user.value = {}
     isAuthenticated.value = false
     isShoppNull.value = false
-    endereco.value = {}
+    endereco.value = []
+    localStorage.removeItem('user_token');
   }
 
   function saveUser(result) {
@@ -21,8 +23,9 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated.value = true
     token.value = result.token
     isShoppNull.value = result.isShoppNull
+    endereco.value = []
+    localStorage.setItem('user_token', result.token);
   }
-
 
   function setToken(newToken) {
     token.value = newToken;
@@ -30,8 +33,19 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function setAddress(novoEndereco) {
-    user.value.address = novoEndereco
+    endereco.value = novoEndereco
   }
+
+  async function getAddressesUser() {
+    endereco.value = await getAddress()
+  }
+
+  async function delAddressesUser(id) {
+    endereco.value = await deleteAddress(id)
+    getAddressesUser()
+  }
+
+
 
   return {
     token,
@@ -42,7 +56,9 @@ export const useAuthStore = defineStore('auth', () => {
     logout,
     saveUser,
     setToken,
-    setAddress
+    setAddress,
+    getAddressesUser,
+    delAddressesUser
   }
 }, {
   persist: true

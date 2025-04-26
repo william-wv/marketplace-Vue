@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import User from '@/components/client/user/UserSection.vue';
 import { Offcanvas } from 'bootstrap'
 import useAuthStore from "@/stores/auth";
 
@@ -35,7 +36,6 @@ const closeOffcanvas = () => {
     offcanvasInstance.hide();
   }
 };
-
 // store
 const auth = useAuthStore();
 </script>
@@ -108,9 +108,8 @@ const auth = useAuthStore();
         </div>
 
         <div class="p-2">
-          <p class="welcome" v-if="auth.isAuthenticated" style="color: var(--White-050);">
-            Welcome <br>
-            {{ auth.user.name }}
+          <p class="welcome text-white" v-if="auth.isAuthenticated">
+            <User/>
           </p>
         </div>
       </div>

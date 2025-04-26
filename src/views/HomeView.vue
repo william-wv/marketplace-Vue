@@ -10,11 +10,11 @@ import HomeComponent from '@/components/pages/HomeComponent.vue';
 
 <template>
   <main class="bg-light">
-    <HomeComponent/>
+    <!-- <HomeComponent/> -->
     
     <SeeCategories />
     <DiscontIcons />
 
-    <CallUs/>
+    <!-- <CallUs/> -->
   </main>
 </template>

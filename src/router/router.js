@@ -64,7 +64,7 @@ const router = createRouter({
         {
           path: 'userOrder',
           name: 'user orders',
-          component: () => import('@/components/client/user/pages/ClientOrder.vue'),
+          component: () => import('@/components/client/user/orders/ClientOrder.vue'),
           meta: {
             hideHeader: true,
             hideFooter: true,
@@ -81,18 +81,21 @@ const router = createRouter({
         {
           path: 'myaccount',
           name: 'myAccount',
-          component: () => import('@/views/ProfileView.vue'),
           meta: { hideHeader: true, hideFooter: true },
           children:[
             {
-              path: 'addressCreate',
-              name: 'update',
-              component: () => import('@/components/client/user/pages/UpdateInfo.vue')
+              path: 'address',
+              name: 'address',
+              component: () => import('@/components/client/user/pages/ModalAddress.vue'),
             },
+            {        
+              // update account
+              path: 'editProfile',
+              name:'edit',
+              component: () => import('@/components/client/user/ProfileView.vue')
+            }
           ]
         },
-        // update account
-        
         // Página de controle de estoque
         {
           path: 'mystock',

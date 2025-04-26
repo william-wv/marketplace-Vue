@@ -32,3 +32,54 @@ export async function postMod(payload) {
     console.log(error)
   }
 }
+
+export async function updateImage(payload) {
+  try {
+    const response = await api.put("users/image" , payload, {
+      headers: {
+        Accept: 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export async function getUser(params) {
+  try {
+    const resp = await api.get('users/me')   
+    return resp.data 
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function updateUser(params) {
+  try {
+    const resp = await api.put('users/me')   
+    return resp.data 
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function updateImageProfile(params) {
+  try {
+    const resp = await api.put('users/image')   
+    return resp.data 
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteUser(params) {
+  try {
+    const resp = await api.delete('users/me')   
+    return resp.data 
+  } catch (error) {
+    console.log(error)
+  }
+}
+

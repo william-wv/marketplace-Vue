@@ -1,36 +1,23 @@
 <script setup>
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const props = defineProps({
-  title: String,
+defineProps({
   icon: String,
-  style: String,
-  rota: String,
-  type: {
-    type: String,
-    default: 'submit'
-  }
-});
+  title: String,
+  class: String
+})
 
-
-function irParaRota() {
-  if (props.rota) {
-    router.push(props.rota);
-  }
-}
-
+const props = defineProps(['icon', 'title', 'class'])
+const classePersonalizada = props.class
 </script>
-
+<!-- ButtomComponentRoute.vue -->
 <template>
-  <button @click="irParaRota" :type="type" :class="style">
-    <i :class="icon"></i> {{ title }}
+  <button :class="['btn', classePersonalizada]" @click="$emit('click')">
+    <i :class="icon" />
+    {{ title }}
   </button>
 </template>
 
-<style scoped>
 
+<style scoped>
 .blue {
   color: var(--White-000) !important;
   padding: 10px 15px;
@@ -77,7 +64,8 @@ function irParaRota() {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.2); /* tom alaranjado suave */
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.2);
+  /* tom alaranjado suave */
 }
 
 .orange:hover {
