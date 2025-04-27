@@ -1,33 +1,39 @@
 <script setup>
-import UpdateOrders from '../orders/UpdateOrders.vue';
-import OrdersComponent from '../orders/OrdersComponent.vue';
-import DeleteOrders from '../orders/DeleteOrders.vue';
-import GetOrders from '../orders/GetOrders.vue';
+import navlist from "@/data/ListNavAdminOrders.json"
+import { useRoute } from "vue-router";
+
+const list = navlist
+const route = useRoute(); 
+
+
 </script>
 
 <template>
-  <main class="container-fluid py-4 px-3 px-md-5">
-    <div class="row gy-4 gx-md-5">
-      
-      <!-- Coluna Esquerda -->
-      <div class="col-12 col-md-6 d-flex flex-column gap-4">
-        <OrdersComponent style="height: 50svh;" />
-        <GetOrders />
+  <section class="d-flex justify-content-center gap-5">
+    <header class="h-100  d-flex flex-column align-items-center justify-content-center">
+      <div class="d-flex align-items-center gap-4 fs-2">
+        <i class="bi bi-box"></i>
+        <h1 class="fs-2">Admin Orders</h1>
       </div>
-
-      <!-- Coluna Direita -->
-      <div class="col-12 col-md-6 d-flex flex-column gap-4">
-        <UpdateOrders style="height: 50svh;" />
-        <DeleteOrders />
-      </div>
-
-    </div>
-  </main>
+      <ul>
+        <li v-for="l in list" :key="l.router" class="text-black btn border w-100 my-3" :class="{
+          'bg-warning': route.path.startsWith(l.router)
+        }" @click="$router.push(l.router)">
+          {{ l.name }}
+        </li>
+      </ul>
+    </header>
+    <span class="h-100 border-end"></span>
+    <main class="col-7 mt-5">
+      <RouterView />
+    </main>
+  </section>
 </template>
 
+
 <style scoped>
-main {
-  min-height: 100vh;
-  background-color: #f8f9fa;
+.h-100 {
+  height: 100svh !important;
 }
+
 </style>

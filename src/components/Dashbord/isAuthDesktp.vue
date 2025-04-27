@@ -52,49 +52,33 @@ const filteredNavbarItems = computed(() => {
 </script>
 
 <template>
-  <div class="d-flex">
+  <div class="d-flex mobile">
     <!-- Sidebar -->
-    <nav
-      class="d-flex flex-column flex-shrink-0 p-3 bg-primary text-white"
-      :class="{ 'collapsed': isCollapsed }"
-      style="height: 100vh; width: auto; min-width: 80px; transition: all 0.3s ease-in-out;"
-      @mouseenter="isCollapsed = false"
-      @mouseleave="isCollapsed = true"
-    >
+    <nav class="d-flex flex-column flex-shrink-0 p-3 bg-primary text-white" :class="{ 'collapsed': isCollapsed }"
+      style="height: 100svh; width: auto; min-width: 80px; transition: all 0.3s ease-in-out;"
+      @mouseenter="isCollapsed = false" @mouseleave="isCollapsed = true">
       <!-- Logo -->
-      <div class="mb-4 text-center">
+      <div class="logo mb-4 text-center">
         <span class="fs-4 fw-bold">{{ isCollapsed ? 'C+' : 'Compre+' }}</span>
       </div>
 
       <!-- Navegação -->
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li v-for="item in filteredNavbarItems" :key="item.id" 
-            class="nav-item" 
-            @mouseleave="closeItem(item.id)">
-          <a
-            href="#"
-            class="nav-link text-white d-flex align-items-center justify-content-between"
-            :class="{ 
-              active: route.path.startsWith(item.router), 
-              'bg-warning': route.path.startsWith(item.router) 
-            }"
-            @click.prevent="item.actions ? toggleItem(item.id) : router.push(item.router)"
-          >
-            <div class="d-flex align-items-center">
+      <ul class="nav nav-pills flex-column mb-auto mobile-icons">
+        <li v-for="item in filteredNavbarItems" :key="item.id" class="nav-item" @mouseleave="closeItem(item.id)">
+          <a href="#" class="nav-link  text-white d-flex align-items-center justify-content-between" :class="{
+            active: route.path.startsWith(item.router),
+            'bg-warning': route.path.startsWith(item.router)
+          }" @click.prevent="item.actions ? toggleItem(item.id) : router.push(item.router)">
+            <div class="d-flex  align-items-center">
               <i :class="['me-2', item.icon]"></i>
               <span v-if="!isCollapsed">{{ item.text }}</span>
             </div>
-            <i
-              v-if="item.actions && !isCollapsed"
-              :class="['bi', isOpen(item.id) ? 'bi-chevron-up' : 'bi-chevron-down']"
-            ></i>
+            <i v-if="item.actions && !isCollapsed"
+              :class="['bi', isOpen(item.id) ? 'bi-chevron-up' : 'bi-chevron-down']"></i>
           </a>
 
           <!-- Submenu -->
-          <ul
-            v-if="item.actions && isOpen(item.id) && !isCollapsed"
-            class="nav flex-column ms-4 "
-          >
+          <ul v-if="item.actions && isOpen(item.id) && !isCollapsed" class="nav flex-column ms-4 ">
             <li v-for="(action, index) in item.actions" :key="index" class="nav-item">
               <RouterLink :to="action.route" class="nav-link text-white-50">
                 {{ action.name }}
@@ -105,8 +89,8 @@ const filteredNavbarItems = computed(() => {
       </ul>
 
       <!-- Botões no final -->
-      <div class="mt-auto d-flex flex-column gap-2" v-if="!isCollapsed">
-        <ButtonComponent :icon="'bi bi-shop'" :style="'orange'" class="w-100" @click="goToHome" />
+      <div class="mobile-buttons mt-auto d-flex flex-column gap-2" v-if="!isCollapsed">
+        <ButtonComponent :icon="'bi bi-shop'" :style="'orange-w'" class="w-100" @click="goToHome" />
         <ButtonComponent :icon="'bi bi-box-arrow-right'" :style="'red'" class="w-100" @click="handleLogout" />
       </div>
     </nav>
@@ -119,11 +103,12 @@ const filteredNavbarItems = computed(() => {
 </template>
 
 <style scoped>
-
-.bg-primary{
+/* Cores principais */
+.bg-primary {
   background-color: var(--Blue-500) !important;
 }
 
+/* Sidebar colapsada */
 nav.collapsed {
   min-width: 80px !important;
   width: 80px !important;
@@ -135,35 +120,127 @@ nav.collapsed ul ul {
   display: none !important;
 }
 
+/* Link ativo */
 .nav-link.bg-warning {
   background-color: #ff9800 !important;
 }
+
 nav .nav-link {
   transition: background-color 0.3s ease;
 }
 
 nav .nav-link.active {
-  background-color: #ff9800 !important; 
-  color: white !important; 
+  background-color: #ff9800 !important;
+  color: white !important;
 }
 
+/* Submenu padrão (desktop) */
 nav ul ul {
-  opacity: 1 !important; 
+  display: none;
+  /* Esconde o submenu inicialmente */
+  opacity: 1 !important;
 }
 
+/* Links dentro do submenu */
 nav ul ul li a {
   color: rgb(255, 255, 255) !important;
 }
 
 nav ul ul li a:hover {
-  color: #ff9800 !important; 
+  color: #ff9800 !important;
 }
 
-nav .nav-item:hover > ul {
+/* Quando passar mouse em cima no desktop, mostra submenu */
+nav .nav-item:hover>ul {
   display: block;
 }
 
-.bg-body{
+/* Fundo do main */
+.bg-body {
   background-color: aliceblue !important;
+}
+
+@media (max-width: 425px) {
+  .logo {
+    display: none !important;
+  }
+
+  .mobile-buttons {
+    display: none !important;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .mobile {
+    flex-direction: column;
+  }
+
+  .mobile-icons {
+    flex-direction: row !important;
+  }
+
+  .mobile-buttons {
+    flex-direction: row !important;
+  }
+
+  nav {
+    flex-direction: row !important;
+    height: auto !important;
+    justify-content: space-evenly !important;
+    padding: 0 !important;
+    align-items: center !important;
+  }
+
+  nav ul.nav {
+    flex-direction: row;
+    /* Itens do menu lado a lado */
+    align-items: start;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  nav ul.nav li.nav-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul.nav li.nav-item a {
+    font-size: 0.8rem;
+    /* Texto menor */
+    padding: 0.25rem 0.5rem;
+    /* Menos espaço */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav ul.nav li.nav-item i {
+    font-size: 1rem;
+    /* Ícone menor */
+  }
+
+  /* Sidebar "colapsada" no mobile ocupa 100% */
+  nav.collapsed {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  /* No mobile: submenu fica liberado */
+  nav ul ul {
+    display: block !important;
+  }
+
+  /* Mostrar o texto e botões normalmente no mobile */
+  nav.collapsed .nav-link span,
+  nav.collapsed .mt-auto,
+  nav.collapsed ul ul {
+    display: block !important;
+  }
+
+  /* No mobile, hover não controla submenu */
+  nav .nav-item:hover>ul {
+    display: block;
+  }
 }
 </style>

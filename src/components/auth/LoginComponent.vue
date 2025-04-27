@@ -12,7 +12,7 @@ import ButtonComponent from '../common/ButtonComponent.vue';
 import InputEmail from '../common/InputEmail.vue';
 import InputPassword from '../common/InputPassword.vue';
 import ContinueWith from './ContinueWith.vue';
-import IsAuthDesktp from '../Dashbord/isAuthDesktp.vue';// refs
+import Logado from '../Dashbord/isAuthDesktp.vue';// refs
 const email = ref('');
 const senha = ref('');
 const errorMessage = ref('');
@@ -91,8 +91,8 @@ onMounted(() => {
       </div>
     </section>
 
-    <section v-else>
-      <IsAuthDesktp />
+    <section v-else class="mobile">
+      <Logado />
     </section>
   </main>
 </template>
@@ -144,6 +144,10 @@ main {
     font-size: 1.3rem;
     padding-bottom: 5px;
   }
+}
+
+@media (max-width:450px) {
+
 }
 
 @media (min-width: 1024px) {
@@ -199,7 +203,6 @@ main {
   }
 
   .contain {
-
     & h1 {
       font-size: 2.4rem;
     }

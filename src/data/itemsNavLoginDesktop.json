@@ -71,7 +71,7 @@
       },
       {
         "name": "Orders",
-        "route": "/dashboard/edit/orders",
+        "route": "/dashboard/edit/orders/list",
         "desc": "You can Create, Read, Update and Delete"
       }
     ]

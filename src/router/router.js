@@ -74,24 +74,26 @@ const router = createRouter({
           path: '/mycart',
           name: 'cart',
           component: () => import('../views/ShopView.vue'),
-          meta: { hideHeader: true,
-            hideFooter: true, }
+          meta: {
+            hideHeader: true,
+            hideFooter: true,
+          }
         },
         // Página do perfil do usuário
         {
           path: 'myaccount',
           name: 'myAccount',
           meta: { hideHeader: true, hideFooter: true },
-          children:[
+          children: [
             {
               path: 'address',
               name: 'address',
               component: () => import('@/components/client/user/pages/ModalAddress.vue'),
             },
-            {        
+            {
               // update account
               path: 'editProfile',
-              name:'edit',
+              name: 'edit',
               component: () => import('@/components/client/user/ProfileView.vue')
             }
           ]
@@ -174,14 +176,34 @@ const router = createRouter({
             // Visualização de pedidos
             {
               path: 'orders',
-              name: 'orders',
+              name: 'edit orders',
               component: () => import('@/components/client/ADMIN/pages/AdminOrders.vue'),
               meta: {
                 hideHeader: true,
                 hideFooter: true,
                 requiresModeratorAndAdmin: true
-              }
+              },
+              children: [
+                {
+                  path: 'list', 
+                  name: 'list orders',
+                  component: () => import('@/components/client/ADMIN/orders/OrdersComponent.vue')
+                },{
+                  path: 'get', 
+                  name: 'get orders',
+                  component: () => import('@/components/client/ADMIN/orders/GetOrders.vue')
+                },{
+                  path: 'update', 
+                  name: 'update orders',
+                  component: () => import('@/components/client/ADMIN/orders/UpdateOrders.vue')
+                },{
+                  path: 'delete', 
+                  name: 'delete orders', 
+                  component: () => import('@/components/client/ADMIN/orders/DeleteOrders.vue')
+                },
+              ],
             },
+            
 
             // Gerenciamento geral de produtos e categorias
             {

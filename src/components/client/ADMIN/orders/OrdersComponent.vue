@@ -4,6 +4,7 @@ import socket from '@/services/socket';
 
 const orders = ref([]);
 console.log(orders.value)
+
 onMounted(() => {
   socket.on("connect", () => {
     console.log("Conectado com sucesso");
@@ -55,9 +56,7 @@ onUnmounted(() => {
 </template>
 
 
-
 <style scoped>
-/* Só um estilo básico */
 ul {
   list-style: none;
   padding: 0;

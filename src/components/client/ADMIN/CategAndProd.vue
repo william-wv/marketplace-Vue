@@ -20,10 +20,6 @@ const props = defineProps({
   </h1>
 
   <div class="d-flex justify-content-around">
-
-    <RouterLink to="/dashboard/edit" class="d-flex  align-items-center">
-      <i class="bi bi-arrow-left"></i>Return to control panel
-    </RouterLink>
     <div class="d-flex - gap-3">
       <ButtomComponentRoute :rota="'/dashboard/edit/categories/create'" :icon="'bi bi-plus-lg'"
         :title="'Create Category'" :style="'blue'" />

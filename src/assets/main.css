@@ -16,9 +16,10 @@ overflow-x: hidden;
 
 ol, ul,li {
 list-style: none;
-
+padding-left: 0 !important;
 }
 a,li{
+  
   text-decoration: none !important;
   color: var(--White-050);
 }

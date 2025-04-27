@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Order List",
+    "router": "/dashboard/edit/orders/list"
+  },
+  {
+    "id": 2,
+    "name": "Get Order",
+    "router": "/dashboard/edit/orders/get"
+  },
+  {
+    "id": 3,
+    "name": "Update Order",
+    "router": "/dashboard/edit/orders/update"
+  },
+  {
+    "id": 4,
+    "name": "Delete Order",
+    "router": "/dashboard/edit/orders/delete"
+  }
+]

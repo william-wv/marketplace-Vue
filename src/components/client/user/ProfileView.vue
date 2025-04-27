@@ -10,12 +10,12 @@ import UpdateProfile from './pages/UpdateProfile.vue';
 
 <template>
 
-  <div class="d-flex align-items-center h-100 gap-5 justify-content-center w-100">
-    <aside class="d-flex flex-column align-items-center gap-2" style="max-width: 400px;">
+  <div class="d-flex align-items-center justify-content-center h-100 gap-5 w-100 row col-12">
+    <aside class="col-6 d-flex flex-column align-items-center gap-2" style="max-width: 400px;">
       <CardProfile class="p-3" />
       <CardContact class="p-3"/>
     </aside>
-    <main>
+    <main class="col-6">
       <UpdateProfile class="p-5"/>
     </main>
 
