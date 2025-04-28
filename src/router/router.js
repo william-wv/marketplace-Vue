@@ -39,9 +39,21 @@ const router = createRouter({
     {
       path: '/categories',
       name: 'categories',
-      component: () => import('../views/CategoriesView.vue')
+      component: () => import('../views/CategoriesView.vue'),
+      meta: { hideFooter: true}
     },
-
+    {
+      path: '/favorites',
+      name: 'My favorites',
+      component: () => import('@/views/FavoritesView.vue'),
+      meta: { hideFooter: true}
+    }, 
+    {
+      path: '/discounts',
+      name: 'My discounts',
+      component: () => import('@/views/DiscountsView.vue'),
+      meta: { hideFooter: true}
+    },
     // Página da loja (sem nav)
     {
       path: '/shop',
@@ -53,6 +65,7 @@ const router = createRouter({
       path: '/coupons',
       name: 'coupons',
       component: () => import('../views/CuponsView.vue'),
+      meta: { hideFooter: true,}
     },
 
     // Área do painel (dashboard) protegida por autenticação

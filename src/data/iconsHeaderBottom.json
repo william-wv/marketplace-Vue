@@ -7,27 +7,29 @@
   },
   {
     "id": 2,
-    "class": "bi bi-heart",
-    "name": "favorites",
-    "route": "/favorites"
-  },
-  {
-    "id": 3,
     "class": "bi bi-tags",
     "name": "categories",
     "route": "/categories"
   },{
-    "id": 4,
+    "id": 3,
     "class": "bi bi-cash-coin",
     "name": "discounts",
     "route": "/discounts"
-  }
-  ,{
-    "id": 5,
+  },
+  {
+    "id": 4,
     "class": "bi  bi-postcard",
     "name": "coupons",
     "route": "/coupons"
-  },{
+  },
+  {
+    "id": 5,
+    "class": "bi bi-heart",
+    "name": "favorites",
+    "route": "/favorites"
+  },
+  
+  {
     "id": 6,
     "class": "bi bi-person-circle",
     "name": "login",

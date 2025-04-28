@@ -43,12 +43,12 @@ onMounted(() => {
     <div class="d-flex justify-content-center  gap-5">
       <div class="" v-for="cat in paginatedCategories" :key="cat.id">
         <RouterLink class="text-decoration-none text-dark">
-          <div class="card border-0 text-center">
+          <div class=" border-0 text-center">
             <div class="image-placeholder rounded mb-2">
               <img v-if="cat.image_path" :src="getImageUrl(cat.image_path)" alt="Category Image" class="img-fluid rounded" style="object-fit: cover; width: 100%; height: 100%;">
             </div>
             <div class="card-body p-0">
-              <h6 class="fw-bold mt-2">{{ cat.name }}</h6>
+              <h6 class="fw-bold mt-2 text-white">{{ cat.name }}</h6>
             </div>
           </div>
         </RouterLink>

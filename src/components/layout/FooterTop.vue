@@ -19,7 +19,7 @@ import InputEmail from '../common/InputEmail.vue';
             <InputEmail />
           </div>
           <div>
-            <ButtonComponent :text="'Sign up'" :style="'blue'" class="btn-newsletter" />
+            <ButtonComponent :text="'Sign up'" :style="'blue'" />
           </div>
         </form>
       </div>
@@ -28,9 +28,7 @@ import InputEmail from '../common/InputEmail.vue';
 </template>
 
 <style scoped>
-.btn-newsletter {
-  padding: 0.5rem 1.5rem;
-}
+
 
 .position-relative {
   top: 5px;
