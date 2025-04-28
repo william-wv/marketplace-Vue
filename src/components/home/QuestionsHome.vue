@@ -1,28 +1,28 @@
 <template>
   <section class="py-5 bg-light">
-    <div class=" text-center">
-      <h2 class="mb-5">Por que comprar no MeuMarket?</h2>
+    <div class="text-center">
+      <h2 class="mb-5">Why shop at MeuMarket?</h2>
 
       <div class="whybuy-container">
         <CardWhyBuy
           icon="bi-truck"
-          title="Entrega Rápida"
-          text="Entregamos em todo o Brasil com rapidez e segurança."
+          title="Fast Delivery"
+          text="We deliver all over Brazil with speed and security."
         />
         <CardWhyBuy
           icon="bi-shield-lock"
-          title="Compra Segura"
-          text="Seus dados estão protegidos e suas compras garantidas."
+          title="Secure Shopping"
+          text="Your data is safe, and purchases are guaranteed."
         />
         <CardWhyBuy
           icon="bi-credit-card"
-          title="Pagamento"
-          text="Cartões, boleto, Pix e parcelamento sem juros."
+          title="Payment"
+          text="Credit cards, boleto, Pix, and interest-free installments."
         />
         <CardWhyBuy
           icon="bi-clock"
-          title="Atendimento 24h"
-          text="Estamos sempre disponíveis para ajudar você."
+          title="24/7 Support"
+          text="We are always available to assist you."
         />
       </div>
     </div>
@@ -40,7 +40,7 @@ import CardWhyBuy from '../layout/CardWhyBuy.vue';
   gap: 2rem;
 }
 
-/* Responsividade */
+/* Responsiveness */
 @media (max-width: 992px) {
   .whybuy-container {
     gap: 1.5rem;

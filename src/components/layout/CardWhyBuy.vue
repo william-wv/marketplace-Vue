@@ -1,6 +1,6 @@
 <template>
-  <div class="card-item ">
-    <div class="icon-circle d-flex">
+  <div class="card-item gap-2">
+    <div class="icon-circle d-flex ">
       <i :class="`${icon} fs-3  text-white`"></i>
     </div>
     <h5>{{ title }}</h5>

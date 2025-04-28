@@ -47,7 +47,7 @@ const router = createRouter({
       path: '/shop',
       name: 'shop',
       component: () => import('../views/ShopView.vue'),
-      meta: { hideNav: true }
+      meta: { hideNav: true,  hideFooter: true, }
     },
     {
       path: '/coupons',
