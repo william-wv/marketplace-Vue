@@ -40,7 +40,7 @@ async function handleChangeImage(event) {
             <img :src="imageUrl" alt="User image" class="w-100 h-100 object-fit-cover rounded-circle" />
           </span>
           <div v-else class="d-flex justify-content-center align-items-center h-100 text-white bg-primary">
-            <h1 class="fs-3 m-0">{{ primeiraLetra }}</h1>
+            <h1 style="font-size: 5rem;" class=" m-0">{{ primeiraLetra }}</h1>
           </div>
         </div>
     

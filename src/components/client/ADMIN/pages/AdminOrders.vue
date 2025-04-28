@@ -16,7 +16,7 @@ const route = useRoute();
         <h1 class="fs-2">Admin Orders</h1>
       </div>
       <ul>
-        <li v-for="l in list" :key="l.router" class="text-black btn border w-100 my-3" :class="{
+        <li v-for="l in list" :key="l.router" class="text-black btn border w-100 my-1" :class="{
           'bg-warning': route.path.startsWith(l.router)
         }" @click="$router.push(l.router)">
           {{ l.name }}

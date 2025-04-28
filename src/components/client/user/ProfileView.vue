@@ -16,7 +16,7 @@ import UpdateProfile from './pages/UpdateProfile.vue';
       <CardContact class="p-3"/>
     </aside>
     <main class="col-6">
-      <UpdateProfile class="p-5"/>
+      <UpdateProfile class="p-5"/> 
     </main>
 
   </div>

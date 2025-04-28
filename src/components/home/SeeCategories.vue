@@ -4,7 +4,7 @@ import { onMounted, ref, computed } from 'vue';
 
 const categories = ref([])
 const currentPage = ref(1)
-const itemsPerPage = 6 // 3x2 layout
+const itemsPerPage = 6
 
 const paginatedCategories = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage
@@ -34,49 +34,40 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class=" mt-5 ">
-    <RouterLink to="/categories" >
-      <h1 class="text-center mb-4">See Categories</h1>
-    </RouterLink>
-    <div>
-
+  <main class="bg-primary p-5 my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 ">
+      <h2 class="fw-bold text-white">Categorias Populares</h2>
+      <RouterLink to="/categories" class="text-decoration-none text-white">Ver todas ></RouterLink>
     </div>
-    <div class="mx-5 row">
-      <div class="col-md-4 mb-4" v-for="cat in paginatedCategories" :key="cat.id">
-        <RouterLink  class="text-decoration-none text-dark w-100">
-          <div class="card h-100 shadow-sm w-100">
-            <img :src="getImageUrl(cat.image_path)" class="card-img-top" alt="Category Image"
-              style="height: 200px; object-fit: cover;">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ cat.name }}</h5>
+
+    <div class="d-flex justify-content-center  gap-5">
+      <div class="" v-for="cat in paginatedCategories" :key="cat.id">
+        <RouterLink class="text-decoration-none text-dark">
+          <div class="card border-0 text-center">
+            <div class="image-placeholder rounded mb-2">
+              <img v-if="cat.image_path" :src="getImageUrl(cat.image_path)" alt="Category Image" class="img-fluid rounded" style="object-fit: cover; width: 100%; height: 100%;">
+            </div>
+            <div class="card-body p-0">
+              <h6 class="fw-bold mt-2">{{ cat.name }}</h6>
             </div>
           </div>
         </RouterLink>
       </div>
     </div>
-
-    <!-- Paginação -->
-    <nav class="d-flex justify-content-center mt-4">
-      <ul class="pagination">
-        <li class="page-item" :class="{ disabled: currentPage === 1 }">
-          <button class="page-link" @click="prevPage">Anterior</button>
-        </li>
-
-        <li class="page-item disabled">
-          <span class="page-link">Página {{ currentPage }} de {{ totalPages }}</span>
-        </li>
-
-        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-          <button class="page-link" @click="nextPage">Próxima</button>
-        </li>
-      </ul>
-    </nav>
   </main>
 </template>
 
 <style scoped>
-.border{
-  border: 1px solid var(--Blue-500) !important;
+.image-placeholder {
+  width: 200px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
+.bg-primary{
+  background-color: var(--Blue-700) !important;
+}
 </style>

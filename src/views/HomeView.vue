@@ -1,6 +1,6 @@
 <script setup>
-import CallUs from '@/components/home/CallUs.vue';
 import DiscontIcons from '@/components/home/DiscontIcons.vue';
+import QuestionsHome from '@/components/home/QuestionsHome.vue';
 import SeeCategories from '@/components/home/SeeCategories.vue';
 import HomeComponent from '@/components/pages/HomeComponent.vue';
 
@@ -10,11 +10,19 @@ import HomeComponent from '@/components/pages/HomeComponent.vue';
 
 <template>
   <main class="bg-light">
-    <!-- <HomeComponent/> -->
+    <HomeComponent class="height"/>
     
     <SeeCategories />
     <DiscontIcons />
 
-    <!-- <CallUs/> -->
+    <QuestionsHome/>
   </main>
 </template>
+
+<style scoped>
+
+.height{
+  height: 75svh !important;
+}
+
+</style>
