@@ -22,17 +22,7 @@ const auth = useAuthStore();
 </script>
 
 <template>
-  <section v-if="isMobile">
-    <div>
-      <h1> Bem vindo! <br>
-        <span class="name-color">{{ auth.user.name }}</span>
-      </h1>
-      <h2 style="color: var(--text-h2);">Welcome back to Marquetplace</h2>
-    </div>
-    <div class="d-flex">
-    
-    </div>
-  </section>
+<
 </template>
 
 <style scoped>
