@@ -55,18 +55,13 @@ const auth = useAuthStore();
 
       <div ref="offcanvasElement" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: var(--White-050);">Menu</h5>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav">
             <RouterLink class="d-flex" to="/" @click="closeOffcanvas">
               <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
               <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Home</li>
-            </RouterLink>
-            <RouterLink class="d-flex" to="/login" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li class="nav-item">Login</li>
             </RouterLink>
             <RouterLink class="d-flex" to="/categories" @click="closeOffcanvas">
               <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
@@ -80,16 +75,12 @@ const auth = useAuthStore();
               <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
               <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Coupons</li>
             </RouterLink>
-            <RouterLink class="d-flex" to="/shop" @click="closeOffcanvas">
-              <div class="icon-flex"><i class="bi bi-arrow-left-short"></i></div>
-              <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item">Shop</li>
-            </RouterLink>
           </ul>
         </div>
       </div>
     </section>
     <section v-else>
-      <div class="container-itens__header d-flex w-100">
+      <div class="container-itens__header d-flex ">
         <div class="logo__header">
           <RouterLink to="/">
             <h1 class="logo">Compre +</h1>
@@ -98,13 +89,6 @@ const auth = useAuthStore();
 
         <div class="busca__header">
           <input type="text" class="form-control" placeholder="Digite para buscar..." />
-
-          <!-- <ul class="list-group mt-3">
-          <li v-for="item in filteredItems" :key="item.id" class="list-group-item">
-            {{ item.name }}
-          </li>
-        </ul> -->
-
         </div>
 
         <div class="p-2">
@@ -113,6 +97,7 @@ const auth = useAuthStore();
             {{ auth.user.name }}
           </p>
         </div>
+        
       </div>
     </section>
   </div>
@@ -179,7 +164,7 @@ h1 {
 
 .container-itens__header {
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 30px;
 }
 
