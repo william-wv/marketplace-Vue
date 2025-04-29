@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-
-import InnputName from '../common/InnputName.vue';
 import ButtonComponent from '../common/ButtonComponent.vue';
 
 import { useCartStore } from '@/stores/carrinho';
-import { useOrder } from '@/stores/order.js';
+import InputNumber from '../common/InputNumber.vue';
 
 const props = defineProps({
   idEndereco: {
@@ -15,7 +13,6 @@ const props = defineProps({
 });
 
 const cartStore = useCartStore()
-const orders = useOrder()
 
 const cuponSelect = ref(0) 
 
@@ -25,7 +22,7 @@ function converterParaDolar(precoBRL) {
 
 function Enviar() {
   console.log("Cupom enviado:", cuponSelect.value);
-  orders.addOrder({
+  cartStore.addOrder({
     address_id: props.idEndereco,
     coupon_id: cuponSelect.value || null
   });
@@ -34,30 +31,57 @@ function Enviar() {
 </script>
 
 <template>
-  <div class="mt-5">
-    <div class="card">
-      <h1 class="p-4">Order Summary</h1>
-      <div class="w-100">
-        <div class="m-4 bt-1 mb-0 text-cart d-flex justify-content-between">
-          <h3>Subtotal:</h3>
-          <h2 class="fs-4">{{ converterParaDolar(cartStore.totalPriceCart) }}</h2>
+  <div class="container my-5">
+    <div class="card shadow rounded">
+      <div class="card-header bg-primary text-white text-center">
+        <h3 class="mb-0">Resumo do Pedido</h3>
+      </div>
+
+      <div class="card-body">
+        <!-- Subtotal -->
+        <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+          <span class="fw-semibold">Subtotal:</span>
+          <span class="fs-5">{{ converterParaDolar(cartStore.totalPriceCart) }}</span>
         </div>
-        <div class="m-4 bt-1 mb-0 text-cart d-flex justify-content-between">
-          <h3>Shipping:</h3>
-          <h2 class="fs-4">$0.00</h2>
+
+        <!-- Frete -->
+        <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+          <span class="fw-semibold">Frete:</span>
+          <span class="fs-5">$0.00</span>
         </div>
-        <div class="m-4 bt-1 mb-4 text-cart d-flex justify-content-between">
-          <h3>TAX:</h3>
-          <h2 class="fs-4">$0.00</h2>
+
+        <!-- Imposto -->
+        <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+          <span class="fw-semibold">Imposto:</span>
+          <span class="fs-5">$0.00</span>
         </div>
-        <div class="m-4 bt-1 mb-0 text-cart d-flex justify-content-between">
-          <h3>Total:</h3>
-          <h2 class="fs-4">{{ converterParaDolar(cartStore.totalPriceCart) }}</h2>
+
+        <!-- Total -->
+        <div class="d-flex justify-content-between mb-4 border-bottom pb-3">
+          <span class="fw-bold fs-5">Total:</span>
+          <span class="fw-bold fs-5">{{ converterParaDolar(cartStore.totalPriceCart) }}</span>
         </div>
-        <p v-if="idEndereco">Endereço Selecionado: {{ idEndereco }}</p>
-        <InnputName class="m-4 mt-0 mb-0" :icon="'bi bi-wallet-fill'" :step-name="'Add your cupon'"
-          v-model="cuponSelect" />
-        <ButtonComponent class="mt-2 mb-3 mx-3 ml-2 w-100" :title="'Submit'" :class="'blue'" @click="Enviar" />
+
+        <!-- Endereço selecionado -->
+        <div v-if="idEndereco" class="alert alert-info d-flex align-items-center" role="alert">
+          <i class="bi bi-geo-alt-fill me-2"></i>
+          <div>Endereço Selecionado: <strong>#{{ idEndereco }}</strong></div>
+        </div>
+
+        <!-- Cupom -->
+        <InputNumber
+          class="mb-3"
+          :icon="'bi bi-wallet-fill'"
+          :step-name="'Adicione seu cupom'"
+          v-model="cuponSelect"
+        />
+
+        <!-- Botão -->
+        <ButtonComponent
+          class="btn btn-primary w-100"
+          :title="'Finalizar Pedido'"
+          @click="Enviar"
+        />
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { onMounted, ref } from 'vue';
-import { getProd, cartService } from '@/services/http';
+import { getProd, cartService, postOrders } from '@/services/http';
 import { useStore } from './produtos';
 import { push } from 'notivue';
 const prd = useStore()
@@ -11,7 +11,10 @@ export const useCartStore = defineStore('cart', () => {
   const totalPriceCart = ref(0);
   const carregandoCarrinho = ref(true);
   const taxaDeCambio = ref(0.17);
+  const isLoading = ref(false)
+  const error = ref(null)
 
+  
   function atualizarTotal() {
     totalPriceCart.value = carrinho.value.reduce((total, item) => {
       return total + item.unit_price * item.quantity;
@@ -43,6 +46,8 @@ export const useCartStore = defineStore('cart', () => {
     try {
       await cartService.removeCartItem(id);
       carrinho.value = carrinho.value.filter(item => item.product_id !== id);
+      push.warning('Item removed')
+
       atualizarTotal();
     } catch (error) {
       console.error('Erro ao remover item:', error);
@@ -53,7 +58,7 @@ export const useCartStore = defineStore('cart', () => {
     try {
       const resposta = await cartService.clearCart()
       carrinho.value = [];
-      push.warning('Your cart is ')
+      push.warning('Your cart is empty')
       return resposta
     } catch (error) {
       console.error(error)
@@ -100,7 +105,26 @@ export const useCartStore = defineStore('cart', () => {
     }).format(precoBRL * taxaDeCambio.value);
   }
 
+  async function addOrder({
+    address_id,
+    coupon_id
+  }) {
+    isLoading.value = true
+    error.value = null
 
+    try {
+      const order = {
+        address_id,
+        coupon_id,
+      }
+      await postOrders(order)
+    } catch (err) {
+      console.error('Erro ao enviar pedido:', err)
+      error.value = err
+    } finally {
+      isLoading.value = false
+    }
+  }
 
   onMounted(() => {
     getProd()
@@ -119,7 +143,8 @@ export const useCartStore = defineStore('cart', () => {
     alterarQuantidade,
     getNomeProduto,
     converterParaDolar,
-    clearCartAll
+    clearCartAll,
+    addOrder
   };
 }, {
   persist: {

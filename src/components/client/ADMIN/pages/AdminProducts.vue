@@ -56,12 +56,7 @@ onMounted(() => {
       @deletar="deletarProduto" 
       />
 
-      <!-- <ProductModal  
-        v-if="mostrarModal" 
-        :products="produtoSelecionada"
-       @salvar="salvarEdicao(categoriaSelecionada)" 
-       @fechar="mostrarModal = false" 
-       /> -->
+  z
     </div>
   </main>
 </template>

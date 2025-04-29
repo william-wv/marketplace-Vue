@@ -21,8 +21,14 @@
     "class": "bi bi-cash-coin",
     "name": "discounts",
     "route": "/discounts"
-  },{
+  }
+  ,{
     "id": 5,
+    "class": "bi  bi-postcard",
+    "name": "coupons",
+    "route": "/coupons"
+  },{
+    "id": 6,
     "class": "bi bi-person-circle",
     "name": "login",
     "route": "/login"

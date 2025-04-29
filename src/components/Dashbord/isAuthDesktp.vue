@@ -25,8 +25,6 @@ function handleLogout() {
 
 const handleMouseEnter = () => {
   isCollapsed.value = false
-
-  // Só faz a animação de delay 1x
   if (!jaMostrou.value) {
     jaMostrou.value = true
     setTimeout(() => {
@@ -56,7 +54,7 @@ const filteredNavbarItems = computed(() => {
       <div class="container-aside d-flex flex-column h-100">
         <div class="d-flex">
           <div>
-            <h1 class="mb-4 px-3 text-uppercase" v-if="!isCollapsed">Dashbord</h1>
+            <h1 class="mb-4 px-3 text-uppercase logo fs-2" v-if="!isCollapsed">Compre+</h1>
             <h1 class="logo mb-4 px-3 fs text-uppercase" v-if="isCollapsed">c+</h1>
           </div>
         </div>

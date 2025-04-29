@@ -1,10 +1,8 @@
 <script setup>
-defineProps(['categoria']);
-defineEmits(['salvar', 'fechar']);
+import InnputName from '@/components/common/InnputName.vue';
 
-const salvar = () => {
-  emit('salvar', ProdutEditavel.value); // <- Emitindo os dados editados
-};
+defineProps(['produto']);
+defineEmits(['salvar', 'fechar']);
 </script>
 
 <template>
@@ -12,19 +10,18 @@ const salvar = () => {
   <div class="modal-backdrop" @click="$emit('fechar')">
     <!-- Modal -->
     <div class="modal-content" @click.stop>
-      <h2>{{ categoria.id ? 'Editar Categoria' : 'Nova Categoria' }}</h2>
-      <input v-model="categoria.name" placeholder="Nome da categoria" />
-      <input v-model="categoria.description" placeholder="Descrição da categoria" />
+      <h2>Editar produto</h2>  
+      <span class="text-primary"><h3 class="fs-6">{{ produto.name }}</h3></span>
+      <InnputName v-model="produto.name" :icon="'bi bi-box'" />
+      <InnputName v-model="produto.description" :icon="'bi bi-list'" />
 
       <div class="botoes">
         <button @click="$emit('fechar')">Cancelar</button>
-        <button @click="$emit('salvar')">Salvar</button>
+        <button @click="$emit('salvar', produto)">Salvar</button>
       </div>
     </div>
   </div>
 </template>
-
-
 
 <style scoped>
 /* Backdrop */
@@ -35,12 +32,10 @@ const salvar = () => {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
-  /* Fundo semitransparente */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  /* Coloca o backdrop acima de outros elementos */
 }
 
 /* Modal */
@@ -48,9 +43,8 @@ const salvar = () => {
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  width: 300px;
+  width: 50svw;
   z-index: 1001;
-  /* Coloca o modal acima do backdrop */
   position: relative;
 }
 

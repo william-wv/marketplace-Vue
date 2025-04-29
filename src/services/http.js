@@ -22,7 +22,7 @@ function authHeaders() {
   const token = authStore.token;
 
   return {
-      'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${token}`
   };
 }
 
@@ -98,6 +98,19 @@ export async function deleteProd(id) {
   }
 }
 
+export async function putProd(id, payload) {
+  try {
+    const response = await api.put(`products/${id}`, payload);
+    return response;
+  } catch (error) {
+    console.error('Erro ao atualizar produto:', error);
+    throw error;
+  }
+}
+
+
+
+
 export async function editStock(id, payload) {
   try {
     const response = await api.put(`products/${id}/stock`, payload);
@@ -140,6 +153,22 @@ export async function getCategories() {
   }
 }
 
+export async function getCategoriesWithImage() {
+  try {
+    const response = await api.get(`categories/`, {
+      headers: {
+        Accept: 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar categorias:', error);
+    throw error;
+  }
+}
+
+
 export async function createCategory(payload) {
   try {
     const response = await api.post('categories/', payload, {
@@ -180,14 +209,10 @@ export async function deleteCategory(id) {
 
 // ------ FUNÇÕES DE IMAGEM ------
 export function getImageUrl(imagePath) {
-  if (!imagePath) {
-    return '/placeholder.jpg';
-  }
-  return `http://35.196.79.227:8000${imagePath.startsWith('/uploads/products/') ? imagePath : `/uploads/products/${imagePath}`}`;
+  const baseUrl = 'http://35.196.79.227:8000';
+  return `${baseUrl}${imagePath}`;
 }
-
 // ---------- ADDRESS ----------------
-
 
 export async function getAddress() {
   try {
@@ -198,7 +223,7 @@ export async function getAddress() {
   }
 }
 export async function criarEndereco(endereco) {
-  const response = await api.post('/addresses/', endereco) 
+  const response = await api.post('/addresses/', endereco)
   return response.data
 }
 
@@ -208,12 +233,12 @@ export async function getAddressById(addressId) {
 }
 
 export async function deleteAddress(id) {
-  
+
 }
 
 // Carrinho 
 export const cartService = {
-  
+
   async getCart() {
     return api.get('cart/');
   },
@@ -260,19 +285,46 @@ export const cartService = {
 
 // orders
 export async function postOrders(order) {
-  try{
-    const reponse = await api.post('orders/', order,{
-        headers:{
-            ...authHeaders(),
-            'Content-Type': 'application/json' 
-        }
+  try {
+    const reponse = await api.post('orders/', order, {
+      headers: {
+        ...authHeaders(),
+        'Content-Type': 'application/json'
+      }
     })
     return reponse
-}catch(error){
+  } catch (error) {
     console.log(error)
+  }
 }
 
+export async function putOrders(id_Order, payload) {
+  try {
+    const reponse = await api.put(`orders/${id_Order}`, payload, {
+      headers: {
+        ...authHeaders(),
+        'Content-Type': 'application/json'
+      }
+    })
+    return reponse
+  } catch (error) {
+    console.log(error)
+  }
 }
 
+
+export async function getOrdersById(id_Order) {
+  try{
+    const response = await api.get(`orders/${id_Order}`, {
+      headers: {
+        ...authHeaders(),
+        'Content-Type': 'application/json'
+      }
+    }) 
+  return response.data
+  } catch(e){
+    console.log(e)
+  }
+}
 
 export default api

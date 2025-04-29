@@ -10,6 +10,6 @@ const emit = defineEmits(['click'])
 <template>
   <div>
     <input    @click="$emit('click')" type="radio" id="address" name="zip" value="huey"  />
-    <label for="address">{{ zip }}</label>
+    <label for="address"></label>
   </div>
 </template>

@@ -1,16 +1,13 @@
 <script setup>
-// import "@/service/socket"
 import { useRoute } from 'vue-router';
 import FooterBottom from './components/layout/FooterBottom.vue';
 import HeaderBottom from './components/layout/HeaderBottom.vue';
 import HeaderTop from './components/layout/HeaderTop.vue';
-import HeaderHome from './components/layout/HeaderNavMobile.vue';
 
 
 import { Notivue, Notification } from 'notivue'
 
 const route = useRoute()
-
 
 </script>
 
@@ -32,8 +29,6 @@ const route = useRoute()
   <footer v-if="!route.meta.hideFooter">
     <FooterBottom />
   </footer>
-
-
 
 </template>
 

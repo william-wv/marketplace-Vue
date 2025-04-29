@@ -1,8 +1,6 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import ButtomComponentRoute from '@/components/common/ButtomComponentRoute.vue';
 
-const router = useRouter()
 
 const props = defineProps({
   title: String,

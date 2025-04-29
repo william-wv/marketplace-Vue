@@ -15,7 +15,11 @@ const showDropdown = ref(false);
     <td class="p-3 text-center">{{ categoria.id }}</td>
     <td class="p-3">{{ categoria.name }}</td>
     <td class="p-3">{{ categoria.description }}</td>
+<<<<<<< HEAD
     <td class="p-3 text-center"> 1 </td>
+=======
+    <td class="p-3 text-center"></td>
+>>>>>>> e6a293dc410a255436b122eac0bfca4d7348d207
     <td class="p-3 text-center">
       <span class="bg-success bg-gradient rounded-pill text-white p-2">
         <i class="bi bi-check-circle animate-pulse"></i>
