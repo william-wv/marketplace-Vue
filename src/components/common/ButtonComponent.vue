@@ -20,13 +20,12 @@ defineProps({
 .blue {
   color: var(--White-000) !important;
   padding: 10px 15px;
-  background-color: var(--Blue-900);
+  background-color: var(--Blue-700);
   border-radius: 8px;
 }
 
 
 .blue:hover {
-  transform: translateY(-3px) scale(1.03);
   box-shadow: 0 6px 16px rgba(201, 186, 186, 0.808);
   background-color: var(--Blue-100);
 }
@@ -48,7 +47,6 @@ defineProps({
 }
 
 .red:hover {
-  transform: translateY(-3px) scale(1.03);
   background-color: var(--Red-600);
   box-shadow: 0 6px 16px rgba(201, 186, 186, 0.808);
   background-color: var(--Red-500);
@@ -71,7 +69,6 @@ defineProps({
 }
 
 .orange:hover {
-  transform: translateY(-3px) scale(1.03);
   background-color: var(--Orange-600);
   box-shadow: 0 6px 16px rgba(255, 140, 0, 0.3);
 }

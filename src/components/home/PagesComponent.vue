@@ -1,3 +1,4 @@
+<!-- PagesComponent.vue -->
 <script setup lang="ts">
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 
@@ -10,15 +11,14 @@ const props = defineProps({
 </script>
 
 <template>
-  <main class="d-flex justify-content-center align-items-center h-100">
+
     <div class="row col-12 h-100">
-      
-      <section class="col-6 d-flex flex-column justify-content-center align-items-center h-100">
-        <div class="text-center mb-4">
+      <section class="col-6 d-flex flex-column justify-content-center  h-100">
+        <div class="mx-5 mb-4">
           <h1>{{ title }}</h1>
-          <h3>{{ subtitle }}</h3>
+          <h3>{{ subtitle }}</h3> 
+          <ButtonComponent :title="'See More'" class="blue"/>
         </div>
-        <ButtonComponent :title="'See'" class="blue"/>
       </section>
       
       <section class="col-6 d-flex flex-column justify-content-center align-items-center h-100">
@@ -27,7 +27,6 @@ const props = defineProps({
       </section>
 
     </div>
-  </main>
 </template>
 
 <style scoped>

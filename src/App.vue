@@ -1,11 +1,9 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import FooterBottom from './components/layout/FooterBottom.vue';
-import HeaderBottom from './components/layout/HeaderBottom.vue';
-import HeaderTop from './components/layout/HeaderTop.vue';
-
 
 import { Notivue, Notification } from 'notivue'
+import HeaderPage from './components/layout/HeaderPage.vue';
 
 const route = useRoute()
 
@@ -13,9 +11,7 @@ const route = useRoute()
 
 <template>
   <header v-if="!route.meta.hideHeader">
-    <HeaderTop />
-    <HeaderBottom />
-    <HeaderHome />
+    <HeaderPage/>
   </header>
 
   <Notivue v-slot="item">

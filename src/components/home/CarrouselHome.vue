@@ -1,6 +1,6 @@
 <!-- Carrossel.vue -->
-<script setup lang="ts">
-
+<script setup>
+import PagesComponent from './PagesComponent.vue';
 </script>
 
 <template>
@@ -14,48 +14,32 @@
 
     <div class="carousel-inner h-100">
       <div class="carousel-item active h-100" data-bs-interval="10000">
-        <PagesComponent 
-          title="Primeiro Slide"
-          subtitle="Subtítulo 1"
-          image="https://via.placeholder.com/400x300"
-          desc="Imagem 1"
-        />
+        <PagesComponent title="New Arrivals"
+          subtitle="Discover the latest products in our collection. Be the first to explore!"
+          image="/src/assets/img/big-sale-retail-with-presents-card-removebg-preview.png" />
       </div>
 
       <div class="carousel-item h-100" data-bs-interval="2000">
-        <PagesComponent 
-          title="Segundo Slide"
-          subtitle="Subtítulo 2"
-          image="https://via.placeholder.com/400x300"
-          desc="Imagem 2"
-        />
+        <PagesComponent title="Limited Edition"
+          subtitle="Exclusive items just for you. Once they're gone, they're gone!"
+          image="/src/assets/img/lasminute.png" />
       </div>
 
       <div class="carousel-item h-100">
-        <PagesComponent 
-          title="Terceiro Slide"
-          subtitle="Subtítulo 3"
-          image="https://via.placeholder.com/400x300"
-          desc="Imagem 3"
-        />
+        <PagesComponent title="Sustainable Collection"
+          subtitle="Shop eco-friendly products designed to make a positive impact on the planet."
+          image="/src/assets/img/sustainableCollection.png" />
+
       </div>
     </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
 </template>
 
 <style scoped>
 .h-100 {
-  height: 100svh;
+  height: 80svh !important;
 }
+
 .carousel-item {
   height: 100%;
 }

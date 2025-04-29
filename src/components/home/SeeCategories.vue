@@ -1,27 +1,8 @@
 <script setup>
 import { getCategoriesWithImage, getImageUrl } from '@/services/http';
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const categories = ref([])
-const currentPage = ref(1)
-const itemsPerPage = 6 // 3x2 layout
-
-const paginatedCategories = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage
-  return categories.value.slice(start, start + itemsPerPage)
-})
-
-const totalPages = computed(() => {
-  return Math.ceil(categories.value.length / itemsPerPage)
-})
-
-function nextPage() {
-  if (currentPage.value < totalPages.value) currentPage.value++
-}
-
-function prevPage() {
-  if (currentPage.value > 1) currentPage.value--
-}
 
 async function categoriesGetWImage() {
   const result = await getCategoriesWithImage()
@@ -34,49 +15,47 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class=" mt-5 ">
-    <RouterLink to="/categories" >
-      <h1 class="text-center mb-4">See Categories</h1>
-    </RouterLink>
-    <div>
-
+  <main class="my-5 px-4">
+    <div class="d-flex justify-content-between text-primary mx-5 align-items-center mb-4">
+      <h2 class="fw-bold">Categorias</h2>
+      <RouterLink to="/categories" class="text-dark fw-semibold see">
+        See All &gt;
+      </RouterLink>
     </div>
-    <div class="mx-5 row">
-      <div class="col-md-4 mb-4" v-for="cat in paginatedCategories" :key="cat.id">
-        <RouterLink  class="text-decoration-none text-dark w-100">
-          <div class="card h-100 shadow-sm w-100">
-            <img :src="getImageUrl(cat.image_path)" class="card-img-top" alt="Category Image"
-              style="height: 200px; object-fit: cover;">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ cat.name }}</h5>
-            </div>
-          </div>
-        </RouterLink>
+
+    <!-- Scroll horizontal -->
+    <div class="d-flex justify-content-center overflow-auto gap-3 pb-2">
+      <div
+        v-for="cat in categories.slice(0, 10)"
+        :key="cat.id"
+        class=" text-center shadow-sm flex-shrink-0"
+        style="width: 160px; border-radius: 12px; overflow: hidden;"
+      >
+        <div
+          class="bg-light d-flex align-items-center justify-content-center"
+          style="height: 120px;"
+        >
+          <img
+            v-if="cat.image_path"
+            :src="getImageUrl(cat.image_path)"
+            class="img-fluid"
+            style="max-height: 100%; object-fit: cover;"
+            alt="Categoria"
+          />
+        </div>
+        <div class="border-top px-2 py-3">
+          <p class="card-title fw-semibold m-0" style="font-size: 0.95rem;">
+            {{ cat.name }}
+          </p>
+        </div>
       </div>
     </div>
-
-    <!-- Paginação -->
-    <nav class="d-flex justify-content-center mt-4">
-      <ul class="pagination">
-        <li class="page-item" :class="{ disabled: currentPage === 1 }">
-          <button class="page-link" @click="prevPage">Anterior</button>
-        </li>
-
-        <li class="page-item disabled">
-          <span class="page-link">Página {{ currentPage }} de {{ totalPages }}</span>
-        </li>
-
-        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-          <button class="page-link" @click="nextPage">Próxima</button>
-        </li>
-      </ul>
-    </nav>
   </main>
 </template>
 
 <style scoped>
-.border{
-  border: 1px solid var(--Blue-500) !important;
+.see:hover{
+  text-decoration:underline !important; 
+  color: var(--Blue-700) !important;
 }
-
 </style>
