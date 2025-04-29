@@ -2,7 +2,6 @@
 // import "@/service/socket"
 import { useRoute } from 'vue-router';
 import FooterBottom from './components/layout/FooterBottom.vue';
-import FooterTop from './components/layout/FooterTop.vue';
 import HeaderBottom from './components/layout/HeaderBottom.vue';
 import HeaderTop from './components/layout/HeaderTop.vue';
 import HeaderHome from './components/layout/HeaderNavMobile.vue';
@@ -31,7 +30,6 @@ const route = useRoute()
   </main>
 
   <footer v-if="!route.meta.hideFooter">
-    <FooterTop />
     <FooterBottom />
   </footer>
 
