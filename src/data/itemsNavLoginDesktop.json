@@ -46,7 +46,7 @@
     "options": [
       {
         "name": "Products and Categories",
-        "route": "/dashboard/edit/products/create"
+        "route": "/dashboard/edit/admin/products"
       },{
         "name": "Stock",
         "route": "/dashboard/edit/stock"

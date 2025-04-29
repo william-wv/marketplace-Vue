@@ -34,25 +34,30 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="container m-0 p-0 ">
-    <div class="d-flex gap-2">
-      <i class="bi bi-boxes fs-3"></i>
-      <h2 class="mb-4">Lista de Pedidos</h2>
+  <div class="d-flex justify-content-center mt-5 w-100 min-vh-100">
+    <div class="col-md-8">
+      <div class="d-flex gap-2 align-items-center mb-4">
+        <i class="bi bi-boxes fs-3"></i>
+        <h2 class="mb-0">Lista de Pedidos</h2>
+      </div>
+
+      <div v-if="orders.length === 0" class="alert text-center alert-info">
+        Nenhum pedido encontrado.
+      </div>
+
+      <ul class="list-group">
+        <li v-for="order in orders" :key="order.order_id"
+            class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong class="fs-5">Pedido #{{ order.order_id }}</strong>
+          </div>
+          <span>{{ order.status || 'Sem status' }}</span>
+        </li>
+      </ul>
     </div>
-    <div v-if="orders.length === 0" class="alert alert-info">
-      Nenhum pedido encontrado.
-    </div>
-    <ul class="list-group">
-      <li v-for="order in orders" :key="order.order_id"
-        class="list-group-item d-flex justify-content-between align-items-center">
-        <div>
-          <strong class="fs-2">Pedido #{{ order.order_id }}</strong>
-        </div>
-        {{ order.status || 'Sem status' }}
-      </li>
-    </ul>
   </div>
 </template>
+
 
 
 
