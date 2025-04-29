@@ -83,10 +83,20 @@ const router = createRouter({
         {
           path: 'myaccount',
           name: 'myAccount',
+          redirect: "/dashboard/myaccount/edit",
           component: () => import('@/views/ProfileView.vue'),
           meta: { hideHeader: true, hideFooter: true },
           children: [
-
+            {
+              path: 'edit',
+              name: 'my account edit',
+              component: () => import('@/components/client/user/UserSection.vue')
+            },
+            {
+              path: 'address',
+              name: 'my addreess',
+              component: () => import('@/components/client/user/pages/UserAddress.vue')
+            }
           ]
         },
         // update account
@@ -179,9 +189,28 @@ const router = createRouter({
                 hideHeader: true,
                 hideFooter: true,
                 requiresModeratorAndAdmin: true
-              }
+              },
+              children: [
+                
+              ]
             },
-
+            {
+              path: 'delete',
+              name: 'delete order by id',
+              component: () => import('@/components/client/ADMIN/orders/DeleteOrders.vue')
+            },{
+              path: 'gerenciar',
+              name: 'ger',
+              component: () => import('@/components/client/ADMIN/orders/UpdateOrders.vue')
+            },{
+              path: 'deletePermanente',
+              name: 'delete order perm',
+              component: () => import('@/components/client/ADMIN/orders/DeleteOrders.vue')
+            },{
+              path: 'socket',
+              name: 'socket',
+              component: () => import('@/components/client/ADMIN/orders/OrdersComponent.vue')
+            },
             // Gerenciamento geral de produtos e categorias
             {
               path: 'admin',
@@ -211,8 +240,8 @@ const router = createRouter({
               ]
             }
           ]
-        },
-        {
+        }
+        ,{
           path: 'editmoderator/createProducts',
           name: 'createProductModerator',
           component: () => import('@/components/client/ADMIN/pages/CreateProducts.vue'),

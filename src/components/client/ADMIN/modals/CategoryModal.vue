@@ -4,15 +4,11 @@ import InnputName from '@/components/common/InnputName.vue';
 defineProps(['categoria']);
 defineEmits(['salvar', 'fechar']);
 
-// const salvar = () => {
-//   emit('salvar', categoriaEditavel.value); // <- Emitindo os dados editados
-// };
+
 </script>
 
 <template>
-  <!-- Backdrop -->
   <div class="modal-backdrop" @click="$emit('fechar')">
-    <!-- Modal -->
     <div class="modal-content" @click.stop>
       <h2>Editar Categoria</h2>
       <span class="text-primary"><h3 class="fs-6">{{ categoria.name }}</h3></span>
@@ -38,26 +34,21 @@ defineEmits(['salvar', 'fechar']);
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
-  /* Fundo semitransparente */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  /* Coloca o backdrop acima de outros elementos */
 }
 
-/* Modal */
 .modal-content {
   background: white;
   padding: 2rem;
   border-radius: 8px;
   width: 50svw;
   z-index: 1001;
-  /* Coloca o modal acima do backdrop */
   position: relative;
 }
 
-/* Estilos dos botões */
 .botoes {
   margin-top: 1rem;
   display: flex;

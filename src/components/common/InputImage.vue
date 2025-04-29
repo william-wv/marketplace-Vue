@@ -1,36 +1,18 @@
 <script setup>
-const props = defineProps({
-  stepName: String,
-})
-defineEmits(['update:modelValue']);
+defineProps(['title'])
+const emit = defineEmits(['change'])
 
+function onFileChange(event) {
+  const file = event.target.files[0]
+  if (file) {
+    emit('change', file)
+  }
+}
 </script>
 
 <template>
-  <div class="mt-2 mb-3 ">
-    <div class="d-flex">
-      <label for="name">{{ stepName }}</label>
-    </div>
-
-    <div class="input-group">
-      <input @input="$emit('update:modelValue', $event.target.value)" type="file" id="imagem"
-        @change="handleImageUpload" accept="image/*" required class="form-control" />
-    </div>
-  </div>
+  <label>
+    {{ title }}
+    <input type="file" class="hidden" @change="onFileChange" />
+  </label>
 </template>
-
-<style scoped>
-@media (min-width:1920px) {
-  .input-group {
-    height: 60px !important;
-  }
-
-  input::placeholder {
-    font-size: 3rem !important;
-    position: relative;
-    top: 10%;
-  }
-
-
-}
-</style>

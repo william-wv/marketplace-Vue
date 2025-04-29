@@ -229,11 +229,12 @@ export async function criarEndereco(endereco) {
 
 export async function getAddressById(addressId) {
   const response = await api.get(`/addresses/${addressId}`);
-  return response.data;
+  return response;
 }
 
 export async function deleteAddress(id) {
-
+  const response = await api.delete(`/addresses/${id}`);
+  return response;
 }
 
 // Carrinho 

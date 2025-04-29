@@ -1,3 +1,6 @@
+import { getUser, putImage, putUser } from "@/services/gerUsers";
+import { deleteAddress, getAddress } from "@/services/http";
+import { push } from "notivue";
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -33,6 +36,40 @@ export const useAuthStore = defineStore('auth', () => {
     user.value.address = novoEndereco
   }
 
+  async function putUserLog(payload){
+    const response = await putUser(payload)
+    if (response && response.data) {
+      user.value = response.data
+    }
+  }
+
+  async function putUserimage(payload){
+    const response = await putImage(payload)
+    if (response && response.data) {
+      user.value = response.data
+    }
+  }
+  
+  async function delUserimage(payload){
+    const response = await deleteAddress(payload)
+    if (response && response.data) {
+      address.value = response.data
+    }
+  }
+  
+  async function deletAdd(id) {
+
+      const response = await deleteAddress(id)
+      if (response && response.status === 204) {
+        push.success('Address deleted')
+        endereco.value = response
+        await getAddress()
+      } else {
+        push.error('Fail to delete')
+      }
+
+    
+  }
   return {
     token,
     user,
@@ -42,7 +79,11 @@ export const useAuthStore = defineStore('auth', () => {
     logout,
     saveUser,
     setToken,
-    setAddress
+    setAddress,
+    putUserLog,
+    putUserimage,
+    delUserimage,
+    deletAdd
   }
 }, {
   persist: true

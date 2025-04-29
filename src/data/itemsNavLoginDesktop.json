@@ -4,7 +4,17 @@
     "icon": "bi bi-house-gear-fill",
     "text": "Account",
     "router": "/dashboard/myaccount",
-    "role": "all"
+    "role": "all",
+    "options": [
+      {
+        "name": "My profile",
+        "route": "/dashboard/myaccount/edit"
+      },
+      {
+        "name": "My Address",
+        "route": "/dashboard/myaccount/address"
+      }
+    ]
   },
   {
     "id": 2,
@@ -32,6 +42,40 @@
     "icon": "bi bi-gear-fill",
     "text": "Configurations",
     "router": "/dashboard/edit",
-    "role": ["ADMIN" , "MODERATOR"]
+    "role": ["ADMIN"],
+    "options": [
+      {
+        "name": "Products and Categories",
+        "route": "/dashboard/edit/products/create"
+      },{
+        "name": "Stock",
+        "route": "/dashboard/edit/stock"
+      },{
+        "name": "Cupons",
+        "route": "/dashboard/edit/cupons"
+      },{
+        "name": "Menage Users",
+        "route": "/dashboard/edit/menageUser"
+      },{
+        "name": "Orders",
+        "route": "/dashboard/edit/orders"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "icon": "bi bi-gear-fill",
+    "text": "Configurations",
+    "router": "/dashboard/edit",
+    "role": ["MODERATOR"],
+    "options": [
+      {
+        "name": "Products",
+        "route": "dashboard/edit/products/create"
+      },{
+        "name": "Stock",
+        "route": "/dashboard/edit/stock"
+      }
+    ]
   }
 ]

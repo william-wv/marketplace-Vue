@@ -31,16 +31,22 @@ const handleMouseEnter = () => {
       mostrarItens.value = true
     }, 0)
   } else {
-    mostrarItens.value = true // garante que continua visível
+    mostrarItens.value = true 
   }
+}
+
+const submenuVisiveis = ref({})
+
+const toggleSubmenu = (id) => {
+  submenuVisiveis.value[id] = !submenuVisiveis.value[id]
 }
 
 const filteredNavbarItems = computed(() => {
   const role = auth.user?.role || "guest"
   return navbarItens.value.filter(item => {
     if (item.role === 'all') return true
-    if (Array.isArray(item.role)) 
-    return item.role.includes(role)
+    if (Array.isArray(item.role))
+      return item.role.includes(role)
     return item.role === role
   })
 })
@@ -60,16 +66,29 @@ const filteredNavbarItems = computed(() => {
         </div>
 
         <ul class="nav flex-column">
-          <li v-for="item in filteredNavbarItems" :key="item.id" class="nav-item  m mb-2">
-            <RouterLink :to="item.router" class="nav-link d-flex align-items-center gap-2 position-relative"
-              :class="{ active: route.path.startsWith(item.router) }">
+          <li v-for="item in filteredNavbarItems" :key="item.id" class="nav-item mb-2">
+            <div class="nav-link d-flex align-items-center gap-2 position-relative text-white"
+              :class="{ active: route.path.startsWith(item.router) }"
+              @click="item.options ? toggleSubmenu(item.id) : router.push(item.router)" style="cursor: pointer;">
               <span v-if="route.path.startsWith(item.router)" class="active-indicator"></span>
-
               <i class="m-2" :class="[item.icon]"></i>
               <span v-if="!isCollapsed">{{ item.text }}</span>
-            </RouterLink>
+              <i v-if="item.options && !isCollapsed" class="bi"
+                :class="submenuVisiveis[item.id] ? 'bi-chevron-up' : 'bi-chevron-down'" style="margin-left:auto;"></i>
+            </div>
+
+            <!-- submenu -->
+            <ul v-if="item.options && submenuVisiveis[item.id] && !isCollapsed" class="nav flex-column ms-4">
+              <li v-for="(opt, index) in item.options" :key="index" class="nav-item">
+                <RouterLink :to="opt.route" class="nav-link d-flex align-items-center gap-2 small">
+                  <i class="bi bi-dot"></i>
+                  {{ opt.name }}
+                </RouterLink>
+              </li>
+            </ul>
           </li>
         </ul>
+
         <div class="mt-auto px-3 d-flex flex-column" v-if="!isCollapsed">
           <ButtonComponent v-if="mostrarItens" :icon="'bi bi-shop'" :style="'orange'" class="w-100" @click="goToHome"
             :title="''" />
@@ -90,7 +109,7 @@ const filteredNavbarItems = computed(() => {
 
 <style scoped>
 .bg-fundo {
-  background-color: rgba(207, 207, 207, 0.944) !important;
+  background-color: whitesmoke !important;
   height: 100vh;
 }
 
@@ -102,7 +121,7 @@ const filteredNavbarItems = computed(() => {
 .ml-colapse {
   transition: all 0.4s ease-in-out;
   margin-left: 80px !important;
-  justify-content:center;
+  justify-content: center;
 }
 
 .sidebar {
@@ -117,10 +136,12 @@ const filteredNavbarItems = computed(() => {
   z-index: 1;
   transition: all 0.4s ease-in-out;
 }
+
 .sidebar.collapsed .nav-link {
   justify-content: center;
 
 }
+
 .sidebar.collapsed {
   width: 80px;
   min-width: 80px;
