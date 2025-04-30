@@ -33,13 +33,6 @@ async function editandoProd() {
     <p>You can update your items stock</p>
   </div>
 
-  <RouterLink to="/dashboard/edit">
-    <div class="d-flex text-center align-items-center m-5">
-      <i class="bi bi-arrow-left"></i>
-      <p>Back to Dashboard</p>
-    </div>
-  </RouterLink>
-
   <main>
     <div class="d-flex flex-column justify-content-center align-items-center height">
       <form @submit.prevent="editandoProd">

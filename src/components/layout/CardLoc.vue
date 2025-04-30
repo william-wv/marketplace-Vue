@@ -3,6 +3,8 @@ import { getAddress } from '@/services/http'
 import { defineEmits, onMounted, ref } from 'vue'
 
 const emit = defineEmits(['select-address'])
+// CardLoc.vue
+
 
 const selectedAddress = ref(null)
 
@@ -16,6 +18,7 @@ const addresses = ref([])
 async function fetchAddresses() {
   try {
     const response = await getAddress()
+    console.log(response)
     if (Array.isArray(response)) {
       addresses.value = response
     } else {
@@ -42,12 +45,12 @@ onMounted(() => {
         </h2>
       </div>
 
-      <div class="grid-container" v-else>
+      <div class="grid-container" >
         <div 
           v-for="address in addresses" 
           :key="address.id"
           class="card"
-          :class="{ 'card-selected': address.id === selectedAddress.value }"
+          :class="{ 'card-selected': address.id === selectedAddress }"
           @click="selectAddress(address.id)"
         >
           <div class="card-body d-flex justify-content-center w-100 align-items-center">

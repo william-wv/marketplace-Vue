@@ -1,12 +1,9 @@
 <script setup>
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
-import InnputName from '@/components/common/InnputName.vue';
 import InputNumber from '@/components/common/InputNumber.vue';
+import { useOrderStore } from '@/services/OrdersUsers';
 
 
-async function enviarDelete() {
-
-}
 
 </script>
 

@@ -1,3 +1,4 @@
+import router from "@/router/router";
 import { getUser, putImage, putUser } from "@/services/gerUsers";
 import { deleteAddress, getAddress } from "@/services/http";
 import { push } from "notivue";
@@ -12,6 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
   const endereco = ref({})
 
   function logout() {
+    router.replace('/login')
     token.value = null
     user.value = {}
     isAuthenticated.value = false

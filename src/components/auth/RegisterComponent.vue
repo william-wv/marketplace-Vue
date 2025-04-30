@@ -32,6 +32,11 @@ async function enviarRegister() {
     });
     console.log("Sucesso:", result.status);
   }
+
+  if (result.status == 422) {
+    errorMessage.value = 'Invalid email or password';
+    push.error('Invalid email or password');
+  }
   else {
     alert('Registro deu falha')
     console.log("Erro ou outro status:", result.status);

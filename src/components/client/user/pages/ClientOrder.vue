@@ -1,7 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getOrders, deleteOrders } from '@/services/OrdersUsers';
+import { useOrderStore } from '@/services/OrdersUsers';
 
+const useOrder = useOrderStore()
 const orders = ref([]);
 const loading = ref(true);
 const error = ref(null);
@@ -9,7 +10,7 @@ const error = ref(null);
 const carregarPedidos = async () => {
   loading.value = true;
   try {
-    const resp = await getOrders();
+    const resp = await useOrder.fetchOrders();
     orders.value = resp.data;
   } catch (err) {
     error.value = 'Erro ao carregar pedidos';
@@ -21,7 +22,7 @@ const carregarPedidos = async () => {
 
 const deletarPedido = async (id) => {
   try {
-    await deleteOrders(id);
+    await useOrder.deleteOrder(id);
     orders.value = orders.value.filter(order => order.id !== id);
   } catch (err) {
     console.error("Erro ao deletar pedido:", err);

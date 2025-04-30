@@ -8,19 +8,19 @@ const discount = ref(0)
 const startDate = ref('')
 const endDate = ref('')
 
-const enviarCupon = async () => {
+const sendCoupon = async () => {
   if (!code.value.trim()) {
-    push.error('Código do cupom é obrigatório')
+    push.error('Coupon code is required')
     return
   }
 
   if (discount.value <= 0) {
-    push.error('Desconto deve ser maior que zero')
+    push.error('Discount must be greater than zero')
     return
   }
 
   if (!startDate.value || !endDate.value) {
-    push.error('Datas de início e fim são obrigatórias')
+    push.error('Start and end dates are required')
     return
   }
 
@@ -31,15 +31,15 @@ const enviarCupon = async () => {
     end_date: new Date(endDate.value).toISOString()
   }
 
-  console.log('Payload enviado:', payload)
+  console.log('Payload sent:', payload)
 
   const res = await postCupon(payload)
 
   if (res && res.status === 201) {
-    push.success('Cupom criado com sucesso!')
+    push.success('Coupon created successfully!')
   } else {
-    push.error('Erro ao criar cupom!')
-    console.error('Erro detalhado:', res?.data || res)
+    push.error('Error creating coupon!')
+    console.error('Detailed error:', res?.data || res)
   }
 }
 </script>
@@ -49,24 +49,24 @@ const enviarCupon = async () => {
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title text-center mb-4">Criar Cupom</h4>
+            <h4 class="card-title text-center mb-4">Create Coupon</h4>
             <div class="mb-3">
-              <label for="code" class="form-label">Nome do cupom</label>
-              <input v-model="code" type="text" id="code" class="form-control" placeholder="Digite o nome do cupom" />
+              <label for="code" class="form-label">Coupon Name</label>
+              <input v-model="code" type="text" id="code" class="form-control" placeholder="Enter coupon name" />
             </div>
             <div class="mb-3">
-              <label for="discount" class="form-label">Desconto (%)</label>
-              <input v-model.number="discount" type="number" id="discount" class="form-control" placeholder="Desconto em %" />
+              <label for="discount" class="form-label">Discount (%)</label>
+              <input v-model.number="discount" type="number" id="discount" class="form-control" placeholder="Discount in %" />
             </div>
             <div class="mb-3">
-              <label for="startDate" class="form-label">Data de Início</label>
+              <label for="startDate" class="form-label">Start Date</label>
               <input v-model="startDate" type="datetime-local" id="startDate" class="form-control" />
             </div>
             <div class="mb-3">
-              <label for="endDate" class="form-label">Data de Término</label>
+              <label for="endDate" class="form-label">End Date</label>
               <input v-model="endDate" type="datetime-local" id="endDate" class="form-control" />
             </div>
-            <button @click="enviarCupon" class="btn btn-primary w-100">Criar cupom</button>
+            <button @click="sendCoupon" class="btn btn-primary w-100">Create Coupon</button>
           </div>
         </div>
       </div>

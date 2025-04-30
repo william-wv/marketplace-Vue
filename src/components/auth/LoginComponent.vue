@@ -40,7 +40,7 @@ async function enviarLogin() {
     auth.saveUser(result.data)
     router.replace('/dashboard/myaccount/edit')
   }
-  else {
+  if (result.status == 422) {
     errorMessage.value = 'Invalid email or password';
     push.error('Invalid email or password');
   }
@@ -55,9 +55,9 @@ onMounted(() => {
 
 <template>
   <main>
-    <section class="main1" v-if="!auth.isAuthenticated">
+    <section class="main1 " v-if="!auth.isAuthenticated">
       <div class="backgraundI">
-        <RouterLink class="m-2" to="/">
+        <RouterLink class="" to="/">
           <i class="bi bi-arrow-left-short arrow-white"></i>
         </RouterLink>
       </div>
@@ -105,7 +105,6 @@ onMounted(() => {
 
 .bi-arrow-left-short {
   font-size: 50px;
-  padding: 10px;
 }
 
 main {
@@ -147,7 +146,7 @@ main {
 
 @media (min-width: 1024px) {
   .main1 {
-    height: 50em;
+    height: 100svh;
   }
 
   .contain {

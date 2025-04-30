@@ -89,12 +89,12 @@ function excluirCartAlls() {
       </div>
 
       <!-- Address and Payment -->
-      <CardLoc @selecionar-endereco="atualizarEndereco" />
+      <CardLoc @select-address="atualizarEndereco" />
       <CardCartPay :idEndereco="idEnderecoSelecionado" />
     </div>
 
     <!-- Empty cart -->
-    <div v-else class="d-flex flex-column align-items-center justify-content-center text-center py-5">
+    <div v-else class="d-flex flex-column align-items-center justify-content-center text-center my-5 py-5">
       <i class="bi bi-cart-x display-4 text-muted mb-3"></i>
       <h3 class="mb-2">Your cart is empty!</h3>
       <p class="text-secondary mb-4">Add items to your cart to view them here.</p>

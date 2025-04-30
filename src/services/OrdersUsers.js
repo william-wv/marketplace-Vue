@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
 import useAuthStore from '@/stores/auth';
+
 const api = axios.create({
   baseURL: 'http://35.196.79.227:8000/',
 });
@@ -26,10 +27,13 @@ export const useOrderStore = defineStore('orderManage', () => {
     try {
       const resp = await api.get('orders/');
       orders.value = resp.data;
+      return resp;
     } catch (error) {
       console.error('Erro ao carregar pedidos:', error);
+      throw error; 
     }
   }
+  
 
   async function fetchAllOrders() {
     try {

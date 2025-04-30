@@ -18,10 +18,6 @@ const goToHome = () => {
   router.push('/')
 }
 
-function handleLogout() {
-  auth.logout()
-  router.push('/login')
-}
 
 const handleMouseEnter = () => {
   isCollapsed.value = false
@@ -90,10 +86,9 @@ const filteredNavbarItems = computed(() => {
         </ul>
 
         <div class="mt-auto px-3 d-flex flex-column" v-if="!isCollapsed">
-          <ButtonComponent v-if="mostrarItens" :icon="'bi bi-shop'" :style="'orange'" class="w-100" @click="goToHome"
+          <ButtonComponent v-if="mostrarItens" :icon="'bi bi-shop'" :style="'btn btn-outline-light'" class="w-100" @click="goToHome"
             :title="''" />
-          <ButtonComponent v-if="mostrarItens" :icon="'bi bi-box-arrow-right'" :title="''" :style="'red'"
-            @click="handleLogout()" />
+
         </div>
       </div>
     </aside>

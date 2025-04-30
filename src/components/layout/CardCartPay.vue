@@ -4,6 +4,8 @@ import ButtonComponent from '../common/ButtonComponent.vue'
 
 import { useCartStore } from '@/stores/carrinho'
 import InputNumber from '../common/InputNumber.vue'
+import { push } from 'notivue'
+import router from '@/router/router'
 
 const props = defineProps({
   idEndereco: {
@@ -22,10 +24,14 @@ function convertToDollar(priceBRL) {
 
 function submitOrder() {
   console.log("Coupon submitted:", selectedCoupon.value)
-  cartStore.addOrder({
+  const resp =  cartStore.addOrder({
     address_id: props.idEndereco,
     coupon_id: selectedCoupon.value || null
   })
+  if(resp.status === 400){
+    push.success('sucess')
+    router.replace('/')
+  }
 }
 </script>
 

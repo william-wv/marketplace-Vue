@@ -4,6 +4,7 @@ import useAuthStore from '@/stores/auth'
 import ButtonComponent from '@/components/common/ButtonComponent.vue'
 import InputImage from '../common/InputImage.vue'
 import { getImageUrl } from '@/services/http'
+import { push } from 'notivue'
 
 const auth = useAuthStore()
 
@@ -13,9 +14,10 @@ const inicial = computed(() => nomeCompleto.value.charAt(0).toUpperCase())
 async function onImageChange(file) {
   try {
     await auth.putUserimage(file)
-    alert('Imagem atualizada com sucesso!')
+    push.success('Image Update')
   } catch (error) {
-    alert('Erro ao atualizar imagem.')
+    push.error('Image Fail')
+
     console.error(error)
   }
 }
