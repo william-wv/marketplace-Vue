@@ -3,9 +3,11 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useStore } from '@/stores/produtos';
 import { getImageUrl } from '@/services/http.js';
 
+
+
+
 const store = useStore();
 
-// Paginação de produtos
 const paginaAtual = ref(1);
 const itensPorPagina = 6;
 
@@ -18,28 +20,10 @@ const produtosPaginados = computed(() => {
   return store.produtos.slice(inicio, inicio + itensPorPagina);
 });
 
+
 function mudarPagina(pagina) {
   if (pagina >= 1 && pagina <= totalPaginas.value) {
     paginaAtual.value = pagina;
-  }
-}
-
-// Paginação de categorias
-const paginaCategoriaAtual = ref(1);
-const categoriasPorPagina = 8;
-
-const totalPaginasCategorias = computed(() => {
-  return Math.ceil(store.categorias.length / categoriasPorPagina);
-});
-
-const categoriasPaginadas = computed(() => {
-  const inicio = (paginaCategoriaAtual.value - 1) * categoriasPorPagina;
-  return store.categorias.slice(inicio, inicio + categoriasPorPagina);
-});
-
-function mudarPaginaCategoria(pagina) {
-  if (pagina >= 1 && pagina <= totalPaginasCategorias.value) {
-    paginaCategoriaAtual.value = pagina;
   }
 }
 
@@ -64,114 +48,96 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container mt-4 mb-5">
-    <div class="row mb-4">
-      <div class="d-flex justify-content-center">
-        <span style="width: 300px;" class="bg-primary mb-4 p-2 rounded-pill text-white">
-          <h1 class="text-center text-uppercase">Categorias</h1>
-        </span>
-      </div>
-
-      <!-- Categorias com Paginação -->
-      <div v-for="cat in categoriasPaginadas" :key="cat.id" class="col-md-3 mb-2">
-        <button class="btn w-100" :class="store.categoriaSelecionada === cat.id ? 'btn-primary' : 'btn-outline-primary'"
-          @click="store.categoriaSelecionada = cat.id">
-          {{ cat.name }}
-        </button>
-      </div>
-
-      <!-- Controles de Paginação das Categorias -->
-      <div class="d-flex justify-content-center mt-3">
-        <nav>
-          <ul class="pagination">
-            <li class="page-item" :class="{ disabled: paginaCategoriaAtual === 1 }">
-              <button class="page-link" @click="mudarPaginaCategoria(paginaCategoriaAtual - 1)">Anterior</button>
-            </li>
-            <li class="page-item" v-for="page in totalPaginasCategorias" :key="page"
-              :class="{ active: paginaCategoriaAtual === page }">
-              <button class="page-link" @click="mudarPaginaCategoria(page)">
-                {{ page }}
-              </button>
-            </li>
-            <li class="page-item" :class="{ disabled: paginaCategoriaAtual === totalPaginasCategorias }">
-              <button class="page-link" @click="mudarPaginaCategoria(paginaCategoriaAtual + 1)">Próxima</button>
-            </li>
-          </ul>
-        </nav>
+  <div class="container my-5">
+    <!-- Filtro de Categoria -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+      <h2 class="fw-semibold m-0">Produtos</h2>
+      <div>
+        <select class="form-select form-select-sm w-auto" v-model="store.categoriaSelecionada"
+          @change="paginaAtual = 1">
+          <option disabled value="">Selecionar categoria</option>
+          <option v-for="cat in store.categorias" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+        </select>
       </div>
     </div>
 
-    <!-- Produtos -->
+    <!-- Loading -->
     <div v-if="store.loading" class="text-center my-5">
       <div class="spinner-border text-primary" role="status"></div>
     </div>
 
-    <div v-else-if="store.error" class="alert alert-danger">{{ store.error }}</div>
+    <!-- Erro -->
+    <div v-else-if="store.error" class="alert alert-danger text-center">{{ store.error }}</div>
 
-    <div v-else-if="produtosPaginados.length > 0" class="row">
-      <div v-for="prod in produtosPaginados" :key="prod.id" class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <img :src="getImageUrl(prod.image_path)" class="card-img-top" alt="Imagem do produto"
-            style="object-fit: cover; height: 200px;" />
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              <h5 class="card-title">{{ prod.name }}</h5>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mt-3">
-              <span class="text-success fw-bold">{{ store.converterParaDolar(prod.price) }}</span>
+    <!-- Produtos -->
+    <div v-else-if="produtosPaginados.length > 0" class="row g-4">
+      <div class="col-md-4" v-for="prod in produtosPaginados" :key="prod.id">
+        <div class="card border-0 shadow-sm h-100">
+          <router-link :to="`/product/${prod.id}`">  {{ console.log('produto:', prod) }}
+
+            <img :src="getImageUrl(prod.image_path)" class="card-img-top" style="object-fit: cover; height: 220px;" />
+          </router-link>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title mb-3">{{ prod.name }}</h5>
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              <span class="text-success fw-semibold">{{ store.converterParaDolar(prod.price) }}</span>
               <i :class="store.favoritos[prod.id] ? 'bi-heart-fill text-danger' : 'bi-heart'" style="cursor: pointer;"
                 @click="store.ativeFav(prod.id)"></i>
             </div>
           </div>
-          <div class="card-footer bg-transparent border-top-0 text-center">
-            <button class="btn w-100" :class="store.carrinho[prod.id] ? 'btn-danger' : 'btn-success'"
+          <div class="card-footer bg-white border-0">
+            <button class="btn btn-sm w-100"
+              :class="store.carrinho[prod.id] ? 'btn-outline-danger' : 'btn-outline-primary'"
               @click="store.toggleCarrinho(prod)">
               <i :class="store.carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'"></i>
-              {{ store.carrinho[prod.id] ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+              {{ store.carrinho[prod.id] ? 'Remover' : 'Adicionar' }}
             </button>
           </div>
         </div>
       </div>
-
-      <!-- Paginação de Produtos -->
-      <div class="d-flex justify-content-center mt-4">
-        <nav>
-          <ul class="pagination">
-            <li class="page-item" :class="{ disabled: paginaAtual === 1 }">
-              <button class="page-link" @click="mudarPagina(paginaAtual - 1)">Anterior</button>
-            </li>
-            <li class="page-item" v-for="page in totalPaginas" :key="page" :class="{ active: paginaAtual === page }">
-              <button class="page-link" @click="mudarPagina(page)">{{ page }}</button>
-            </li>
-            <li class="page-item" :class="{ disabled: paginaAtual === totalPaginas }">
-              <button class="page-link" @click="mudarPagina(paginaAtual + 1)">Próxima</button>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
 
-    <div v-else class=" text-secondary py-5 ">
-      <div class="d-flex flex-column align-items-center justify-content-center height">
-        <i class="bi bi-box-seam fs-1 mb-3"></i>
-        <h5 class="mb-2">Nenhum produto encontrado</h5>
-        <p class="text-muted">Não há produtos disponíveis nesta categoria no momento.</p>
-      </div>
+    <!-- Paginação -->
+    <div v-if="produtosPaginados.length > 0" class="d-flex justify-content-center mt-4">
+      <ul class="pagination pagination-sm">
+        <li class="page-item" :class="{ disabled: paginaAtual === 1 }">
+          <button class="page-link" @click="mudarPagina(paginaAtual - 1)">Anterior</button>
+        </li>
+        <li class="page-item" v-for="page in totalPaginas" :key="page" :class="{ active: paginaAtual === page }">
+          <button class="page-link" @click="mudarPagina(page)">{{ page }}</button>
+        </li>
+        <li class="page-item" :class="{ disabled: paginaAtual === totalPaginas }">
+          <button class="page-link" @click="mudarPagina(paginaAtual + 1)">Próxima</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sem produtos -->
+    <div v-else class="text-secondary py-5 text-center">
+      <i class="bi bi-box-seam fs-1 mb-3"></i>
+      <h5 class="fw-normal">Nenhum produto encontrado</h5>
+      <p class="text-muted">Tente outra categoria ou volte mais tarde.</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.height {
-  height: 50svh;
+.card-title {
+  font-size: 1rem;
+}
+
+.card {
+  border-radius: 0.75rem;
+}
+
+.card-footer .btn {
+  border-radius: 0.5rem;
+  font-weight: 500;
 }
 
 .bi-heart,
 .bi-heart-fill {
-  font-size: 1.4rem;
-}
-
-.bg-primary{
-  background-color: var(--Blue-500) !important;
+  font-size: 1.3rem;
+  transition: color 0.2s ease;
 }
 </style>

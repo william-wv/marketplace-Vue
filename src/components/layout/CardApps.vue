@@ -7,14 +7,6 @@ const props = defineProps({
   text: String,
 })
 
-const redirect = () => {
-  if (props.app === 'Google') {
-    window.location.href = 'https://accounts.google.com/ServiceLogin'; // Redireciona para o Gmail
-  } else if (props.app === 'Facebook') {
-    window.location.href = 'https://www.facebook.com/login'; // Redireciona para o Facebook
-  }
-};
-
 </script>
 
 <template>

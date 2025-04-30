@@ -1,86 +1,85 @@
 <script setup>
 import { ref } from 'vue'
-import ButtonComponent from '../common/ButtonComponent.vue';
+import ButtonComponent from '../common/ButtonComponent.vue'
 
-import { useCartStore } from '@/stores/carrinho';
-import InputNumber from '../common/InputNumber.vue';
+import { useCartStore } from '@/stores/carrinho'
+import InputNumber from '../common/InputNumber.vue'
 
 const props = defineProps({
   idEndereco: {
-    type:  Number,
+    type: Number,
     default: null
   }
-});
+})
 
 const cartStore = useCartStore()
 
-const cuponSelect = ref(0) 
+const selectedCoupon = ref(0)
 
-function converterParaDolar(precoBRL) {
-  return cartStore.converterParaDolar(precoBRL);
+function convertToDollar(priceBRL) {
+  return cartStore.converterParaDolar(priceBRL)
 }
 
-function Enviar() {
-  console.log("Cupom enviado:", cuponSelect.value);
+function submitOrder() {
+  console.log("Coupon submitted:", selectedCoupon.value)
   cartStore.addOrder({
     address_id: props.idEndereco,
-    coupon_id: cuponSelect.value || null
-  });
+    coupon_id: selectedCoupon.value || null
+  })
 }
-
 </script>
 
 <template>
   <div class="container my-5">
     <div class="card shadow rounded">
       <div class="card-header bg-primary text-white text-center">
-        <h3 class="mb-0">Resumo do Pedido</h3>
+        <h3 class="mb-0">Order Summary</h3>
       </div>
 
       <div class="card-body">
         <!-- Subtotal -->
         <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
           <span class="fw-semibold">Subtotal:</span>
-          <span class="fs-5">{{ converterParaDolar(cartStore.totalPriceCart) }}</span>
+          <span class="fs-5">{{ convertToDollar(cartStore.totalPriceCart) }}</span>
         </div>
 
-        <!-- Frete -->
+        <!-- Shipping -->
         <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-          <span class="fw-semibold">Frete:</span>
+          <span class="fw-semibold">Shipping:</span>
           <span class="fs-5">$0.00</span>
         </div>
 
-        <!-- Imposto -->
+        <!-- Tax -->
         <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-          <span class="fw-semibold">Imposto:</span>
+          <span class="fw-semibold">Tax:</span>
           <span class="fs-5">$0.00</span>
         </div>
 
         <!-- Total -->
         <div class="d-flex justify-content-between mb-4 border-bottom pb-3">
           <span class="fw-bold fs-5">Total:</span>
-          <span class="fw-bold fs-5">{{ converterParaDolar(cartStore.totalPriceCart) }}</span>
+          <span class="fw-bold fs-5">{{ convertToDollar(cartStore.totalPriceCart) }}</span>
         </div>
 
-        <!-- Endereço selecionado -->
+        <!-- Selected Address -->
         <div v-if="idEndereco" class="alert alert-info d-flex align-items-center" role="alert">
           <i class="bi bi-geo-alt-fill me-2"></i>
-          <div>Endereço Selecionado: <strong>#{{ idEndereco }}</strong></div>
+          <div>Selected Address: <strong>#{{ idEndereco }}</strong></div>
         </div>
 
-        <!-- Cupom -->
+        <!-- Coupon -->
         <InputNumber
           class="mb-3"
           :icon="'bi bi-wallet-fill'"
-          :step-name="'Adicione seu cupom'"
-          v-model="cuponSelect"
+          :step-name="'Enter your coupon'"
+          v-model="selectedCoupon"
         />
 
-        <!-- Botão -->
+        <!-- Button -->
         <ButtonComponent
           class="btn btn-primary w-100"
-          :title="'Finalizar Pedido'"
-          @click="Enviar"
+          :title="'Place Order'"
+          @click="submitOrder"
         />
       </div>
     </div>

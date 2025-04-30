@@ -1,5 +1,8 @@
 <script setup>
 import ButtomComponentRoute from '@/components/common/ButtomComponentRoute.vue';
+import useAuthStore from '@/stores/auth';
+
+const auth = useAuthStore()
 
 
 const props = defineProps({
@@ -21,8 +24,11 @@ const props = defineProps({
 
   <div class="d-flex justify-content-around">
     <div class="d-flex - gap-3">
-      <ButtomComponentRoute :rota="'/dashboard/edit/categories/create'" :icon="'bi bi-plus-lg'"
+      <div v-if="auth.user.role === 'ADMIN'">
+<ButtomComponentRoute  :rota="'/dashboard/edit/categories/create'" :icon="'bi bi-plus-lg'"
         :title="'Create Category'" :style="'blue'" />
+      </div>
+    
       <ButtomComponentRoute :rota="'/dashboard/edit/products/create'" :icon="'bi bi-plus-lg'"
         :title="'Create Product'" :style="'blue'" />
     </div>
@@ -38,8 +44,8 @@ const props = defineProps({
           </div>
         </RouterLink>
 
-        <RouterLink to="/dashboard/edit/admin/categories" class="col-6 p-0">
-          <div class=" bg-secondary bg-gradient divizor2 p-3  text-white text-center">
+        <RouterLink to="/dashboard/edit/admin/categories" class="col-6 p-0" v-if="auth.user.role === 'ADMIN'">
+          <div  class=" bg-secondary bg-gradient divizor2 p-3  text-white text-center">
             <span>Categorias</span>
           </div>
         </RouterLink>

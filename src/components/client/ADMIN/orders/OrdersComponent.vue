@@ -49,7 +49,7 @@ onUnmounted(() => {
         <li v-for="order in orders" :key="order.order_id"
             class="list-group-item d-flex justify-content-between align-items-center">
           <div>
-            <strong class="fs-5">Pedido #{{ order.order_id }}</strong>
+            <strong class="fs-5">Pedido #{{ order.order}}</strong>
           </div>
           <span>{{ order.status || 'Sem status' }}</span>
         </li>

@@ -8,7 +8,7 @@ import useAuthStore from '@/stores/auth'
 const auth = useAuthStore()
 
 const addresses = ref([])
-const mostrarModal = ref(false) // <- controle do modal
+const mostrarModal = ref(false)
 async function preencherEndereco() {
   try {
     const cepData = await buscarCep(endereco.value.zip)
@@ -31,24 +31,20 @@ const endereco = ref({
   country: 'Brasil'
 })
 
-// Buscar os endereços
 async function getAdd() {
   const responde = await getAddress()
   addresses.value = responde
   console.log(addresses.value)
 }
 
-// Abre o modal
 function addAddress() {
   mostrarModal.value = true
 }
 
-// Fecha o modal
 function fecharModal() {
   mostrarModal.value = false
 }
 
-// Salva (placeholder por enquanto)
 async function salvarEndereco() {
   try {
     const enderecoSalvo = await criarEndereco(endereco.value)
@@ -64,8 +60,6 @@ async function salvarEndereco() {
       state: '',
       country: 'Brasil'
     }
-
-    // Recarregar os endereços
     await getAdd()
   } catch (error) {
     console.error('Erro ao salvar endereço:', error)
@@ -90,7 +84,7 @@ onMounted(() => {
             <i class="bi bi-house-door-fill fs-4 text-primary"></i>
             <h5 class="fw-bold m-0">{{ addr.label }}</h5>
           </div>
-          <span v-if="addr.isDefault" class="badge bg-primary">Padrão</span>
+        
         </div>
         <div class="mb-3 text-secondary">
           <p class="mb-1">{{ addr.street }}, {{ addr.number }}</p>

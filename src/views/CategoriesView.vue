@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, watch, onUnmounted } from 'vue';
-import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js'
+import { ref, onMounted, watch } from 'vue';
+import { getCategories, getProductsByCategory, getImageUrl } from '@/services/http.js';
 import { cartService } from '@/services/http.js';
 import { push } from 'notivue';
 
@@ -11,13 +11,17 @@ const loading = ref(false);
 const error = ref('');
 const favoritos = ref({});
 const carrinho = ref({});
+const mostrarSelect = ref(false);
 
 import ButtonComponent from '@/components/common/ButtonComponent.vue';
 import CategoriesDeskTop from '@/components/pages/CategoriesDeskTop.vue';
 import { useIsMobile } from '@/composable/useIsMobile';
 
-const {isMobile} = useIsMobile()
+const { isMobile } = useIsMobile();
 
+function toggleSelect() {
+  mostrarSelect.value = !mostrarSelect.value;
+}
 
 async function getCategoria() {
   loading.value = true;
@@ -57,24 +61,21 @@ function converterParaDolar(precoBRL) {
 async function toggleCarrinho(prod) {
   if (carrinho.value[prod.id]) {
     const response = await cartService.removeCartItem(prod.id);
-
     if (response.status === 204) {
       delete carrinho.value[prod.id];
-      push.success('Item removido ao carrinho com sucesso!')
+      push.success('Item removido do carrinho com sucesso!');
     } else {
       console.error('Erro ao remover item do carrinho:', response);
     }
   } else {
-    // Adicionar ao carrinho
     const response = await cartService.addItemToCart({
       product_id: prod.id,
       quantity: 1,
       unit_price: prod.price
     });
-
     if (response.status === 204) {
       carrinho.value[prod.id] = true;
-      push.success('Item adicionado ao carrinho com sucesso!')
+      push.success('Item adicionado ao carrinho com sucesso!');
     } else {
       console.error('Erro ao adicionar item ao carrinho:', response);
     }
@@ -101,186 +102,65 @@ onMounted(() => {
 </script>
 
 <template>
-
   <section v-if="isMobile">
-    <div class="mt-4 mb-4 d-flex justify-content-evenly">
-      <div>
-        <label class="select-cat" for="categoria">Select a category:</label>
-      </div>
-      <div>
-        <select class="selet-cat" v-model="categoriaSelecionada" id="categoria" :disabled="loading">
-          <option value="">Choose a category</option>
+    <div class="my-4 text-center">
+      <button class="btn btn-primary" @click="toggleSelect">
+        {{ mostrarSelect ? 'Ocultar Categorias' : 'Selecionar Categoria' }}
+      </button>
+
+      <div v-if="mostrarSelect" class="mt-3">
+
+        <select class="form-select" v-model="categoriaSelecionada" :disabled="loading">
+          <option value="">Escolha uma categoria</option>
           <option v-for="ctg in categorias" :key="ctg.id" :value="ctg.id">
             {{ ctg.name }}
           </option>
         </select>
       </div>
     </div>
+
     <div>
-      <div v-if="loading" class="loading-container">
-        <div class="loading-spinner"></div>
+      <div v-if="loading" class="text-center m-5">
+        <div class="spinner-border text-primary" role="status"></div>
       </div>
 
-      <section v-if="error" class="error-message">{{ error }}</section>
+      <div v-if="error" class="alert alert-danger text-center">{{ error }}</div>
 
-      <section v-else-if="produtos.length > 0" class="card card-categ mb-5">
-        <div v-for="prod in produtos" :key="prod.id" class="div-categ">
-          <div class="contain-card ">
-            <div class="div-img d-flex justify-content-center">
-              <img :src="getImageUrl(prod.image_path)" alt="Imagem do produto" />
-            </div>
-            <div class="texts">
-              <div>
-                <p class="p-name"><b>{{ prod.name }}</b></p>
-                <!-- <h2 class="p-desc">{{ prod.description }}</h2> -->
-              </div>
-              <div class="price d-flex">
-                <div>
-                  <p class="p-price">{{ converterParaDolar(prod.price) }}</p>
-                </div>
-                <div @click="ativeFav(prod.id)" class="i-fav">
-                  <i class="i-favorite" :class="favoritos[prod.id] ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
-                </div>
+      <div v-else-if="produtos.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 px-3">
+        <div class="col" v-for="prod in produtos" :key="prod.id">
+          <div class="card h-100 shadow-sm">
+            <router-link :to="`/product/${prod.id}`">
+              <img :src="getImageUrl(prod.image_path)" class="card-img-top" alt="Imagem do produto" />
+            </router-link>
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title">{{ prod.name }}</h5>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <span class="text-success fw-bold">{{ converterParaDolar(prod.price) }}</span>
+                <i @click="ativeFav(prod.id)" class="fs-5"
+                  :class="favoritos[prod.id] ? 'bi bi-heart-fill text-danger' : 'bi bi-heart text-muted'"
+                  role="button"></i>
               </div>
             </div>
-          </div>
-          <div class="div-btn">
-            <ButtonComponent @click="toggleCarrinho(prod)"
-              :title="carrinho[prod.id] ? 'Remove from Cart' : 'Add to Cart'"
-              :style="carrinho[prod.id] ? 'red' : 'blue'"
-              :icon="carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'" />
+            <div class="card-footer bg-white border-0 text-center">
+              <ButtonComponent @click="toggleCarrinho(prod)"
+                :title="carrinho[prod.id] ? 'Remove from Cart' : 'Add to Cart'"
+                :style="carrinho[prod.id] ? 'red' : 'blue'"
+                :icon="carrinho[prod.id] ? 'bi bi-cart-dash' : 'bi bi-cart'" />
+            </div>
           </div>
         </div>
-      </section>
-      <p v-else>Não há produtos para esta categoria.</p>
+      </div>
     </div>
   </section>
 
-  <section v-else-if="!isMobile" class=" d-flex  justify-content-center mt-4 w-100">
-    <CategoriesDeskTop/>
+  <section v-else class="d-flex justify-content-center mt-4 w-100">
+    <CategoriesDeskTop />
   </section>
 </template>
 
 <style scoped>
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.error-message {
-  color: red;
-  font-size: 16px;
-}
-
-.div-img {
-  width: 100%;
-}
-
-p,
-h1 {
-  color: black;
-  font-size: 1.5rem;
-}
-
-h2 {
-  font-size: 1rem;
-  color: var(--text-h2);
-}
-
-.select-cat {
-  font-size: 1.5rem;
-}
-
-.selet-cat {
-  padding: 10px !important;
-  border-radius: 10px !important;
-}
-
-.card-categ {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  padding: 20px 30px;
-  gap: 10px;
-}
-
-.div-categ {
-  padding: 5px;
-  border-radius: 10px;
-  border: 1px solid var(--Gray-600);
-}
-
-.img-txts {
-  display: flex;
-}
-
-.texts {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  width: 100%;
-}
-
-.price {
-  align-self: end;
-  display: flex;
-  justify-content: space-between;
-}
-
-img {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
-}
-
-
-
-.i-fav {
-  padding: 5px;
-  background-color: var(--White-100);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.bi-heart-fill {
-  color: var(--Red-500) !important;
-}
-
-.btn {
-  background-color: var(--Blue-500);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.div-btn {
-  width: 100%;
-  background-color: white;
-  padding: 10px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.div-btn button {
-  flex: 1;
-  width: 100%;
-  max-width: 400px;
-}
-
-@media (min-width: 768px) {
-  .card-categ {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .card-categ {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.card-img-top {
+  max-height: 200px;
+  object-fit: cover;
 }
 </style>

@@ -71,7 +71,7 @@
     "options": [
       {
         "name": "Products",
-        "route": "dashboard/edit/products/create"
+        "route": "/dashboard/edit/products/create"
       },{
         "name": "Stock",
         "route": "/dashboard/edit/stock"

@@ -38,7 +38,7 @@ async function enviarLogin() {
       message: 'Welcome back!',
     });
     auth.saveUser(result.data)
-    router.replace('/dashboard/myaccount')
+    router.replace('/dashboard/myaccount/edit')
   }
   else {
     errorMessage.value = 'Invalid email or password';
@@ -48,7 +48,7 @@ async function enviarLogin() {
 
 onMounted(() => {
   if (auth.user.id) {
-    router.replace('/dashboard/myaccount')
+    router.replace('/dashboard/myaccount/edit')
   }
 })
 </script>
@@ -68,7 +68,6 @@ onMounted(() => {
             <h1>Sign In</h1>
             <p>Sign in to your account to continue</p>
           </div>
-
 
           <form @submit.prevent="enviarLogin">
             <InputEmail :stepName="'Email'" v-model="email" />

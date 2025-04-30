@@ -41,7 +41,12 @@ const router = createRouter({
       name: 'categories',
       component: () => import('../views/CategoriesView.vue')
     },
-
+    {
+      path: '/product/:id', 
+      name: 'Product id',
+      component: () => import('@/views/ProductPage.vue'), 
+      props: true 
+    },
     // Página da loja (sem nav)
     {
       path: '/shop',
@@ -76,8 +81,10 @@ const router = createRouter({
           path: '/mycart',
           name: 'cart',
           component: () => import('../views/ShopView.vue'),
-          meta: { hideHeader: true,
-            hideFooter: true, }
+          meta: {
+            hideHeader: true,
+            hideFooter: true,
+          }
         },
         // Página do perfil do usuário
         {
@@ -191,22 +198,22 @@ const router = createRouter({
                 requiresModeratorAndAdmin: true
               },
               children: [
-                
+
               ]
             },
             {
               path: 'delete',
               name: 'delete order by id',
               component: () => import('@/components/client/ADMIN/orders/DeleteOrders.vue')
-            },{
+            }, {
               path: 'gerenciar',
               name: 'ger',
               component: () => import('@/components/client/ADMIN/orders/UpdateOrders.vue')
-            },{
+            }, {
               path: 'deletePermanente',
               name: 'delete order perm',
               component: () => import('@/components/client/ADMIN/orders/DeleteOrders.vue')
-            },{
+            }, {
               path: 'socket',
               name: 'socket',
               component: () => import('@/components/client/ADMIN/orders/OrdersComponent.vue')
@@ -241,7 +248,7 @@ const router = createRouter({
             }
           ]
         }
-        ,{
+        , {
           path: 'editmoderator/createProducts',
           name: 'createProductModerator',
           component: () => import('@/components/client/ADMIN/pages/CreateProducts.vue'),
